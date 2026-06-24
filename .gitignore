@@ -26,7 +26,7 @@ venv/
 data/processed/*.parquet
 data/processed/metadata.json
 data/synthetic/
-data/raw/
+data/raw/kls_vdit_hourly_market.csv
 
 # Training outputs
 checkpoints/
