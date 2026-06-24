@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.eggs/
+
+docs/
+
+# Environment
+.venv/
+venv/
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Data (keep raw, ignore generated)
+data/processed/*.parquet
+data/processed/metadata.json
+data/synthetic/
+
+# Training outputs
+checkpoints/
+logs/
+experiments/
+!**/.gitkeep
+
+# Ray
+/tmp/ray/
+ray_results/
+
+# OS
+.DS_Store
+Thumbs.db
