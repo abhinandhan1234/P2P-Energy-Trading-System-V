@@ -9,6 +9,8 @@ build/
 
 docs/
 
+
+
 # Environment
 .venv/
 venv/
@@ -24,6 +26,7 @@ venv/
 data/processed/*.parquet
 data/processed/metadata.json
 data/synthetic/
+data/raw/
 
 # Training outputs
 checkpoints/
