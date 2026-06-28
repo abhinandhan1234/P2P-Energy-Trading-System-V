@@ -8,6 +8,7 @@ Reference: docs/architecture.md
 
 from __future__ import annotations
 
+# standard library
 import sys
 
 __version__ = "1.0.0"
@@ -25,6 +26,7 @@ def get_version_info() -> dict[str, str]:
     }
 
     try:
+        # third party
         import numpy as np
 
         versions["numpy"] = np.__version__
@@ -32,6 +34,7 @@ def get_version_info() -> dict[str, str]:
         versions["numpy"] = "not installed"
 
     try:
+        # third party
         import ray
 
         versions["ray"] = ray.__version__
@@ -39,6 +42,7 @@ def get_version_info() -> dict[str, str]:
         versions["ray"] = "not installed"
 
     try:
+        # third party
         import torch
 
         versions["torch"] = torch.__version__
@@ -46,6 +50,7 @@ def get_version_info() -> dict[str, str]:
         versions["torch"] = "not installed"
 
     try:
+        # third party
         import pandapower
 
         versions["pandapower"] = pandapower.__version__

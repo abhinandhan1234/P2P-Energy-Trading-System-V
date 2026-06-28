@@ -8,10 +8,12 @@ Reference: docs/module_12_repository_structure.md §7 (Testing Standards)
 
 from __future__ import annotations
 
+# third party
 import numpy as np
 import pandas as pd
 import pytest
 
+# local
 from p2p_energy_trading.constants import (
     DEFAULT_SEED,
     INTERNAL_COL_DEMAND,
@@ -29,6 +31,7 @@ FIXTURE_SEED: int = DEFAULT_SEED  # 42
 # ---------------------------------------------------------------------------
 # Raw data fixtures
 # ---------------------------------------------------------------------------
+
 
 @pytest.fixture
 def sample_timestamps() -> pd.DatetimeIndex:
@@ -82,11 +85,13 @@ def college_raw_df(sample_timestamps: pd.DatetimeIndex) -> pd.DataFrame:
     )
     solar = np.clip(solar, 0.0, None)
 
-    return pd.DataFrame({
-        INTERNAL_COL_TIMESTAMP: sample_timestamps,
-        INTERNAL_COL_DEMAND: demand.astype(np.float64),
-        INTERNAL_COL_SOLAR: solar.astype(np.float64),
-    })
+    return pd.DataFrame(
+        {
+            INTERNAL_COL_TIMESTAMP: sample_timestamps,
+            INTERNAL_COL_DEMAND: demand.astype(np.float64),
+            INTERNAL_COL_SOLAR: solar.astype(np.float64),
+        }
+    )
 
 
 @pytest.fixture
@@ -105,19 +110,24 @@ def small_college_df(minimal_timestamps: pd.DatetimeIndex) -> pd.DataFrame:
     hours = np.arange(n) % 24
     demand = np.clip(
         100.0 + 50.0 * np.sin(np.pi * (hours - 6) / 12) + rng.normal(0.0, 3.0, n),
-        0.0, None,
+        0.0,
+        None,
     )
     solar = np.where(
         (hours >= 6) & (hours <= 18),
-        np.clip(40.0 * np.sin(np.pi * (hours - 6) / 12) + rng.normal(0.0, 2.0, n), 0.0, None),
+        np.clip(
+            40.0 * np.sin(np.pi * (hours - 6) / 12) + rng.normal(0.0, 2.0, n), 0.0, None
+        ),
         0.0,
     )
 
-    return pd.DataFrame({
-        INTERNAL_COL_TIMESTAMP: minimal_timestamps,
-        INTERNAL_COL_DEMAND: demand.astype(np.float64),
-        INTERNAL_COL_SOLAR: solar.astype(np.float64),
-    })
+    return pd.DataFrame(
+        {
+            INTERNAL_COL_TIMESTAMP: minimal_timestamps,
+            INTERNAL_COL_DEMAND: demand.astype(np.float64),
+            INTERNAL_COL_SOLAR: solar.astype(np.float64),
+        }
+    )
 
 
 @pytest.fixture
@@ -133,6 +143,7 @@ def raw_csv_df(sample_timestamps: pd.DatetimeIndex) -> pd.DataFrame:
     Returns:
         DataFrame with columns: Timestamp, Campus_Demand_kW, College_Solar_kW.
     """
+    # local
     from p2p_energy_trading.constants import (
         RAW_CSV_COLUMN_DEMAND,
         RAW_CSV_COLUMN_SOLAR,
@@ -145,24 +156,30 @@ def raw_csv_df(sample_timestamps: pd.DatetimeIndex) -> pd.DataFrame:
 
     demand = np.clip(
         100.0 + 80.0 * np.sin(np.pi * (hours - 6) / 12) + rng.normal(0.0, 5.0, n),
-        0.0, None,
+        0.0,
+        None,
     )
     solar = np.where(
         (hours >= 6) & (hours <= 18),
-        np.clip(60.0 * np.sin(np.pi * (hours - 6) / 12) + rng.normal(0.0, 3.0, n), 0.0, None),
+        np.clip(
+            60.0 * np.sin(np.pi * (hours - 6) / 12) + rng.normal(0.0, 3.0, n), 0.0, None
+        ),
         0.0,
     )
 
-    return pd.DataFrame({
-        RAW_CSV_COLUMN_TIMESTAMP: sample_timestamps.strftime("%Y-%m-%d %H:%M:%S"),
-        RAW_CSV_COLUMN_DEMAND: demand.astype(np.float64),
-        RAW_CSV_COLUMN_SOLAR: solar.astype(np.float64),
-    })
+    return pd.DataFrame(
+        {
+            RAW_CSV_COLUMN_TIMESTAMP: sample_timestamps.strftime("%Y-%m-%d %H:%M:%S"),
+            RAW_CSV_COLUMN_DEMAND: demand.astype(np.float64),
+            RAW_CSV_COLUMN_SOLAR: solar.astype(np.float64),
+        }
+    )
 
 
 # ---------------------------------------------------------------------------
 # Profile portfolio fixtures
 # ---------------------------------------------------------------------------
+
 
 @pytest.fixture
 def minimal_portfolio(small_college_df: pd.DataFrame) -> dict[str, pd.DataFrame]:
@@ -177,6 +194,7 @@ def minimal_portfolio(small_college_df: pd.DataFrame) -> dict[str, pd.DataFrame]
     Returns:
         Dict mapping building_id to DataFrame (21 entries).
     """
+    # local
     from p2p_energy_trading.modules.profile_generator.generator import (
         generate_college_profile,
         generate_consumer_profiles,
@@ -185,6 +203,8 @@ def minimal_portfolio(small_college_df: pd.DataFrame) -> dict[str, pd.DataFrame]
 
     college = generate_college_profile(small_college_df)
     solar = generate_solar_profiles(small_college_df, base_seed=FIXTURE_SEED)
-    consumer = generate_consumer_profiles(small_college_df, base_seed=FIXTURE_SEED + 100)
+    consumer = generate_consumer_profiles(
+        small_college_df, base_seed=FIXTURE_SEED + 100
+    )
 
     return {p.building_id: p.df for p in [college] + solar + consumer}

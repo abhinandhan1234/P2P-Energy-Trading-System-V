@@ -1,4 +1,4 @@
-﻿"""Logging configuration utilities.
+"""Logging configuration utilities.
 
 Provides project-standard logging setup used by entry points (train.py, evaluate.py).
 Individual modules should use logging.getLogger(__name__) and never configure
@@ -9,9 +9,11 @@ Reference: docs/module_12_repository_structure.md §5
 
 from __future__ import annotations
 
+# standard library
 import logging
 from pathlib import Path
 
+# local
 from p2p_energy_trading.constants import LOG_DATE_FORMAT, LOG_FORMAT
 
 

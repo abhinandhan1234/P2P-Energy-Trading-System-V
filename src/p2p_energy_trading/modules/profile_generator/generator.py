@@ -9,12 +9,15 @@ Design reference: docs/module_1_profile_generator.md
 
 from __future__ import annotations
 
+# standard library
 import logging
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
+# third party
 import numpy as np
 import pandas as pd
 
+# local
 from p2p_energy_trading.constants import (
     INTERNAL_COL_DEMAND,
     INTERNAL_COL_SOLAR,
@@ -85,7 +88,9 @@ def generate_college_profile(college_df: pd.DataFrame) -> BuildingProfile:
     Returns:
         BuildingProfile for the college with a copy of the raw data.
     """
-    df = college_df[[INTERNAL_COL_TIMESTAMP, INTERNAL_COL_DEMAND, INTERNAL_COL_SOLAR]].copy()
+    df = college_df[
+        [INTERNAL_COL_TIMESTAMP, INTERNAL_COL_DEMAND, INTERNAL_COL_SOLAR]
+    ].copy()
     logger.info("College profile: %d samples (real, unmodified)", len(df))
     return BuildingProfile(
         building_id="college",
@@ -201,7 +206,9 @@ def generate_consumer_profiles(
         seed = base_seed + i
         rng = np.random.default_rng(seed)
 
-        load_scale = float(rng.uniform(CONSUMER_LOAD_SCALE_MIN, CONSUMER_LOAD_SCALE_MAX))
+        load_scale = float(
+            rng.uniform(CONSUMER_LOAD_SCALE_MIN, CONSUMER_LOAD_SCALE_MAX)
+        )
         shift_hours = int(rng.integers(-MAX_SHIFT_HOURS, MAX_SHIFT_HOURS + 1))
 
         df = _apply_transformations(
@@ -240,14 +247,13 @@ def generate_consumer_profiles(
 # Private helpers
 # ---------------------------------------------------------------------------
 
+
 def _check_input_df(df: pd.DataFrame, name: str) -> None:
     """Validate that the input DataFrame has the required columns."""
     required = [INTERNAL_COL_TIMESTAMP, INTERNAL_COL_DEMAND, INTERNAL_COL_SOLAR]
     missing = [c for c in required if c not in df.columns]
     if missing:
-        raise ProfileGenerationError(
-            f"{name} is missing required columns: {missing}"
-        )
+        raise ProfileGenerationError(f"{name} is missing required columns: {missing}")
     if len(df) == 0:
         raise ProfileGenerationError(f"{name} is empty")
 
@@ -296,10 +302,7 @@ def _apply_transformations(
     timestamps_pd = pd.to_datetime(timestamps)
     dates = timestamps_pd.date
     unique_dates = sorted(set(dates))
-    occupancy = {
-        d: float(rng.normal(1.0, OCCUPANCY_STD))
-        for d in unique_dates
-    }
+    occupancy = {d: float(rng.normal(1.0, OCCUPANCY_STD)) for d in unique_dates}
     # Clip occupancy multipliers to sensible range [0.7, 1.3]
     occupancy = {d: max(0.7, min(1.3, v)) for d, v in occupancy.items()}
 
@@ -315,21 +318,25 @@ def _apply_transformations(
 
     weekend_factor: dict = {}
     for d in saturday_dates:
-        weekend_factor[d] = float(rng.uniform(SATURDAY_MULTIPLIER_MIN, SATURDAY_MULTIPLIER_MAX))
+        weekend_factor[d] = float(
+            rng.uniform(SATURDAY_MULTIPLIER_MIN, SATURDAY_MULTIPLIER_MAX)
+        )
     for d in sunday_dates:
-        weekend_factor[d] = float(rng.uniform(SUNDAY_MULTIPLIER_MIN, SUNDAY_MULTIPLIER_MAX))
+        weekend_factor[d] = float(
+            rng.uniform(SUNDAY_MULTIPLIER_MIN, SUNDAY_MULTIPLIER_MAX)
+        )
 
-    weekend_multipliers = np.array(
-        [weekend_factor.get(d, 1.0) for d in dates]
-    )
+    weekend_multipliers = np.array([weekend_factor.get(d, 1.0) for d in dates])
     demand = demand * weekend_multipliers
 
     # 5. Clip to non-negative
     demand = np.clip(demand, 0.0, None)
     solar = np.clip(solar, 0.0, None)
 
-    return pd.DataFrame({
-        INTERNAL_COL_TIMESTAMP: pd.to_datetime(timestamps),
-        INTERNAL_COL_DEMAND: demand.astype(np.float64),
-        INTERNAL_COL_SOLAR: solar.astype(np.float64),
-    })
+    return pd.DataFrame(
+        {
+            INTERNAL_COL_TIMESTAMP: pd.to_datetime(timestamps),
+            INTERNAL_COL_DEMAND: demand.astype(np.float64),
+            INTERNAL_COL_SOLAR: solar.astype(np.float64),
+        }
+    )

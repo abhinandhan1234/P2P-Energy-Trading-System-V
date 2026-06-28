@@ -5,20 +5,26 @@ Design reference: docs/module_2_pandapower_network.md
 
 from __future__ import annotations
 
-import pytest
+# third party
 import pandapower as pp
+import pytest
 
+# local
 from p2p_energy_trading.constants import (
     ALL_AGENT_IDS,
     COLLEGE_AGENT_ID,
-    SOLAR_AGENT_IDS,
     CONSUMER_AGENT_IDS,
-    NUM_BUSES,
     GRID_IMPORT_EXPORT_LIMIT_KW,
-    VOLTAGE_MIN_PU,
+    NUM_BUSES,
+    SOLAR_AGENT_IDS,
     VOLTAGE_MAX_PU,
+    VOLTAGE_MIN_PU,
 )
 from p2p_energy_trading.exceptions import PowerFlowError
+from p2p_energy_trading.modules.network.constraints import (
+    check_constraints,
+    check_grid_import_limit,
+)
 from p2p_energy_trading.modules.network.network_builder import (
     build_network,
     get_agent_bus_index,
@@ -26,13 +32,9 @@ from p2p_energy_trading.modules.network.network_builder import (
     get_sgen_index,
 )
 from p2p_energy_trading.modules.network.powerflow import (
-    update_network_loads,
-    run_power_flow,
     PowerFlowResult,
-)
-from p2p_energy_trading.modules.network.constraints import (
-    check_constraints,
-    check_grid_import_limit,
+    run_power_flow,
+    update_network_loads,
 )
 
 
@@ -109,7 +111,9 @@ class TestPowerFlow:
 
         # Build mock demands and solar
         demands = {aid: 50.0 for aid in ALL_AGENT_IDS}  # 50 kW each
-        solars = {aid: 20.0 for aid in SOLAR_AGENT_IDS + [COLLEGE_AGENT_ID]}  # 20 kW each
+        solars = {
+            aid: 20.0 for aid in SOLAR_AGENT_IDS + [COLLEGE_AGENT_ID]
+        }  # 20 kW each
         battery_dispatch = 100.0  # 100 kW discharge
 
         update_network_loads(net, demands, solars, battery_dispatch)
@@ -199,7 +203,9 @@ class TestConstraintChecks:
             p_grid_kw=0.0,
         )
         assert check_constraints(res_low).voltage_violation is True
-        assert check_constraints(res_low).voltage_min_pu == pytest.approx(VOLTAGE_MIN_PU - 0.01)
+        assert check_constraints(res_low).voltage_min_pu == pytest.approx(
+            VOLTAGE_MIN_PU - 0.01
+        )
 
         # Over-voltage
         bus_vm_high = {i: 1.0 for i in range(NUM_BUSES)}
@@ -212,7 +218,9 @@ class TestConstraintChecks:
             p_grid_kw=0.0,
         )
         assert check_constraints(res_high).voltage_violation is True
-        assert check_constraints(res_high).voltage_max_pu == pytest.approx(VOLTAGE_MAX_PU + 0.01)
+        assert check_constraints(res_high).voltage_max_pu == pytest.approx(
+            VOLTAGE_MAX_PU + 0.01
+        )
 
     def test_thermal_violations(self):
         """Line loading above 100% should trigger thermal_violation."""

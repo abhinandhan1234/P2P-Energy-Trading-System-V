@@ -8,12 +8,15 @@ Design reference: docs/module_1_profile_generator.md
 
 from __future__ import annotations
 
+# standard library
 import logging
 from pathlib import Path
 from typing import Any
 
+# third party
 import pandas as pd
 
+# local
 from p2p_energy_trading.constants import (
     INTERNAL_COL_DEMAND,
     INTERNAL_COL_SOLAR,
@@ -80,11 +83,13 @@ def load_raw_data(
     _validate_no_missing(df)
     _validate_no_negative(df)
 
-    df = df.rename(columns={
-        RAW_CSV_COLUMN_TIMESTAMP: INTERNAL_COL_TIMESTAMP,
-        RAW_CSV_COLUMN_DEMAND: INTERNAL_COL_DEMAND,
-        RAW_CSV_COLUMN_SOLAR: INTERNAL_COL_SOLAR,
-    })
+    df = df.rename(
+        columns={
+            RAW_CSV_COLUMN_TIMESTAMP: INTERNAL_COL_TIMESTAMP,
+            RAW_CSV_COLUMN_DEMAND: INTERNAL_COL_DEMAND,
+            RAW_CSV_COLUMN_SOLAR: INTERNAL_COL_SOLAR,
+        }
+    )
 
     df[INTERNAL_COL_TIMESTAMP] = pd.to_datetime(df[INTERNAL_COL_TIMESTAMP])
     df = df.sort_values(INTERNAL_COL_TIMESTAMP).reset_index(drop=True)
@@ -195,7 +200,5 @@ def get_data_summary(df: pd.DataFrame) -> dict[str, Any]:
             "mean": float(df[INTERNAL_COL_SOLAR].mean()),
             "std": float(df[INTERNAL_COL_SOLAR].std()),
         },
-        "years_covered": sorted(
-            df[INTERNAL_COL_TIMESTAMP].dt.year.unique().tolist()
-        ),
+        "years_covered": sorted(df[INTERNAL_COL_TIMESTAMP].dt.year.unique().tolist()),
     }

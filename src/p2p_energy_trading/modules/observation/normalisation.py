@@ -8,9 +8,13 @@ Design reference: docs/module_4_observation_builder.md
 
 from __future__ import annotations
 
+# standard library
 import math
+
+# third party
 import numpy as np
 
+# local
 from p2p_energy_trading.constants import MAX_GRID_RATE
 
 
@@ -132,7 +136,9 @@ def compute_demand_ratio(total_bids: float, total_offers: float) -> float:
     return float(np.clip(ratio, 0.0, 2.0) / 2.0)
 
 
-def cyclical_time_encoding(hour: int, day_of_week: int) -> tuple[float, float, float, float]:
+def cyclical_time_encoding(
+    hour: int, day_of_week: int
+) -> tuple[float, float, float, float]:
     """Encode hour of day and day of week into sin/cos cyclical features.
 
     Args:

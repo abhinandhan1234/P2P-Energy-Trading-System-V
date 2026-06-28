@@ -9,13 +9,16 @@ Design reference: docs/module_1_profile_generator.md §Output Structure
 
 from __future__ import annotations
 
+# standard library
 import json
 import logging
 from pathlib import Path
 from typing import Any
 
+# third party
 import pandas as pd
 
+# local
 from p2p_energy_trading.constants import (
     INTERNAL_COL_DEMAND,
     INTERNAL_COL_SOLAR,
@@ -122,9 +125,7 @@ def build_metadata(
             f"Failed to write metadata to '{metadata_file}': {e}"
         ) from e
 
-    logger.info(
-        "Metadata written: %s (%d buildings)", metadata_file, total_buildings
-    )
+    logger.info("Metadata written: %s (%d buildings)", metadata_file, total_buildings)
     return metadata
 
 
@@ -148,7 +149,7 @@ def load_metadata(output_dir: str | Path) -> dict[str, Any]:
         )
 
     try:
-        with open(metadata_file, "r", encoding="utf-8") as f:
+        with open(metadata_file, encoding="utf-8") as f:
             return json.load(f)
     except (json.JSONDecodeError, OSError) as e:
         raise ProfileGenerationError(
@@ -159,6 +160,7 @@ def load_metadata(output_dir: str | Path) -> dict[str, Any]:
 # ---------------------------------------------------------------------------
 # Private helpers
 # ---------------------------------------------------------------------------
+
 
 def _check_profile_df(df: pd.DataFrame, building_id: str) -> None:
     """Check that the profile DataFrame has the required columns."""

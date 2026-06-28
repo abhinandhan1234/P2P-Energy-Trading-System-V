@@ -8,10 +8,13 @@ Reference: docs/module_12_repository_structure.md §11
 
 from __future__ import annotations
 
+# standard library
 import random
 
+# third party
 import numpy as np
 
+# local
 from p2p_energy_trading.constants import DEFAULT_SEED
 
 
@@ -28,6 +31,7 @@ def set_global_seed(seed: int = DEFAULT_SEED) -> None:
     np.random.seed(seed)
 
     try:
+        # third party
         import torch
 
         torch.manual_seed(seed)
@@ -56,6 +60,7 @@ def set_torch_seed(seed: int) -> None:
         seed: Integer seed value.
     """
     try:
+        # third party
         import torch
 
         torch.manual_seed(seed)

@@ -7,6 +7,7 @@ Design reference: docs/module_2_pandapower_network.md
 
 from __future__ import annotations
 
+# local
 from p2p_energy_trading.modules.network.battery import BatteryModel
 from p2p_energy_trading.modules.network.constraints import (
     ConstraintViolations,

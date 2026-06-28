@@ -8,22 +8,25 @@ Design reference: docs/module_2_pandapower_network.md
 
 from __future__ import annotations
 
+# standard library
 import logging
+
+# third party
 import pandapower as pp
 
+# local
 from p2p_energy_trading.constants import (
+    AGENT_TO_BUS,
     ALL_AGENT_IDS,
     COLLEGE_AGENT_ID,
-    COLLEGE_BUS,
-    AGENT_TO_BUS,
-    SLACK_VOLTAGE_PU,
-    PRIMARY_VOLTAGE_KV,
-    SECONDARY_VOLTAGE_KV,
-    SUBSTATION_MVA,
     COLLEGE_TRANSFORMER_KVA,
-    SOLAR_TRANSFORMER_KVA,
     CONSUMER_TRANSFORMER_KVA,
     NUM_BUSES,
+    PRIMARY_VOLTAGE_KV,
+    SECONDARY_VOLTAGE_KV,
+    SLACK_VOLTAGE_PU,
+    SOLAR_TRANSFORMER_KVA,
+    SUBSTATION_MVA,
 )
 from p2p_energy_trading.exceptions import PowerFlowError
 
@@ -245,5 +248,7 @@ def get_sgen_index(agent_id: str) -> int:
         PowerFlowError: If the agent is a consumer agent and has no sgen.
     """
     if agent_id not in _SGEN_INDEX_MAP:
-        raise PowerFlowError(f"Agent '{agent_id}' has no assigned static generator (sgen)")
+        raise PowerFlowError(
+            f"Agent '{agent_id}' has no assigned static generator (sgen)"
+        )
     return _SGEN_INDEX_MAP[agent_id]

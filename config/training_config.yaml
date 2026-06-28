@@ -1,0 +1,142 @@
+# P2P Energy Trading System - Training Configuration File
+# Target: Ray RLlib 2.x (New API Stack)
+# Hardware: RTX 3050 Laptop (4 GB VRAM, 16 GB RAM)
+
+# ─────────────────────────────────────────────
+# Environment Configuration (Module 6)
+# ─────────────────────────────────────────────
+environment:
+  env_name: "p2p_energy_trading"
+  episode_length: 168                    # default 1 week
+  pandapower_bypass: false               # true = skip power flow constraints
+  grid_buy_rate: 8.15                    # ₹/kWh grid import rate
+  grid_sell_rate: 3.56                   # ₹/kWh grid export rate
+  profile_data_dir: "data/processed"     # path to building profiles Parquet files
+  seed: 42                               # global random seed
+
+  # Reward components weighting (Module 5)
+  reward:
+    w_p2p: 0.1
+    w_self: 0.05
+    w_v: 5.0
+    w_th: 5.0
+    w_tr: 5.0
+    w_soc: 1.0
+    w_cyc: 0.5
+    w_store: 0.05
+    w_import: 0.05
+    reward_clip_min: -10.0
+    reward_clip_max: 10.0
+
+# ─────────────────────────────────────────────
+# PPO Algorithm Configuration (Module 7)
+# ─────────────────────────────────────────────
+ppo:
+  train_batch_size_per_learner: 7056      # 2 episodes x 21 agents x 168 steps
+  rollout_fragment_length: 168           # 1 full episode
+  sgd_minibatch_size: 504
+  num_sgd_iter: 10
+  gamma: 0.99
+  gae_lambda: 0.95
+  clip_param: 0.2
+  entropy_coeff: 0.01
+  lr: 3.0e-4
+  vf_loss_coeff: 0.5
+  grad_clip: 0.5
+  kl_coeff: 0.0
+  batch_mode: "complete_episodes"
+
+  # Actor network structure
+  actor:
+    hidden_layers: [128, 128]
+    activation: "relu"
+
+  # Critic network structure
+  critic:
+    hidden_layers: [256, 256]
+    activation: "relu"
+
+# ─────────────────────────────────────────────
+# Curriculum Configuration (Module 8 §6)
+# ─────────────────────────────────────────────
+curriculum:
+  stages:
+    - name: "debug"
+      episode_length: 24
+      pandapower_bypass: true
+      reward_phase: 1
+      train_batch_size_per_learner: 504  # 1 episode x 21 agents x 24 steps
+      num_env_runners: 1
+      max_agent_steps: 500000
+
+    - name: "training"
+      episode_length: 168
+      pandapower_bypass: false
+      reward_phase: 1
+      train_batch_size_per_learner: 7056
+      num_env_runners: 2
+      max_agent_steps: 5000000
+      curriculum_transition_step: 2000000
+
+    - name: "constraint_aware"
+      episode_length: 168
+      pandapower_bypass: false
+      reward_phase: 2
+      train_batch_size_per_learner: 7056
+      num_env_runners: 2
+      max_agent_steps: 10000000
+
+# ─────────────────────────────────────────────
+# Hardware Allocation
+# ─────────────────────────────────────────────
+hardware:
+  num_gpus_per_learner_worker: 1         # RTX 3050 Laptop
+  num_learner_workers: 0                 # Local learner execution
+  num_env_runners: 2                     # Environment runner workers
+  num_envs_per_env_runner: 1
+
+# ─────────────────────────────────────────────
+# Checkpoint Control (Module 8 §7)
+# ─────────────────────────────────────────────
+checkpoint:
+  checkpoint_dir: "checkpoints"
+  checkpoint_frequency: 50               # save checkpoint every N iterations
+  keep_last_n: 5                         # retain only last N periodic checkpoints
+  best_model_dir: "checkpoints/best_model"
+  best_model_metric: "mean_eval_reward"
+  min_improvement_threshold: 0.01
+  save_on_stage_transition: true
+
+# ─────────────────────────────────────────────
+# Evaluation Control (Module 8 §9)
+# ─────────────────────────────────────────────
+evaluation:
+  eval_frequency: 100                    # run evaluation every N iterations
+  num_eval_episodes: 5
+  eval_episode_start: 0                  # fixed start hour for determinism
+  eval_battery_soc: 0.5                  # initial SoC for evaluation episodes
+  explore: false                         # deterministic inference
+  eval_reward_phase: 2                   # evaluate under full penalties
+
+# ─────────────────────────────────────────────
+# Logging Configuration
+# ─────────────────────────────────────────────
+logging:
+  tensorboard_dir: "logs/tensorboard"
+  metrics_dir: "logs/metrics"
+  evaluation_dir: "logs/evaluation"
+  log_level: "INFO"
+  log_to_console: true
+  log_to_file: true
+  log_file: "logs/training.log"
+  metric_log_frequency: 10               # write JSON log every N iterations
+
+# ─────────────────────────────────────────────
+# Training Lifecycle Control
+# ─────────────────────────────────────────────
+training:
+  max_training_iterations: 5000
+  max_agent_steps: 15500000
+  auto_curriculum: true                  # automatically advance stages
+  early_stopping: true
+  early_stopping_patience: 500           # iterations without best reward improvement

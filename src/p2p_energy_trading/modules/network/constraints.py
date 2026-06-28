@@ -8,15 +8,17 @@ Design reference: docs/module_2_pandapower_network.md
 
 from __future__ import annotations
 
+# standard library
 from dataclasses import dataclass
 
+# local
 from p2p_energy_trading.constants import (
-    VOLTAGE_MIN_PU,
-    VOLTAGE_MAX_PU,
-    LINE_LOADING_MAX_PERCENT,
-    TRANSFORMER_LOADING_MAX_PERCENT,
     GRID_IMPORT_EXPORT_LIMIT_KW,
+    LINE_LOADING_MAX_PERCENT,
     NUM_BUSES,
+    TRANSFORMER_LOADING_MAX_PERCENT,
+    VOLTAGE_MAX_PU,
+    VOLTAGE_MIN_PU,
 )
 from p2p_energy_trading.modules.network.powerflow import PowerFlowResult
 
@@ -24,13 +26,14 @@ from p2p_energy_trading.modules.network.powerflow import PowerFlowResult
 @dataclass
 class ConstraintViolations:
     """Constraint violation flags and severity metrics."""
+
     voltage_violation: bool
     thermal_violation: bool
     transformer_violation: bool
-    voltage_min_pu: float          # worst-case minimum primary voltage
-    voltage_max_pu: float          # worst-case maximum primary voltage
-    line_loading_max_pct: float    # worst-case line loading (%)
-    trafo_loading_max_pct: float   # worst-case transformer loading (%)
+    voltage_min_pu: float  # worst-case minimum primary voltage
+    voltage_max_pu: float  # worst-case maximum primary voltage
+    line_loading_max_pct: float  # worst-case line loading (%)
+    trafo_loading_max_pct: float  # worst-case transformer loading (%)
 
 
 def check_constraints(result: PowerFlowResult) -> ConstraintViolations:

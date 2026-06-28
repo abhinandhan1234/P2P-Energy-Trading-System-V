@@ -9,31 +9,35 @@ Design reference: docs/module_4_observation_builder.md
 
 from __future__ import annotations
 
+# standard library
 import logging
 from typing import Any
+
+# third party
 import numpy as np
 import pandas as pd
 
+# local
 from p2p_energy_trading.constants import (
+    AGENT_TO_BUS,
     ALL_AGENT_IDS,
+    BATTERY_SOC_MAX,
+    BATTERY_SOC_MIN,
     COLLEGE_AGENT_ID,
     GRID_IMPORT_EXPORT_LIMIT_KW,
-    AGENT_TO_BUS,
     NUM_BUSES,
-    BATTERY_SOC_MIN,
-    BATTERY_SOC_MAX,
 )
 from p2p_energy_trading.modules.market.models import MarketState
 from p2p_energy_trading.modules.network.powerflow import PowerFlowResult
 from p2p_energy_trading.modules.observation.normalisation import (
-    normalise_energy,
-    normalise_voltage,
-    normalise_loading,
-    normalise_grid_flow,
-    normalise_p2p_price,
-    normalise_grid_price,
     compute_demand_ratio,
     cyclical_time_encoding,
+    normalise_energy,
+    normalise_grid_flow,
+    normalise_grid_price,
+    normalise_loading,
+    normalise_p2p_price,
+    normalise_voltage,
 )
 
 logger = logging.getLogger(__name__)

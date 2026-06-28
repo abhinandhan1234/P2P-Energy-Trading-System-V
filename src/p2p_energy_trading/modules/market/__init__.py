@@ -7,6 +7,7 @@ Reference: docs/module_3_market_engine.md
 
 from __future__ import annotations
 
+# local
 from p2p_energy_trading.modules.market.clearing import clear_market_p2p
 from p2p_energy_trading.modules.market.models import MarketState, SettlementRecord
 from p2p_energy_trading.modules.market.settlement import process_settlements

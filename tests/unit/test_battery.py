@@ -5,16 +5,19 @@ Design reference: docs/module_2_pandapower_network.md
 
 from __future__ import annotations
 
+# standard library
 import math
+
+# third party
 import pytest
 
+# local
 from p2p_energy_trading.constants import (
     BATTERY_CAPACITY_KWH,
-    BATTERY_POWER_KW,
-    BATTERY_SOC_MIN,
-    BATTERY_SOC_MAX,
     BATTERY_INITIAL_SOC_EVAL,
-    BATTERY_MIN_DISPATCH_KW,
+    BATTERY_POWER_KW,
+    BATTERY_SOC_MAX,
+    BATTERY_SOC_MIN,
 )
 from p2p_energy_trading.modules.network.battery import BatteryModel
 
@@ -129,7 +132,9 @@ class TestBatteryPowerLimits:
         """Desired power outside ±250 kW should be clipped."""
         # Start at 0.80 for discharge clipping (sufficient headroom to discharge 250 kW)
         battery_discharge = BatteryModel(initial_soc=0.80)
-        dispatch_low = battery_discharge.step(-10.0, dt=1.0)  # Clipped to full discharge
+        dispatch_low = battery_discharge.step(
+            -10.0, dt=1.0
+        )  # Clipped to full discharge
         assert dispatch_low == pytest.approx(BATTERY_POWER_KW)
 
         # Start at 0.30 for charge clipping (sufficient headroom to charge 250 kW)

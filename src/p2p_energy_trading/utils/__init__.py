@@ -1,10 +1,11 @@
-﻿"""Utilities package for P2P Energy Trading System.
+"""Utilities package for P2P Energy Trading System.
 
 Provides seeding and logging utilities.
 """
 
 from __future__ import annotations
 
+# local
 from p2p_energy_trading.utils.logging import (
     get_logger,
     set_log_level,

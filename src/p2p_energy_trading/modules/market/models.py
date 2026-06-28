@@ -8,6 +8,7 @@ Design reference: docs/module_3_market_engine.md
 
 from __future__ import annotations
 
+# standard library
 from dataclasses import dataclass
 
 
@@ -17,6 +18,7 @@ class SettlementRecord:
 
     All quantities are in kW and Rs.
     """
+
     p2p_sold_kw: float
     p2p_bought_kw: float
     grid_sold_kw: float
@@ -36,6 +38,7 @@ class MarketState:
     Tracks uniform clearing price, total trading volumes, grid exchange, and
     constraint indicators.
     """
+
     p2p_clearing_price: float
     total_p2p_volume: float
     p2p_utilisation_ratio: float

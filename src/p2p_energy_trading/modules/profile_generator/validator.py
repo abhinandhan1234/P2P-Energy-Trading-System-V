@@ -8,10 +8,13 @@ Design reference: docs/module_1_profile_generator.md §Validation Rules
 
 from __future__ import annotations
 
+# standard library
 import logging
 
+# third party
 import pandas as pd
 
+# local
 from p2p_energy_trading.constants import (
     INTERNAL_COL_DEMAND,
     INTERNAL_COL_SOLAR,
@@ -29,7 +32,7 @@ logger = logging.getLogger(__name__)
 # ---------------------------------------------------------------------------
 
 EXPECTED_TOTAL: int = NUM_COLLEGE + NUM_SOLAR + NUM_CONSUMER  # 21
-EXPECTED_SOLAR: int = NUM_SOLAR   # 15
+EXPECTED_SOLAR: int = NUM_SOLAR  # 15
 EXPECTED_CONSUMER: int = NUM_CONSUMER  # 5
 EXPECTED_COLLEGE: int = NUM_COLLEGE  # 1
 
@@ -97,6 +100,7 @@ def validate_portfolio(
 # ---------------------------------------------------------------------------
 # Private validators
 # ---------------------------------------------------------------------------
+
 
 def _validate_required_columns(df: pd.DataFrame, building_id: str) -> None:
     """Check that all required columns are present."""
@@ -185,21 +189,15 @@ def _validate_portfolio_composition(profiles: dict[str, pd.DataFrame]) -> None:
     errors: list[str] = []
 
     if total != EXPECTED_TOTAL:
-        errors.append(
-            f"Expected {EXPECTED_TOTAL} buildings total, got {total}"
-        )
+        errors.append(f"Expected {EXPECTED_TOTAL} buildings total, got {total}")
     if n_solar != EXPECTED_SOLAR:
-        errors.append(
-            f"Expected {EXPECTED_SOLAR} solar buildings, got {n_solar}"
-        )
+        errors.append(f"Expected {EXPECTED_SOLAR} solar buildings, got {n_solar}")
     if n_consumer != EXPECTED_CONSUMER:
         errors.append(
             f"Expected {EXPECTED_CONSUMER} consumer buildings, got {n_consumer}"
         )
     if n_college != EXPECTED_COLLEGE:
-        errors.append(
-            f"Expected {EXPECTED_COLLEGE} college building, got {n_college}"
-        )
+        errors.append(f"Expected {EXPECTED_COLLEGE} college building, got {n_college}")
 
     if errors:
         raise ProfileGenerationError(

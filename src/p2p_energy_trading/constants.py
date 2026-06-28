@@ -9,8 +9,10 @@ Reference: docs/module_12_repository_structure.md, docs/implementation_authority
 
 from __future__ import annotations
 
+# standard library
 from typing import Any
 
+# third party
 import numpy as np
 from numpy.typing import NDArray
 
@@ -24,7 +26,7 @@ ObsDict = dict[AgentId, dict[str, NDArray[np.float32]]]
 ActionDict = dict[AgentId, NDArray[np.float32]]
 RewardDict = dict[AgentId, float]
 TerminatedDict = dict[AgentId | str, bool]  # includes "__all__"
-TruncatedDict = dict[AgentId | str, bool]   # includes "__all__"
+TruncatedDict = dict[AgentId | str, bool]  # includes "__all__"
 InfoDict = dict[AgentId, dict[str, Any]]
 
 # ---------------------------------------------------------------------------
@@ -46,9 +48,9 @@ NUM_LOCAL_FEATURES: int = 11  # per-agent local obs dimensions in critic
 # Episode defaults (Module 6 §7)
 # ---------------------------------------------------------------------------
 
-EPISODE_LENGTH_DEBUG: int = 24       # 1 day
-EPISODE_LENGTH_TRAINING: int = 168   # 1 week
-EPISODE_LENGTH_EVALUATION: int = 720 # ~1 month
+EPISODE_LENGTH_DEBUG: int = 24  # 1 day
+EPISODE_LENGTH_TRAINING: int = 168  # 1 week
+EPISODE_LENGTH_EVALUATION: int = 720  # ~1 month
 
 DEFAULT_EPISODE_LENGTH: int = EPISODE_LENGTH_TRAINING
 
@@ -85,13 +87,13 @@ AGENT_TO_POLICY: dict[AgentId, PolicyId] = {
 # Bus mapping (Module 2 §Bus Mapping — DO NOT CHANGE)
 # ---------------------------------------------------------------------------
 
-SLACK_BUS: int = 0       # PandaPower 0-indexed; Bus 1 in IEEE notation
-COLLEGE_BUS: int = 6     # Bus 7 in IEEE notation
+SLACK_BUS: int = 0  # PandaPower 0-indexed; Bus 1 in IEEE notation
+COLLEGE_BUS: int = 6  # Bus 7 in IEEE notation
 
 AGENT_TO_BUS: dict[AgentId, int] = {
     COLLEGE_AGENT_ID: COLLEGE_BUS,
-    **{f"solar_{i:02d}": 6 + i for i in range(1, 16)},   # Buses 7-21 (0-indexed)
-    **{f"consumer_{i:02d}": 21 + i for i in range(1, 6)}, # Buses 22-26 (0-indexed)
+    **{f"solar_{i:02d}": 6 + i for i in range(1, 16)},  # Buses 7-21 (0-indexed)
+    **{f"consumer_{i:02d}": 21 + i for i in range(1, 6)},  # Buses 22-26 (0-indexed)
 }
 
 # ---------------------------------------------------------------------------
@@ -127,7 +129,7 @@ TRANSFORMER_LOADING_MAX_PERCENT: float = 100.0
 
 BATTERY_CAPACITY_KWH: float = 500.0
 BATTERY_POWER_KW: float = 250.0
-BATTERY_EFFICIENCY: float = 0.90       # round-trip
+BATTERY_EFFICIENCY: float = 0.90  # round-trip
 BATTERY_SOC_MIN: float = 0.10
 BATTERY_SOC_MAX: float = 0.95
 BATTERY_INITIAL_SOC_EVAL: float = 0.50
@@ -140,9 +142,9 @@ BATTERY_MIN_DISPATCH_KW: float = 25.0  # 10% of power rating
 # Reference: docs/implementation_authority.md §Configuration Requirements
 # ---------------------------------------------------------------------------
 
-DEFAULT_GRID_BUY_RATE: float = 8.15   # Rs/kWh — agent buys from grid
-DEFAULT_GRID_SELL_RATE: float = 3.56   # Rs/kWh — agent sells to grid
-MAX_GRID_RATE: float = 10.0            # Rs/kWh — normalisation upper bound for grid rates
+DEFAULT_GRID_BUY_RATE: float = 8.15  # Rs/kWh — agent buys from grid
+DEFAULT_GRID_SELL_RATE: float = 3.56  # Rs/kWh — agent sells to grid
+MAX_GRID_RATE: float = 10.0  # Rs/kWh — normalisation upper bound for grid rates
 
 # ---------------------------------------------------------------------------
 # Reward constants (Module 5 — DO NOT CHANGE equations)
@@ -186,6 +188,12 @@ RAW_CSV_COLUMN_DEMAND: str = "Campus_Demand_kW"
 INTERNAL_COL_TIMESTAMP: str = "timestamp"
 INTERNAL_COL_DEMAND: str = "demand_kw"
 INTERNAL_COL_SOLAR: str = "solar_generation_kw"
+
+PROFILE_REQUIRED_COLUMNS: list[str] = [
+    INTERNAL_COL_TIMESTAMP,
+    INTERNAL_COL_DEMAND,
+    INTERNAL_COL_SOLAR,
+]
 
 # ---------------------------------------------------------------------------
 # Environment registration name (Module 6 §Implementation Notes)

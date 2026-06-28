@@ -7,6 +7,7 @@ Reference: docs/module_4_observation_builder.md
 
 from __future__ import annotations
 
+# local
 from p2p_energy_trading.modules.observation.builder import build_observations
 
 __all__ = [

@@ -5,26 +5,29 @@ Design reference: docs/module_4_observation_builder.md
 
 from __future__ import annotations
 
+# standard library
 import math
 from typing import Any
-import pytest
+
+# third party
 import numpy as np
 import pandas as pd
+import pytest
 
+# local
 from p2p_energy_trading.constants import (
     ALL_AGENT_IDS,
     COLLEGE_AGENT_ID,
     CONSUMER_AGENT_IDS,
-    GRID_IMPORT_EXPORT_LIMIT_KW,
     MAX_GRID_RATE,
-)
-from p2p_energy_trading.modules.observation.normalisation import (
-    normalise_loading,
-    normalise_grid_price,
 )
 from p2p_energy_trading.modules.market.models import MarketState
 from p2p_energy_trading.modules.network.powerflow import PowerFlowResult
 from p2p_energy_trading.modules.observation.builder import build_observations
+from p2p_energy_trading.modules.observation.normalisation import (
+    normalise_grid_price,
+    normalise_loading,
+)
 
 
 @pytest.fixture
@@ -409,7 +412,9 @@ class TestObservationBuilder:
         ) = sample_inputs
 
         # Modify metadata for solar_01 to have 0 peak demand
-        sample_metadata["buildings"]["solar_01"]["profile_stats"]["demand_kw"]["peak"] = 0.0
+        sample_metadata["buildings"]["solar_01"]["profile_stats"]["demand_kw"][
+            "peak"
+        ] = 0.0
 
         obs_dict = build_observations(
             demands,
@@ -424,7 +429,9 @@ class TestObservationBuilder:
             sample_metadata,
         )
 
-        assert obs_dict["solar_01"]["obs"][1] == 0.0  # normalised demand should fallback to 0.0
+        assert (
+            obs_dict["solar_01"]["obs"][1] == 0.0
+        )  # normalised demand should fallback to 0.0
         assert not np.isnan(obs_dict["solar_01"]["obs"]).any()
 
     def test_zero_peak_solar_handling(self, sample_inputs, sample_metadata):
@@ -606,4 +613,6 @@ class TestObservationBuilder:
 
         # own_last_action is indices 5, 6, 7 in the uniform actor observation vector
         action_features = obs_dict[COLLEGE_AGENT_ID]["obs"][5:8]
-        assert np.array_equal(action_features, np.array([0.0, 1.0, 1.0], dtype=np.float32))
+        assert np.array_equal(
+            action_features, np.array([0.0, 1.0, 1.0], dtype=np.float32)
+        )

@@ -9,18 +9,19 @@ Design reference: docs/module_2_pandapower_network.md
 
 from __future__ import annotations
 
+# standard library
 import logging
 import math
-from typing import Any
 
+# local
 from p2p_energy_trading.constants import (
     BATTERY_CAPACITY_KWH,
-    BATTERY_POWER_KW,
     BATTERY_EFFICIENCY,
-    BATTERY_SOC_MIN,
-    BATTERY_SOC_MAX,
     BATTERY_INITIAL_SOC_EVAL,
     BATTERY_MIN_DISPATCH_KW,
+    BATTERY_POWER_KW,
+    BATTERY_SOC_MAX,
+    BATTERY_SOC_MIN,
 )
 
 logger = logging.getLogger(__name__)
@@ -68,24 +69,23 @@ class BatteryModel:
         """Previous dispatch power in kW (positive = discharging, negative = charging)."""
         return self._prev_dispatch_kw
 
-    def step(self, action_charge_fraction: float, dt: float = 1.0) -> float:
-        """Execute one battery dispatch step.
+    def predict_dispatch(
+        self,
+        action_charge_fraction: float,
+        dt: float = 1.0,
+    ) -> float:
+        """Predict the battery dispatch power for a given action and current SoC.
+
+        This method is a pure function that does not mutate the battery State of Charge
+        or any other state.
 
         Args:
             action_charge_fraction: Agent's battery action in [0, 1].
-                0.0 = full discharge at 250 kW (inject to bus)
-                0.5 = idle (no dispatch)
-                1.0 = full charge at 250 kW (absorb from bus)
             dt: Timestep duration in hours (default 1.0).
 
         Returns:
-            Actual dispatch power in kW.
-                Positive = discharging (injecting to bus).
-                Negative = charging (absorbing from bus).
+            Predicted dispatch power in kW (positive = discharging, negative = charging).
         """
-        # Save previous dispatch state for cycling detection
-        self._prev_dispatch_kw = self._last_dispatch_kw
-
         # 1. Convert action to desired power: action=0.5 -> 0, action=0 -> 250 (discharge), action=1 -> -250 (charge)
         desired_power_kw = (0.5 - action_charge_fraction) * 2.0 * self._power_kw
 
@@ -118,11 +118,36 @@ class BatteryModel:
         if abs(actual_power) < BATTERY_MIN_DISPATCH_KW:
             actual_power = 0.0
 
+        return actual_power
+
+    def step(self, action_charge_fraction: float, dt: float = 1.0) -> float:
+        """Execute one battery dispatch step.
+
+        Args:
+            action_charge_fraction: Agent's battery action in [0, 1].
+                0.0 = full discharge at 250 kW (inject to bus)
+                0.5 = idle (no dispatch)
+                1.0 = full charge at 250 kW (absorb from bus)
+            dt: Timestep duration in hours (default 1.0).
+
+        Returns:
+            Actual dispatch power in kW.
+                Positive = discharging (injecting to bus).
+                Negative = charging (absorbing from bus).
+        """
+        # Save previous dispatch state for cycling detection
+        self._prev_dispatch_kw = self._last_dispatch_kw
+
+        # Calculate actual power using predict_dispatch helper
+        actual_power = self.predict_dispatch(action_charge_fraction, dt)
+
         # 5. Update State of Charge (SoC) based on actual power
         if actual_power < 0:  # Charging
             self._soc += (-actual_power * self._eta_charge * dt) / self._capacity_kwh
         elif actual_power > 0:  # Discharging
-            self._soc -= (actual_power / (self._eta_discharge * dt)) / self._capacity_kwh
+            self._soc -= (
+                actual_power / (self._eta_discharge * dt)
+            ) / self._capacity_kwh
 
         # Ensure floating-point clipping within safe bounds
         self._soc = max(self._soc_min, min(self._soc_max, self._soc))

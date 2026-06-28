@@ -14,11 +14,13 @@ Design reference: docs/module_1_profile_generator.md §Output Structure
 
 from __future__ import annotations
 
+# standard library
 import argparse
 import logging
 import sys
 from pathlib import Path
 
+# local
 from p2p_energy_trading.constants import DEFAULT_SEED
 from p2p_energy_trading.exceptions import ProfileGenerationError
 from p2p_energy_trading.modules.profile_generator.generator import (

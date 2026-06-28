@@ -1,0 +1,42 @@
+# P2P Energy Trading System - Evaluation Configuration File
+
+training_config: "config/training_config.yaml"
+checkpoint_path: "checkpoints/best_model"
+
+evaluation:
+  num_seeds: 5
+  seeds:
+    - 42
+    - 123
+    - 456
+    - 789
+    - 1024
+  num_episodes_per_seed: 20
+  eval_episode_starts:
+    - 0
+    - 168
+    - 336
+    - 504
+    - 672
+    - 840
+    - 1008
+    - 1176
+    - 1344
+    - 1512
+    - 1680
+    - 1848
+    - 2016
+    - 2184
+    - 2352
+    - 2520
+    - 2688
+    - 2856
+    - 3024
+    - 3192
+  results_dir: "results"
+  experiments:
+    - "trained"
+    - "grid_only"
+    - "random"
+    - "heuristic"
+    - "no_battery"

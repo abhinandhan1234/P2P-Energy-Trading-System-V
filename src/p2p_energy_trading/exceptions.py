@@ -56,3 +56,27 @@ class ExperimentNotFoundError(P2PEnergyTradingError):
 
     Raised when an API call references a non-existent experiment.
     """
+
+
+class ConfigNotFoundError(P2PEnergyTradingError):
+    """Configuration file not found (Module 10)."""
+
+
+class ConfigMismatchError(P2PEnergyTradingError):
+    """Unsafe configuration change during resume (Module 10)."""
+
+
+class InvalidStateError(P2PEnergyTradingError):
+    """Operation not allowed in the current state (Module 10)."""
+
+
+class ProcessError(P2PEnergyTradingError):
+    """Subprocess failed to launch or run correctly (Module 10)."""
+
+
+class ResourceError(P2PEnergyTradingError):
+    """Insufficient resources on local machine (Module 10)."""
+
+
+class RegistryError(P2PEnergyTradingError):
+    """Registry data corrupted or inaccessible (Module 10)."""

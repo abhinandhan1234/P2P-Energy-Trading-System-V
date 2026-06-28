@@ -8,19 +8,23 @@ Design reference: docs/module_3_market_engine.md
 
 from __future__ import annotations
 
+# standard library
 import logging
 import math
+
+# third party
 import numpy as np
 
+# local
 from p2p_energy_trading.constants import (
     ALL_AGENT_IDS,
-    COLLEGE_AGENT_ID,
     BATTERY_CAPACITY_KWH,
-    BATTERY_POWER_KW,
     BATTERY_EFFICIENCY,
-    BATTERY_SOC_MIN,
-    BATTERY_SOC_MAX,
     BATTERY_MIN_DISPATCH_KW,
+    BATTERY_POWER_KW,
+    BATTERY_SOC_MAX,
+    BATTERY_SOC_MIN,
+    COLLEGE_AGENT_ID,
     ENERGY_BALANCE_TOLERANCE_KW,
 )
 from p2p_energy_trading.exceptions import MarketClearingError
@@ -138,7 +142,9 @@ def process_settlements(
         offers[aid] = sell_frac * available_surplus
 
     # 4. Clear P2P Market
-    p2p_bought, p2p_sold, total_volume, curtailment_applied = clear_market_p2p(bids, offers)
+    p2p_bought, p2p_sold, total_volume, curtailment_applied = clear_market_p2p(
+        bids, offers
+    )
 
     # 5. Financial rates and fallback quantities
     p2p_price = (grid_buy_rate + grid_sell_rate) / 2.0

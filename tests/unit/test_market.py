@@ -5,32 +5,32 @@ Design reference: docs/module_3_market_engine.md
 
 from __future__ import annotations
 
+# standard library
 import math
-from dataclasses import dataclass, replace
-import pytest
-import numpy as np
 
+# third party
+import numpy as np
+import pytest
+
+# local
 from p2p_energy_trading.constants import (
     ALL_AGENT_IDS,
-    COLLEGE_AGENT_ID,
     BATTERY_CAPACITY_KWH,
-    BATTERY_POWER_KW,
     BATTERY_EFFICIENCY,
     BATTERY_SOC_MIN,
-    BATTERY_SOC_MAX,
-    BATTERY_MIN_DISPATCH_KW,
+    COLLEGE_AGENT_ID,
 )
 from p2p_energy_trading.exceptions import MarketClearingError
 from p2p_energy_trading.modules.market import (
     clear_market_p2p,
     process_settlements,
-    SettlementRecord,
-    MarketState,
 )
 
 
 @pytest.fixture
-def base_market_inputs() -> tuple[dict[str, float], dict[str, float], dict[str, np.ndarray]]:
+def base_market_inputs() -> tuple[
+    dict[str, float], dict[str, float], dict[str, np.ndarray]
+]:
     """Fixture providing zeroed inputs for all 21 agents to pass validation.
 
     Returns:
@@ -227,16 +227,21 @@ class TestMarketSettlement:
         # SOC = 0.5. Discharge energy limit: (0.5 - 0.1) * 500 = 200 kWh.
         # Max discharge power over dt=1.0: 200 * sqrt(0.9) = 189.7366 kW
         # actual power = min(200, 189.7366) = 189.7366 kW
-        expected_dispatch = min(200.0, (0.5 - BATTERY_SOC_MIN) * BATTERY_CAPACITY_KWH * math.sqrt(BATTERY_EFFICIENCY))
-
-        records, state = process_settlements(
-            demands, solar, actions, 0.5, 8.15, 3.56
+        expected_dispatch = min(
+            200.0,
+            (0.5 - BATTERY_SOC_MIN)
+            * BATTERY_CAPACITY_KWH
+            * math.sqrt(BATTERY_EFFICIENCY),
         )
+
+        records, state = process_settlements(demands, solar, actions, 0.5, 8.15, 3.56)
 
         # Net power deficit before market: 200.0 - 0.0 - 189.7366 = 10.2634 kW
         # Since buy_fraction = 1.0, college P2P bid should be 10.2634 kW
         rec = records[COLLEGE_AGENT_ID]
-        assert rec.p2p_bought_kw + rec.grid_bought_kw == pytest.approx(200.0 - expected_dispatch)
+        assert rec.p2p_bought_kw + rec.grid_bought_kw == pytest.approx(
+            200.0 - expected_dispatch
+        )
 
     def test_college_battery_charge_behaviour(self, base_market_inputs):
         """Verify that charging the college battery increases its P2P demand and matches constraints."""
@@ -252,14 +257,14 @@ class TestMarketSettlement:
         # actual power = max(-200, -237.17) = -200.0 kW (charging 200 kW)
         expected_dispatch = -200.0
 
-        records, state = process_settlements(
-            demands, solar, actions, 0.5, 8.15, 3.56
-        )
+        records, state = process_settlements(demands, solar, actions, 0.5, 8.15, 3.56)
 
         # Net power deficit before market: 0.0 - 0.0 - (-200) = 200.0 kW
         # Since buy_fraction = 1.0, college P2P bid should be 200.0 kW
         rec = records[COLLEGE_AGENT_ID]
-        assert rec.p2p_bought_kw + rec.grid_bought_kw == pytest.approx(-expected_dispatch)
+        assert rec.p2p_bought_kw + rec.grid_bought_kw == pytest.approx(
+            -expected_dispatch
+        )
 
     def test_energy_balance_conservation(self, base_market_inputs):
         """Verify that process_settlements enforces energy balance and raises errors on violations."""
@@ -272,26 +277,20 @@ class TestMarketSettlement:
         actions["solar_01"] = np.array([0.0, 1.0, 0.5], dtype=np.float32)
 
         # Should pass without error
-        records, state = process_settlements(
-            demands, solar, actions, 0.5, 8.15, 3.56
-        )
+        records, state = process_settlements(demands, solar, actions, 0.5, 8.15, 3.56)
         assert state.total_p2p_volume == pytest.approx(10.0)
 
     def test_constraint_flag_placeholders(self, base_market_inputs):
         """Verify that voltage_violation and thermal_violation are initialized as False."""
         demands, solar, actions = base_market_inputs
-        records, state = process_settlements(
-            demands, solar, actions, 0.5, 8.15, 3.56
-        )
+        records, state = process_settlements(demands, solar, actions, 0.5, 8.15, 3.56)
         assert state.voltage_violation is False
         assert state.thermal_violation is False
 
     def test_frozen_dataclass_immutability(self, base_market_inputs):
         """Verify that SettlementRecord and MarketState are read-only (frozen)."""
         demands, solar, actions = base_market_inputs
-        records, state = process_settlements(
-            demands, solar, actions, 0.5, 8.15, 3.56
-        )
+        records, state = process_settlements(demands, solar, actions, 0.5, 8.15, 3.56)
 
         rec = records[COLLEGE_AGENT_ID]
         with pytest.raises(Exception):
@@ -338,9 +337,15 @@ class TestMarketSettlement:
         excess_discharge_actions = actions.copy()
         # Battery dispatch power is (0.5 - a2) * 2 * 250
         # If a2 = 0.3, desired power = 0.2 * 500 = 100 kW discharge
-        excess_discharge_actions[COLLEGE_AGENT_ID] = np.array([0.0, 1.0, 0.3], dtype=np.float32)
+        excess_discharge_actions[COLLEGE_AGENT_ID] = np.array(
+            [0.0, 1.0, 0.3], dtype=np.float32
+        )
         college_demands = demands.copy()
         college_demands[COLLEGE_AGENT_ID] = 10.0
 
-        with pytest.raises(MarketClearingError, match="Calculated local solar consumption is negative"):
-            process_settlements(college_demands, solar, excess_discharge_actions, 0.5, 8.15, 3.56)
+        with pytest.raises(
+            MarketClearingError, match="Calculated local solar consumption is negative"
+        ):
+            process_settlements(
+                college_demands, solar, excess_discharge_actions, 0.5, 8.15, 3.56
+            )

@@ -15,6 +15,7 @@ docs/
 .venv/
 venv/
 .env
+.venv311/
 
 # IDE
 .vscode/

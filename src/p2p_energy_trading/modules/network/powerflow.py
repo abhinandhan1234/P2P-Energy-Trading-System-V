@@ -9,20 +9,27 @@ Design reference: docs/module_2_pandapower_network.md
 
 from __future__ import annotations
 
+# standard library
 import logging
 from dataclasses import dataclass
+
+# third party
 import pandapower as pp
 from pandapower import LoadflowNotConverged
 
+# local
 from p2p_energy_trading.constants import (
     ALL_AGENT_IDS,
     COLLEGE_AGENT_ID,
-    POWERFLOW_MAX_RETRIES,
     POWERFLOW_DEFAULT_TOLERANCE,
+    POWERFLOW_MAX_RETRIES,
     POWERFLOW_RELAXED_TOLERANCE,
 )
 from p2p_energy_trading.exceptions import PowerFlowError
-from p2p_energy_trading.modules.network.network_builder import get_load_index, get_sgen_index
+from p2p_energy_trading.modules.network.network_builder import (
+    get_load_index,
+    get_sgen_index,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -30,11 +37,12 @@ logger = logging.getLogger(__name__)
 @dataclass
 class PowerFlowResult:
     """Results extracted from a converged power flow."""
+
     converged: bool
-    bus_vm_pu: dict[int, float]        # bus index → voltage magnitude (p.u.)
-    line_loading_pct: dict[int, float]   # line index → loading (%)
+    bus_vm_pu: dict[int, float]  # bus index → voltage magnitude (p.u.)
+    line_loading_pct: dict[int, float]  # line index → loading (%)
     trafo_loading_pct: dict[int, float]  # trafo index → loading (%)
-    p_grid_kw: float                    # net grid import (+ = import, - = export)
+    p_grid_kw: float  # net grid import (+ = import, - = export)
 
 
 def update_network_loads(
@@ -65,7 +73,9 @@ def update_network_loads(
                 if aid == COLLEGE_AGENT_ID:
                     # College sgen represents combined solar and battery dispatch
                     college_solar = solar_kw.get(aid, 0.0)
-                    net.sgen.at[sgen_idx, "p_mw"] = (college_solar + battery_dispatch_kw) / 1000.0
+                    net.sgen.at[sgen_idx, "p_mw"] = (
+                        college_solar + battery_dispatch_kw
+                    ) / 1000.0
                 else:
                     solar_gen = solar_kw.get(aid, 0.0)
                     net.sgen.at[sgen_idx, "p_mw"] = solar_gen / 1000.0
@@ -135,4 +145,6 @@ def run_power_flow(
         current_tolerance = POWERFLOW_RELAXED_TOLERANCE
 
     # If we get here, all retries failed
-    raise PowerFlowError("PandaPower Newton-Raphson solver failed to converge after all retries.")
+    raise PowerFlowError(
+        "PandaPower Newton-Raphson solver failed to converge after all retries."
+    )
