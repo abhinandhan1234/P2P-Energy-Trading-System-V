@@ -46,7 +46,8 @@ class TestNetworkBuilder:
         net = build_network()
         assert isinstance(net, pp.pandapowerNet)
 
-        # Expected buses: 33 primary + 1 utility HV slack + 21 agent secondary = 55 buses
+        # Expected buses: 33 primary + 1 utility HV slack + 21 agent secondary
+        # = 55 buses
         assert len(net.bus) == 55
 
         # Expected lines: exactly 32 primary feeder lines
@@ -88,7 +89,8 @@ class TestNetworkBuilder:
             get_load_index("invalid_agent")
 
     def test_sgen_indexes(self):
-        """Verify sgen indices exist for college/solar, and raise error for consumers."""
+        """Verify sgen indices exist for college/solar, and raise error for
+        consumers."""
         sgen_idxs = set()
         for aid in SOLAR_AGENT_IDS + [COLLEGE_AGENT_ID]:
             idx = get_sgen_index(aid)
@@ -155,7 +157,8 @@ class TestPowerFlow:
     def test_power_flow_divergence_handling(self):
         """Check that extreme load values trigger a PowerFlowError on solver failure."""
         net = build_network()
-        # Inject an physically impossible load of 1,000,000 kW (1,000 MW) at a single bus
+        # Inject an physically impossible load of 1,000,000 kW (1,000 MW) at
+        # a single bus
         demands = {ALL_AGENT_IDS[0]: 1e6}
         update_network_loads(net, demands, {}, 0.0)
 

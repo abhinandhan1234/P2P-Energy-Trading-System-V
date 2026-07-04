@@ -67,6 +67,7 @@ def run_evaluation(
     checkpoint_path = checkpoint_path_override or eval_cfg.get(
         "checkpoint_path", "checkpoints/best_model"
     )
+    checkpoint_path = str(Path(checkpoint_path).resolve())
 
     eval_settings = eval_cfg.get("evaluation", {})
     results_dir = Path(
@@ -117,18 +118,35 @@ def run_evaluation(
 
     # 5. Load Trained RLlib Policy if requested
     algo = None
+    modules = {}
     if "trained" in experiments or "no_battery" in experiments:
         if not RAY_AVAILABLE:
             raise ImportError(
-                "Ray/RLlib is not installed, but evaluation requested Trained Policy. "
-                "Baseline evaluation must continue functioning even when Ray is unavailable. "
-                "Only checkpoint loading and trained-policy evaluation require Ray."
+                "Ray/RLlib is not installed, but evaluation requested"
+                " Trained Policy. "
+                "Baseline evaluation must continue functioning even when"
+                " Ray is unavailable. "
+                "Only checkpoint loading and trained-policy evaluation"
+                " require Ray."
             )
         logger.info(
             "Restoring trained MAPPO policies from checkpoint: %s", checkpoint_path
         )
+        # Register environment with RLlib before restoring the checkpoint
+        # local
+        from p2p_energy_trading.rl.env_registration import register_p2p_environment
+
+        register_p2p_environment()
+
         # Restore algorithm using New API Stack checkpoint loading
         algo = Algorithm.from_checkpoint(checkpoint_path)
+
+        # Retrieve sub-modules for evaluation inference
+        modules = {
+            "policy_college": algo.get_module("policy_college"),
+            "policy_solar": algo.get_module("policy_solar"),
+            "policy_consumer": algo.get_module("policy_consumer"),
+        }
 
     # 6. Initialize Metric Collector
     collector = MetricCollector(results_dir=results_dir)
@@ -192,6 +210,9 @@ def run_evaluation(
 
                     if exp in ["trained", "no_battery"]:
                         # Compute action using loaded RLlib policies
+                        # third party
+                        import torch
+
                         for aid in ALL_AGENT_IDS:
                             # Standard MAPPO policy mapping logic
                             if aid == COLLEGE_AGENT_ID:
@@ -201,10 +222,22 @@ def run_evaluation(
                             else:
                                 pid = "policy_consumer"
 
-                            # Retrieve deterministic action (explore=False)
-                            action[aid] = algo.compute_single_action(
-                                obs[aid]["obs"], policy_id=pid, explore=False
-                            )
+                            module = modules[pid]
+                            device = next(module.parameters()).device
+
+                            # Convert observation to PyTorch tensor
+                            obs_tensor = torch.tensor(
+                                obs[aid]["obs"], dtype=torch.float32, device=device
+                            ).unsqueeze(0)
+
+                            # Run inference
+                            with torch.no_grad():
+                                output = module.forward_inference({"obs": obs_tensor})
+
+                            # Action distribution inputs contains the mean at [:, :3]
+                            # Extract continuous action and convert back to numpy
+                            action_dist_inputs = output["action_dist_inputs"]
+                            action[aid] = action_dist_inputs[0, :3].cpu().numpy()
 
                         # Apply battery override for No-Battery Ablation
                         if exp == "no_battery":
@@ -287,7 +320,8 @@ def main() -> None:
         "--experiments",
         type=str,
         default=None,
-        help="Comma-separated list of experiments to run (e.g. trained,grid_only,random,heuristic,no_battery).",
+        help="Comma-separated list of experiments to run (e.g."
+        " trained,grid_only,random,heuristic,no_battery).",
     )
     args = parser.parse_args()
 

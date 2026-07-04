@@ -1,0 +1,28 @@
+{
+    "summary": {
+        "trained": {
+            "cost_mean": 301994.8233478159,
+            "cost_std": 0.0,
+            "p2p_volume_mean": 93.02318242409989,
+            "p2p_volume_std": 0.0,
+            "voltage_violation_rate_mean": 0.04585798816568047,
+            "voltage_violation_rate_std": 0.0,
+            "thermal_violation_rate_mean": 0.0,
+            "thermal_violation_rate_std": 0.0,
+            "p2p_utilisation_mean": 0.010497328276106804,
+            "p2p_utilisation_std": 0.0,
+            "campus_welfare_mean": 528.3716761688873,
+            "campus_welfare_std": 0.0,
+            "grid_import_mean": 51111.60724424142,
+            "grid_import_std": 0.0,
+            "grid_export_mean": 32181.11676762689,
+            "grid_export_std": 0.0,
+            "episode_return_mean": -520.7635978599753,
+            "episode_return_std": 9.79621742067939e-13,
+            "battery_cycles_mean": 0.5785744674503803,
+            "battery_cycles_std": 0.0,
+            "cost_reduction_pct": 0.0
+        }
+    },
+    "significance_tests": {}
+}

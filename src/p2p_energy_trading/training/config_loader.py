@@ -2,7 +2,8 @@
 
 Loads, merges, and validates configuration parameters from YAML files and CLI overrides.
 Ensures all file paths are resolved to absolute paths relative to the project root,
-and validates parameter bounds and consistency constraints (e.g. batch size divisibility).
+and validates parameter bounds and consistency constraints
+(e.g. batch size divisibility).
 
 Design reference: docs/module_8_training_pipeline.md §2
 """
@@ -25,7 +26,8 @@ PROJECT_ROOT = Path(__file__).resolve().parents[3]
 
 
 def resolve_absolute_path(relative_path: str) -> str:
-    """Resolve a relative path string to an absolute path string relative to project root.
+    """Resolve a relative path string to an absolute path string
+    relative to project root.
 
     Args:
         relative_path: A file path string.
@@ -47,7 +49,8 @@ def load_training_config(
 
     Args:
         config_path: Path to the YAML configuration file.
-        overrides: Dictionary of flat dot-separated override keys (e.g. 'environment.seed').
+        overrides: Dictionary of flat dot-separated override keys
+            (e.g. 'environment.seed').
 
     Returns:
         The loaded and validated configuration dictionary.
@@ -66,7 +69,7 @@ def load_training_config(
         try:
             config = yaml.safe_load(f)
         except yaml.YAMLError as e:
-            raise ValueError(f"Failed to parse YAML configuration: {e}")
+            raise ValueError(f"Failed to parse YAML configuration: {e}") from e
 
     # Ensure structure exists
     if not isinstance(config, dict):
@@ -214,5 +217,6 @@ def validate_config(config: dict[str, Any]) -> None:
                 for layer_dim in layers:
                     if not isinstance(layer_dim, int) or layer_dim <= 0:
                         raise ValueError(
-                            f"ppo.{net}.hidden_layers dimensions must be positive integers."
+                            f"ppo.{net}.hidden_layers dimensions must be"
+                            " positive integers."
                         )

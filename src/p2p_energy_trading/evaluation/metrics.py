@@ -148,10 +148,12 @@ class MetricCollector:
             total_cost = group["net_cost"].sum()
 
             # 2. Market metrics
-            # Total cleared P2P volume is the sum of bought or sold (they are equal for the microgrid)
+            # Total cleared P2P volume is the sum of bought or sold
+            # (they are equal for the microgrid)
             total_p2p_volume = group["p2p_bought_kw"].sum()
 
-            # Max clearable volume is the sum over timesteps of min(total_surplus, total_deficit)
+            # Max clearable volume is the sum over timesteps of
+            # min(total_surplus, total_deficit)
             # Find step-level available surplus/deficit
             step_group = group.groupby("timestep")
             max_clearable_list = []
@@ -172,7 +174,8 @@ class MetricCollector:
             )
 
             # 3. Grid Violations Rate
-            # Voltage violation occurs if voltage_violation is True for any agent in a timestep
+            # Voltage violation occurs if voltage_violation is True for any
+            # agent in a timestep
             # Total timesteps = length of step_group
             total_steps = len(step_group)
             voltage_violations = 0
@@ -209,8 +212,10 @@ class MetricCollector:
 
             # 5. economic welfare (Savings over grid-only counterfactual)
             # grid_buy_rate = 13.78, grid_sell_rate = 8.10, p2p_clearing_price = 10.94
-            # Buyer welfare: sum_buyers (13.78 - 10.94) * p2p_bought_kw = 2.84 * sum(p2p_bought)
-            # Seller welfare: sum_sellers (10.94 - 8.10) * p2p_sold_kw = 2.84 * sum(p2p_sold)
+            # Buyer welfare: sum_buyers (13.78 - 10.94) * p2p_bought_kw
+            # = 2.84 * sum(p2p_bought)
+            # Seller welfare: sum_sellers (10.94 - 8.10) * p2p_sold_kw
+            # = 2.84 * sum(p2p_sold)
             buyer_welfare = 2.84 * group["p2p_bought_kw"].sum()
             seller_welfare = 2.84 * group["p2p_sold_kw"].sum()
             campus_welfare = buyer_welfare + seller_welfare

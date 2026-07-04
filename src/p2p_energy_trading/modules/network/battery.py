@@ -61,12 +61,14 @@ class BatteryModel:
 
     @property
     def last_dispatch_kw(self) -> float:
-        """Last dispatch power in kW (positive = discharging, negative = charging)."""
+        """Last dispatch power in kW (positive = discharging,
+        negative = charging)."""
         return self._last_dispatch_kw
 
     @property
     def prev_dispatch_kw(self) -> float:
-        """Previous dispatch power in kW (positive = discharging, negative = charging)."""
+        """Previous dispatch power in kW (positive = discharging,
+        negative = charging)."""
         return self._prev_dispatch_kw
 
     def predict_dispatch(
@@ -84,9 +86,11 @@ class BatteryModel:
             dt: Timestep duration in hours (default 1.0).
 
         Returns:
-            Predicted dispatch power in kW (positive = discharging, negative = charging).
+            Predicted dispatch power in kW (positive = discharging,
+            negative = charging).
         """
-        # 1. Convert action to desired power: action=0.5 -> 0, action=0 -> 250 (discharge), action=1 -> -250 (charge)
+        # 1. Convert action to desired power: action=0.5 -> 0,
+        # action=0 -> 250 (discharge), action=1 -> -250 (charge)
         desired_power_kw = (0.5 - action_charge_fraction) * 2.0 * self._power_kw
 
         # 2. Clip by power rating (±250 kW)
@@ -159,7 +163,8 @@ class BatteryModel:
         """Reset the State of Charge for the start of an episode.
 
         Args:
-            initial_soc: Starting SoC fraction. If None, defaults to BATTERY_INITIAL_SOC_EVAL.
+            initial_soc: Starting SoC fraction. If None, defaults to
+                BATTERY_INITIAL_SOC_EVAL.
         """
         if initial_soc is not None:
             self._soc = float(initial_soc)

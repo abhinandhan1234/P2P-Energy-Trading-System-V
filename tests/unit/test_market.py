@@ -51,7 +51,8 @@ class TestMarketClearingP2P:
     """Verify core P2P market clearing logic and pro-rata allocations."""
 
     def test_supply_greater_than_demand_prorata(self):
-        """When supply > demand, sellers are curtailed pro-rata while buyers clear fully."""
+        """When supply > demand, sellers are curtailed pro-rata while buyers
+        clear fully."""
         bids = {"consumer_01": 10.0, "consumer_02": 10.0}
         offers = {"solar_01": 15.0, "solar_02": 25.0}
 
@@ -65,12 +66,14 @@ class TestMarketClearingP2P:
         assert p2p_bought["consumer_01"] == pytest.approx(10.0)
         assert p2p_bought["consumer_02"] == pytest.approx(10.0)
 
-        # Sellers curtailed pro-rata: solar_01 gets 15/40 * 20 = 7.5, solar_02 gets 25/40 * 20 = 12.5
+        # Sellers curtailed pro-rata: solar_01 gets 15/40 * 20 = 7.5,
+        # solar_02 gets 25/40 * 20 = 12.5
         assert p2p_sold["solar_01"] == pytest.approx(7.5)
         assert p2p_sold["solar_02"] == pytest.approx(12.5)
 
     def test_demand_greater_than_supply_prorata(self):
-        """When demand > supply, buyers are curtailed pro-rata while sellers clear fully."""
+        """When demand > supply, buyers are curtailed pro-rata while sellers
+        clear fully."""
         bids = {"consumer_01": 30.0, "consumer_02": 10.0}
         offers = {"solar_01": 10.0, "solar_02": 10.0}
 
@@ -84,7 +87,8 @@ class TestMarketClearingP2P:
         assert p2p_sold["solar_01"] == pytest.approx(10.0)
         assert p2p_sold["solar_02"] == pytest.approx(10.0)
 
-        # Buyers curtailed pro-rata: consumer_01 gets 30/40 * 20 = 15.0, consumer_02 gets 10/40 * 20 = 5.0
+        # Buyers curtailed pro-rata: consumer_01 gets 30/40 * 20 = 15.0,
+        # consumer_02 gets 10/40 * 20 = 5.0
         assert p2p_bought["consumer_01"] == pytest.approx(15.0)
         assert p2p_bought["consumer_02"] == pytest.approx(5.0)
 
@@ -101,7 +105,8 @@ class TestMarketClearingP2P:
         assert p2p_sold["solar_01"] == pytest.approx(10.0)
 
     def test_zero_supply(self):
-        """When supply is zero, cleared volume is zero and curtailment is not applied."""
+        """When supply is zero, cleared volume is zero and curtailment is not
+        applied."""
         bids = {"consumer_01": 10.0}
         offers: dict[str, float] = {}
 
@@ -112,7 +117,8 @@ class TestMarketClearingP2P:
         assert p2p_bought.get("consumer_01", 0.0) == 0.0
 
     def test_zero_demand(self):
-        """When demand is zero, cleared volume is zero and curtailment is not applied."""
+        """When demand is zero, cleared volume is zero and curtailment is not
+        applied."""
         bids: dict[str, float] = {}
         offers = {"solar_01": 10.0}
 
@@ -123,7 +129,8 @@ class TestMarketClearingP2P:
         assert p2p_sold.get("solar_01", 0.0) == 0.0
 
     def test_empty_market(self):
-        """When both supply and demand are zero, cleared volume is zero and curtailment is False."""
+        """When both supply and demand are zero, cleared volume is zero and
+        curtailment is False."""
         bids: dict[str, float] = {}
         offers: dict[str, float] = {}
 
@@ -137,7 +144,8 @@ class TestMarketSettlement:
     """Verify end-to-end settlement processing, pricing, and grid fallbacks."""
 
     def test_midpoint_price_calculation(self, base_market_inputs):
-        """Uniform price must be exactly the midpoint between buy and sell grid rates."""
+        """Uniform price must be exactly the midpoint between buy and sell
+        grid rates."""
         demands, solar, actions = base_market_inputs
         grid_buy = 8.0
         grid_sell = 4.0
@@ -152,7 +160,8 @@ class TestMarketSettlement:
             assert record.p2p_price == pytest.approx(expected_price)
 
     def test_utility_import_fallback(self, base_market_inputs):
-        """Residual deficit after P2P clearing must be imported from the grid at grid_buy_rate."""
+        """Residual deficit after P2P clearing must be imported from the grid
+        at grid_buy_rate."""
         demands, solar, actions = base_market_inputs
 
         # consumer_01 demand: 10 kW, bids 100% to P2P
@@ -184,7 +193,8 @@ class TestMarketSettlement:
         assert state.total_offers == pytest.approx(4.0)
 
     def test_utility_export_fallback(self, base_market_inputs):
-        """Residual surplus after P2P clearing must be exported to the grid at grid_sell_rate."""
+        """Residual surplus after P2P clearing must be exported to the grid
+        at grid_sell_rate."""
         demands, solar, actions = base_market_inputs
 
         # consumer_01 demand: 4 kW, bids 100% to P2P
@@ -216,7 +226,8 @@ class TestMarketSettlement:
         assert state.total_offers == pytest.approx(10.0)
 
     def test_college_battery_discharge_behaviour(self, base_market_inputs):
-        """Verify that discharging the college battery reduces its P2P demand and matches constraints."""
+        """Verify that discharging the college battery reduces its P2P demand
+        and matches constraints."""
         demands, solar, actions = base_market_inputs
 
         # College demand: 200 kW, battery discharging action: 0.1 (discharge)
@@ -244,7 +255,8 @@ class TestMarketSettlement:
         )
 
     def test_college_battery_charge_behaviour(self, base_market_inputs):
-        """Verify that charging the college battery increases its P2P demand and matches constraints."""
+        """Verify that charging the college battery increases its P2P demand
+        and matches constraints."""
         demands, solar, actions = base_market_inputs
 
         # College demand: 0 kW, solar: 0 kW, battery charging action: 0.9 (charge)
@@ -267,7 +279,8 @@ class TestMarketSettlement:
         )
 
     def test_energy_balance_conservation(self, base_market_inputs):
-        """Verify that process_settlements enforces energy balance and raises errors on violations."""
+        """Verify that process_settlements enforces energy balance and raises
+        errors on violations."""
         demands, solar, actions = base_market_inputs
 
         # Basic balanced market
@@ -281,23 +294,27 @@ class TestMarketSettlement:
         assert state.total_p2p_volume == pytest.approx(10.0)
 
     def test_constraint_flag_placeholders(self, base_market_inputs):
-        """Verify that voltage_violation and thermal_violation are initialized as False."""
+        """Verify that voltage_violation and thermal_violation are initialized
+        as False."""
         demands, solar, actions = base_market_inputs
         records, state = process_settlements(demands, solar, actions, 0.5, 8.15, 3.56)
         assert state.voltage_violation is False
         assert state.thermal_violation is False
 
     def test_frozen_dataclass_immutability(self, base_market_inputs):
-        """Verify that SettlementRecord and MarketState are read-only (frozen)."""
+        """Verify SettlementRecord and MarketState are read-only (frozen)."""
+        # standard library
+        import dataclasses
+
         demands, solar, actions = base_market_inputs
         records, state = process_settlements(demands, solar, actions, 0.5, 8.15, 3.56)
 
         rec = records[COLLEGE_AGENT_ID]
-        with pytest.raises(Exception):
+        with pytest.raises(dataclasses.FrozenInstanceError):
             # Try to mutate frozen dataclass
             rec.p2p_sold_kw = 100.0  # type: ignore
 
-        with pytest.raises(Exception):
+        with pytest.raises(dataclasses.FrozenInstanceError):
             # Try to mutate frozen dataclass
             state.total_p2p_volume = 100.0  # type: ignore
 

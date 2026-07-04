@@ -76,7 +76,7 @@ class EpisodeManager:
         except (json.JSONDecodeError, OSError) as e:
             raise ProfileGenerationError(
                 f"Failed to load or parse metadata.json at '{metadata_path}': {e}"
-            )
+            ) from e
 
         # Pre-load building profiles
         for aid in ALL_AGENT_IDS:
@@ -100,14 +100,16 @@ class EpisodeManager:
                 df = pd.read_parquet(file_path)
             except (OSError, ValueError) as e:
                 raise ProfileGenerationError(
-                    f"Failed to read Parquet file for agent '{aid}' at '{file_path}': {e}"
-                )
+                    f"Failed to read Parquet file for agent '{aid}'"
+                    f" at '{file_path}': {e}"
+                ) from e
 
             # Verification of columns
             for col in PROFILE_REQUIRED_COLUMNS:
                 if col not in df.columns:
                     raise ValueError(
-                        f"Profile Parquet for '{aid}' is missing required column: '{col}'"
+                        f"Profile Parquet for '{aid}' is missing"
+                        f" required column: '{col}'"
                     )
 
             # Coerce timestamps and convert columns to float
@@ -122,7 +124,9 @@ class EpisodeManager:
         first_aid = ALL_AGENT_IDS[0]
         expected_len = lengths[first_aid]
         mismatches = [
-            f"{aid} = {l} rows" for aid, l in lengths.items() if l != expected_len
+            f"{aid} = {length} rows"
+            for aid, length in lengths.items()
+            if length != expected_len
         ]
         if mismatches:
             msg = "\n".join([f"{first_aid} = {expected_len} rows"] + mismatches)
@@ -160,7 +164,8 @@ class EpisodeManager:
         current_episode_length = self._episode_length
         if total_hours <= current_episode_length:
             raise ValueError(
-                f"Configured episode_length ({current_episode_length}) exceeds available profile length ({total_hours})."
+                f"Configured episode_length ({current_episode_length})"
+                f" exceeds available profile length ({total_hours})."
             )
 
         # 1. Determine start index offset
@@ -180,7 +185,8 @@ class EpisodeManager:
 
         if start_idx + slice_len > total_hours:
             raise ValueError(
-                f"Requested slice (start: {start_idx}, length: {slice_len}) exceeds dataframe bounds ({total_hours})."
+                f"Requested slice (start: {start_idx}, length: {slice_len})"
+                f" exceeds dataframe bounds ({total_hours})."
             )
 
         for aid in ALL_AGENT_IDS:
@@ -188,7 +194,8 @@ class EpisodeManager:
             sliced_df = df.iloc[start_idx : start_idx + slice_len].copy()
             if len(sliced_df) != slice_len:
                 raise ValueError(
-                    f"Sliced profile length ({len(sliced_df)}) for {aid} does not match requested slice length ({slice_len})."
+                    f"Sliced profile length ({len(sliced_df)}) for {aid}"
+                    f" does not match requested slice length ({slice_len})."
                 )
             # Reset index to clean 0-indexed for step lookups
             sliced_df.reset_index(drop=True, inplace=True)

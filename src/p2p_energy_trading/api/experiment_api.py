@@ -1,7 +1,8 @@
 """Main Programmatic API Entry Point for Module 10.
 
 Aggregates sub-services (Config, Training, Evaluation, Results) and enforces
-configurable concurrency limits (default: 1 active training and 1 active evaluation subprocess).
+configurable concurrency limits (default: 1 active training and 1 active
+evaluation subprocess).
 
 Design reference: docs/module_10_api_layer.md §2, §3, §4
 """
@@ -27,7 +28,8 @@ from p2p_energy_trading.exceptions import ResourceError
 
 
 class P2PExperimentAPI:
-    """Core entry point aggregating services for configurations, training, rollouts, and results."""
+    """Core entry point aggregating services for configurations, training,
+    rollouts, and results."""
 
     def __init__(self, base_dir: str | Path = "experiments") -> None:
         """Initialize registry and sub-services.
@@ -92,7 +94,8 @@ class P2PExperimentAPI:
         ]
         if running_train:
             raise ResourceError(
-                f"A training subprocess is already executing: {running_train[0].experiment_id}. "
+                f"A training subprocess is already executing:"
+                f" {running_train[0].experiment_id}. "
                 "Concurrency limit reached (max: 1 training process)."
             )
 
@@ -110,7 +113,8 @@ class P2PExperimentAPI:
         ]
         if running_eval:
             raise ResourceError(
-                f"An evaluation subprocess is already executing: {running_eval[0].experiment_id}. "
+                f"An evaluation subprocess is already executing:"
+                f" {running_eval[0].experiment_id}. "
                 "Concurrency limit reached (max: 1 evaluation process)."
             )
 

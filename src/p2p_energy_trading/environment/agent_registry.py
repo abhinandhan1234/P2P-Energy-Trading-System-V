@@ -35,7 +35,7 @@ class AgentRegistry:
         for aid in ALL_AGENT_IDS:
             is_college = aid == COLLEGE_AGENT_ID
             is_solar = aid in SOLAR_AGENT_IDS
-            is_consumer = aid in CONSUMER_AGENT_IDS
+            _ = aid in CONSUMER_AGENT_IDS
 
             if is_college:
                 agent_type = "COLLEGE"

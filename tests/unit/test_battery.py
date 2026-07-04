@@ -98,7 +98,8 @@ class TestBatterySoCLimits:
         battery = BatteryModel(initial_soc=0.16)
         # Request full discharge (250 kW)
         dispatch = battery.step(0.0, dt=1.0)
-        # Max discharge possible: 30 kWh * eta_discharge / 1.0 h = 28.46 kW (above 25 kW min dispatch)
+        # Max discharge possible: 30 kWh * eta_discharge / 1.0 h = 28.46 kW
+        # (above 25 kW min dispatch)
         max_possible = 0.06 * BATTERY_CAPACITY_KWH * math.sqrt(0.90)
         assert dispatch == pytest.approx(max_possible)
         assert battery.soc == pytest.approx(BATTERY_SOC_MIN)
@@ -114,7 +115,8 @@ class TestBatterySoCLimits:
         battery = BatteryModel(initial_soc=0.89)
         # Request full charge (-250 kW)
         dispatch = battery.step(1.0, dt=1.0)
-        # Max charge possible: 30 kWh / (eta_charge * 1.0 h) = -31.62 kW (above 25 kW min dispatch)
+        # Max charge possible: 30 kWh / (eta_charge * 1.0 h) = -31.62 kW
+        # (above 25 kW min dispatch)
         max_possible_charge = 0.06 * BATTERY_CAPACITY_KWH / math.sqrt(0.90)
         assert dispatch == pytest.approx(-max_possible_charge)
         assert battery.soc == pytest.approx(BATTERY_SOC_MAX)
@@ -210,7 +212,8 @@ class TestBatteryGetState:
 
 
 class TestBatteryCycling:
-    """Verify that previous and current dispatch power are tracked for cycling detection."""
+    """Verify previous and current dispatch power are tracked for cycling
+    detection."""
 
     def test_direction_switch_tracking(self):
         battery = BatteryModel(initial_soc=0.50)

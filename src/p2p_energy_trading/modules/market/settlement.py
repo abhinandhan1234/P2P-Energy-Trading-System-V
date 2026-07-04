@@ -42,14 +42,16 @@ def process_settlements(
     grid_buy_rate: float,
     grid_sell_rate: float,
 ) -> tuple[dict[str, SettlementRecord], MarketState]:
-    """Execute battery dispatch scaling, P2P clearing, utility fallbacks, and settlements.
+    """Execute battery dispatch scaling, P2P clearing, utility fallbacks,
+    and settlements.
 
     This function does not mutate or store any state, operating as a pure calculation.
 
     Args:
         demands_kw: Dict mapping agent ID to raw profile demand (kW).
         solar_kw: Dict mapping agent ID to raw profile solar generation (kW).
-        actions: Dict mapping agent ID to 3-dim action vector [buy_frac, sell_frac, dispatch].
+        actions: Dict mapping agent ID to 3-dim action vector
+            [buy_frac, sell_frac, dispatch].
         battery_soc: Current State of Charge (fraction) of the college battery.
         grid_buy_rate: Grid buy rate (Rs/kWh).
         grid_sell_rate: Grid sell rate (Rs/kWh).
@@ -66,13 +68,15 @@ def process_settlements(
     for aid in ALL_AGENT_IDS:
         if demands_kw.get(aid, 0.0) < 0.0 or solar_kw.get(aid, 0.0) < 0.0:
             raise MarketClearingError(
-                f"Negative demand or solar input values for agent '{aid}' are not permitted."
+                f"Negative demand or solar input values for agent '{aid}'"
+                " are not permitted."
             )
         if aid not in actions:
             raise MarketClearingError(f"Missing action vector for agent '{aid}'.")
         if len(actions[aid]) != 3:
             raise MarketClearingError(
-                f"Action vector for agent '{aid}' must have length 3, got {len(actions[aid])}."
+                f"Action vector for agent '{aid}' must have length 3,"
+                f" got {len(actions[aid])}."
             )
 
     # 2. Pure evaluation of College battery dispatch for the current timestep (dt=1.0 h)
@@ -190,7 +194,8 @@ def process_settlements(
         # Check non-negativity
         if p2p_s < -1e-9 or p2p_b < -1e-9 or grid_s < -1e-9 or grid_b < -1e-9:
             raise MarketClearingError(
-                f"Negative quantities in cleared trades or fallback values for agent '{aid}'."
+                f"Negative quantities in cleared trades or fallback"
+                f" values for agent '{aid}'."
             )
 
         # Separate battery components for validation equations
@@ -201,7 +206,8 @@ def process_settlements(
         solar_used = demand - p2p_b - grid_b - b_discharge
         if solar_used < -b_charge - ENERGY_BALANCE_TOLERANCE_KW:
             raise MarketClearingError(
-                f"Calculated local solar consumption is negative for agent '{aid}': {solar_used:.4f} kW"
+                f"Calculated local solar consumption is negative for"
+                f" agent '{aid}': {solar_used:.4f} kW"
             )
         # Handle tiny floating point differences
         solar_used = max(-b_charge, solar_used)

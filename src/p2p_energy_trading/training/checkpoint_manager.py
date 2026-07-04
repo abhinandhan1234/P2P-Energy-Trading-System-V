@@ -1,8 +1,9 @@
 """Checkpoint Manager for the P2P Energy Trading training pipeline.
 
-Orchestrates saving, loading, metadata logging, and pruning of RLlib algorithm checkpoints.
-Supports periodic, stage-transition, and emergency checkpoints, as well as saving lightweight,
-policy-weights-only deployments for the best model.
+Orchestrates saving, loading, metadata logging, and pruning of RLlib algorithm
+checkpoints. Supports periodic, stage-transition, and emergency checkpoints,
+as well as saving lightweight, policy-weights-only deployments for the best
+model.
 
 Design reference: docs/module_8_training_pipeline.md §7
 """
@@ -167,7 +168,8 @@ class CheckpointManager:
 
         self.best_eval_reward = eval_reward
         logger.info(
-            "New best evaluation reward reached: %.3f (Previous best: %.3f). Saving best model.",
+            "New best evaluation reward reached: %.3f"
+            " (Previous best: %.3f). Saving best model.",
             eval_reward,
             self.best_eval_reward,
         )
@@ -202,7 +204,8 @@ class CheckpointManager:
         )
 
     def prune_checkpoints(self) -> None:
-        """Prune older periodic checkpoints, retaining only the last keep_last_n files."""
+        """Prune older periodic checkpoints, retaining only the last
+        keep_last_n files."""
         # Find all periodic checkpoints: checkpoints/checkpoint_XXXXXX/
         periodic_dirs: list[tuple[int, Path]] = []
         for item in self.checkpoint_dir.iterdir():
@@ -219,7 +222,7 @@ class CheckpointManager:
         # Delete older directories if limit exceeded
         if len(periodic_dirs) > self.keep_last_n:
             to_delete = periodic_dirs[: -self.keep_last_n]
-            for iter_num, path in to_delete:
+            for _iter_num, path in to_delete:
                 try:
                     shutil.rmtree(path, ignore_errors=True)
                     logger.info("Pruned old periodic checkpoint: '%s'", path)
@@ -235,13 +238,16 @@ class CheckpointManager:
         steps: int,
         stage: str,
     ) -> None:
-        """Helper to write configuration and state snapshot metadata into the checkpoint directory."""
+        """Helper to write configuration and state snapshot metadata
+        into the checkpoint directory."""
         metadata = {
             "iteration": iteration,
             "agent_steps": steps,
             "curriculum_stage": stage,
         }
-        with open(target_dir / "checkpoint_metadata.json", "w", encoding="utf-8") as f:
+        with open(
+            target_dir / "checkpoint_metadata.json", "w", encoding="utf-8"
+        ) as f:
             json.dump(metadata, f, indent=4)
 
         # Write YAML config copy

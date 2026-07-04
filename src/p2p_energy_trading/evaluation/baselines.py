@@ -29,11 +29,13 @@ class BaselinePolicy(ABC):
         """Compute actions for the given agent.
 
         Args:
-            obs: The agent observation (either a Dict containing 'obs' or the raw array).
+            obs: The agent observation (either a Dict containing 'obs'
+            or the raw array).
             agent_id: The ID string of the agent.
 
         Returns:
-            A 3-dimensional numpy array [buy_fraction, sell_fraction, battery_dispatch].
+            A 3-dimensional numpy array
+            [buy_fraction, sell_fraction, battery_dispatch].
         """
         pass
 
@@ -59,8 +61,9 @@ class GridOnlyBaseline(BaselinePolicy):
 class RandomBaseline(BaselinePolicy):
     """Random Baseline Policy.
 
-    Actions are sampled uniformly from Uniform(0, 1). To comply with physical constraints
-    and prevent crashes, the battery discharging action is self-corrected to not exceed
+    Actions are sampled uniformly from Uniform(0, 1). To comply with
+    physical constraints and prevent crashes, the battery discharging
+    action is self-corrected to not exceed
     the current local demand.
     """
 

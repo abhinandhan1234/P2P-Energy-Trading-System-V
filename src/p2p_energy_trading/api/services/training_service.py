@@ -178,7 +178,8 @@ class TrainingService:
             periodic_checkpoints = self.list_checkpoints(request.experiment_id)
             if not periodic_checkpoints:
                 raise CheckpointError(
-                    f"No checkpoints found for experiment '{request.experiment_id}' to resume."
+                    f"No checkpoints found for experiment"
+                    f" '{request.experiment_id}' to resume."
                 )
             checkpoint_dir = periodic_checkpoints[-1].checkpoint_path
 
@@ -262,7 +263,9 @@ class TrainingService:
             record.state = "FAILED"
             record.error_message = f"Process launch error: {e}"
             self.registry.update_experiment(record)
-            raise ProcessError(f"Failed to resume training subprocess: {e}") from e
+            raise ProcessError(
+                f"Failed to resume training subprocess: {e}"
+            ) from e
 
         record.pid = process.pid
         record.state = "RUNNING"
@@ -295,7 +298,8 @@ class TrainingService:
 
         logger.info("Stopping training experiment %s (PID: %d)", experiment_id, pid)
 
-        # Call terminate if process was started in this python process, otherwise call kill
+        # Call terminate if process was started in this python process,
+        # otherwise call kill
         proc = self.active_processes.get(experiment_id)
         if proc:
             try:
@@ -400,16 +404,20 @@ class TrainingService:
                     content = lf.read()
 
                 iter_pattern = re.compile(
-                    r"\[Iter\s+(\d+)\s+\|\s+Stage:\s+(\w+)\s+\|\s+Phase:\s+\d+\s+\|\s+Steps:\s+([\d.]+)M\]"
+                    r"\[Iter\s+(\d+)\s+\|\s+Stage:\s+(\w+)\s+"
+                    r"\|\s+Phase:\s+\d+\s+\|\s+Steps:\s+([\d.]+)M\]"
                 )
                 rew_pattern = re.compile(
-                    r"Reward:\s+college=([\d.-]+)\s+solar=([\d.-]+)\s+consumer=([\d.-]+)\s+mean=([\d.-]+)"
+                    r"Reward:\s+college=([\d.-]+)\s+solar=([\d.-]+)"
+                    r"\s+consumer=([\d.-]+)\s+mean=([\d.-]+)"
                 )
                 mkt_pattern = re.compile(
-                    r"Market:\s+P2P_vol=([\d.-]+)kWh\s+util=([\d.-]+)\s+campus_cost=₹?([\d,.-]+)"
+                    r"Market:\s+P2P_vol=([\d.-]+)kWh\s+util=([\d.-]+)"
+                    r"\s+campus_cost=₹?([\d,.-]+)"
                 )
                 grid_pattern = re.compile(
-                    r"Grid:\s+violations=([\d.-]+)\s+min_V=([\d.-]+)\s+max_loading=([\d.-]+)"
+                    r"Grid:\s+violations=([\d.-]+)\s+min_V=([\d.-]+)"
+                    r"\s+max_loading=([\d.-]+)"
                 )
                 loss_pattern = re.compile(
                     r"Training:\s+loss=([\d.-]+)\s+entropy=([\d.-]+)\s+KL=([\d.-]+)"
@@ -422,7 +430,8 @@ class TrainingService:
                     curr_stage = last_iter_match.group(2)
                     agent_steps = int(float(last_iter_match.group(3)) * 1_000_000)
 
-                    # Extract up to 1KB of text following this match to find metrics lines
+                    # Extract up to 1KB of text following this match
+                    # to find metrics lines
                     start_pos = last_iter_match.end()
                     block = content[start_pos : start_pos + 1024]
 

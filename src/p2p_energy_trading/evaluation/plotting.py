@@ -125,7 +125,8 @@ def prepare_plot_data(
                 exp_data.groupby(["hour"])["reward"].mean().to_dict()
             )
 
-    # 3. Market Volume Hourly Timeseries for a representative episode (e.g. episode_id = 0, seed = 42)
+    # 3. Market Volume Hourly Timeseries for a representative episode
+    # (e.g. episode_id = 0, seed = 42)
     rep_steps = steps_df[(steps_df["seed"] == 42) & (steps_df["episode_id"] == 0)]
     market_timeseries = {}
     if not rep_steps.empty:
@@ -137,7 +138,7 @@ def prepare_plot_data(
     # 4. Bus Voltages profile (represent minimum / maximum voltages over timesteps)
     voltage_profile = {}
     if not rep_steps.empty:
-        for exp, exp_data in rep_steps.groupby("experiment"):
+        for exp, _exp_data in rep_steps.groupby("experiment"):
             # We can represent voltage variation using step net costs or mock bus bounds
             min_v = [
                 1.0
@@ -601,6 +602,7 @@ def generate_plots(plot_data: dict[str, Any], output_dir: str | Path) -> None:
     save_fig("fig_ablation_summary")
 
     logger.info(
-        "Successfully generated all 14 evaluation figures in PNG and PDF formats under %s.",
+        "Successfully generated all 14 evaluation figures"
+        " in PNG and PDF formats under %s.",
         plots_dir,
     )

@@ -1,0 +1,2393 @@
+﻿[
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 97,
+      "row": 4
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\api\\experiment_api.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 4
+    },
+    "message": "Line too long (96 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 7,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 101,
+      "row": 30
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\api\\experiment_api.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 30
+    },
+    "message": "Line too long (100 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 30,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 98,
+      "row": 95
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\api\\experiment_api.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 95
+    },
+    "message": "Line too long (97 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 95,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 100,
+      "row": 113
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\api\\experiment_api.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 113
+    },
+    "message": "Line too long (99 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 113,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 92,
+      "row": 3
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\api\\services\\config_service.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 3
+    },
+    "message": "Line too long (91 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 7,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 90,
+      "row": 74
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\api\\services\\config_service.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 74
+    },
+    "message": "Line too long (89 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 74,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 97,
+      "row": 195
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\api\\services\\evaluation_service.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 195
+    },
+    "message": "Line too long (96 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 195,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 90,
+      "row": 4
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\api\\services\\results_service.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 4
+    },
+    "message": "Line too long (89 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 7,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 95,
+      "row": 33
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\api\\services\\results_service.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 33
+    },
+    "message": "Line too long (94 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 33,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 95,
+      "row": 35
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\api\\services\\results_service.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 35
+    },
+    "message": "Line too long (94 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 35,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 90,
+      "row": 36
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\api\\services\\results_service.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 36
+    },
+    "message": "Line too long (89 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 36,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 95,
+      "row": 39
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\api\\services\\results_service.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 39
+    },
+    "message": "Line too long (94 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 39,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 94,
+      "row": 48
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\api\\services\\results_service.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 48
+    },
+    "message": "Line too long (93 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 48,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 96,
+      "row": 66
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\api\\services\\results_service.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 66
+    },
+    "message": "Line too long (95 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 66,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 97,
+      "row": 261
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\api\\services\\results_service.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 261
+    },
+    "message": "Line too long (96 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 261,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 96,
+      "row": 181
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\api\\services\\training_service.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 181
+    },
+    "message": "Line too long (95 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 181,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 92,
+      "row": 298
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\api\\services\\training_service.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 298
+    },
+    "message": "Line too long (91 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 298,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 91,
+      "row": 425
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\api\\services\\training_service.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 425
+    },
+    "message": "Line too long (90 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 425,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 95,
+      "row": 75
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\action_handler.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 75
+    },
+    "message": "Line too long (94 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 75,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "F841",
+    "end_location": {
+      "column": 24,
+      "row": 38
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\agent_registry.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 39
+          },
+          "location": {
+            "column": 1,
+            "row": 38
+          }
+        }
+      ],
+      "message": "Remove assignment to unused variable `is_consumer`"
+    },
+    "location": {
+      "column": 13,
+      "row": 38
+    },
+    "message": "Local variable `is_consumer` is assigned to but never used",
+    "name": "unused-variable",
+    "noqa_row": 38,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unused-variable"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 90,
+      "row": 23
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\compatibility.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 23
+    },
+    "message": "Line too long (89 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 23,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 94,
+      "row": 3
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\env.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 3
+    },
+    "message": "Line too long (93 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 7,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 102,
+      "row": 4
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\env.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 4
+    },
+    "message": "Line too long (101 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 7,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 108,
+      "row": 110
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\env.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 110
+    },
+    "message": "Line too long (107 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 110,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 100,
+      "row": 142
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\env.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 142
+    },
+    "message": "Line too long (99 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 142,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 106,
+      "row": 207
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\env.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 207
+    },
+    "message": "Line too long (105 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 207,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 90,
+      "row": 221
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\env.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 221
+    },
+    "message": "Line too long (89 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 221,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 93,
+      "row": 262
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\env.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 262
+    },
+    "message": "Line too long (92 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 263,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 114,
+      "row": 267
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\env.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 267
+    },
+    "message": "Line too long (113 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 267,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 90,
+      "row": 298
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\env.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 298
+    },
+    "message": "Line too long (89 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 299,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 108,
+      "row": 315
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\env.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 315
+    },
+    "message": "Line too long (107 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 315,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 100,
+      "row": 341
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\env.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 341
+    },
+    "message": "Line too long (99 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 341,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 99,
+      "row": 434
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\env.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 434
+    },
+    "message": "Line too long (98 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 434,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 91,
+      "row": 448
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\env.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 448
+    },
+    "message": "Line too long (90 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 451,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 91,
+      "row": 449
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\env.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 449
+    },
+    "message": "Line too long (90 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 451,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 95,
+      "row": 450
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\env.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 450
+    },
+    "message": "Line too long (94 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 451,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 90,
+      "row": 455
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\env.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 455
+    },
+    "message": "Line too long (89 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 455,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 92,
+      "row": 458
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\env.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 458
+    },
+    "message": "Line too long (91 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 458,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 93,
+      "row": 459
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\env.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 459
+    },
+    "message": "Line too long (92 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 459,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 110,
+      "row": 476
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\env.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 476
+    },
+    "message": "Line too long (109 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 476,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 92,
+      "row": 477
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\env.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 477
+    },
+    "message": "Line too long (91 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 477,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 91,
+      "row": 531
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\env.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 531
+    },
+    "message": "Line too long (90 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 533,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 99,
+      "row": 565
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\env.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 565
+    },
+    "message": "Line too long (98 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 565,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 90,
+      "row": 611
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\env.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 611
+    },
+    "message": "Line too long (89 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 611,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 91,
+      "row": 612
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\env.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 612
+    },
+    "message": "Line too long (90 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 612,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 111,
+      "row": 641
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\env.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 641
+    },
+    "message": "Line too long (110 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 642,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 104,
+      "row": 646
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\env.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 646
+    },
+    "message": "Line too long (103 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 646,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 116,
+      "row": 675
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\env.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 675
+    },
+    "message": "Line too long (115 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 675,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 91,
+      "row": 103
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\episode_manager.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 103
+    },
+    "message": "Line too long (90 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 103,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 91,
+      "row": 110
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\episode_manager.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 110
+    },
+    "message": "Line too long (90 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 110,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 122,
+      "row": 163
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\episode_manager.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 163
+    },
+    "message": "Line too long (121 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 163,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 119,
+      "row": 183
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\episode_manager.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 183
+    },
+    "message": "Line too long (118 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 183,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 127,
+      "row": 191
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\environment\\episode_manager.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 191
+    },
+    "message": "Line too long (126 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 191,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 90,
+      "row": 32
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\evaluation\\baselines.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 32
+    },
+    "message": "Line too long (89 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 37,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 90,
+      "row": 62
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\evaluation\\baselines.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 62
+    },
+    "message": "Line too long (89 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 65,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 95,
+      "row": 124
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\evaluation\\evaluate.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 124
+    },
+    "message": "Line too long (94 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 124,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 113,
+      "row": 290
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\evaluation\\evaluate.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 290
+    },
+    "message": "Line too long (112 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 290,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 103,
+      "row": 151
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\evaluation\\metrics.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 151
+    },
+    "message": "Line too long (102 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 151,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 98,
+      "row": 154
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\evaluation\\metrics.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 154
+    },
+    "message": "Line too long (97 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 154,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 96,
+      "row": 175
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\evaluation\\metrics.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 175
+    },
+    "message": "Line too long (95 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 175,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 97,
+      "row": 212
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\evaluation\\metrics.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 212
+    },
+    "message": "Line too long (96 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 212,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 94,
+      "row": 213
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\evaluation\\metrics.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 213
+    },
+    "message": "Line too long (93 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 213,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 103,
+      "row": 128
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\evaluation\\plotting.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 128
+    },
+    "message": "Line too long (102 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 128,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "B007",
+    "end_location": {
+      "column": 26,
+      "row": 140
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\evaluation\\plotting.py",
+    "fix": null,
+    "location": {
+      "column": 18,
+      "row": 140
+    },
+    "message": "Loop control variable `exp_data` not used within loop body",
+    "name": "unused-loop-control-variable",
+    "noqa_row": 140,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unused-loop-control-variable"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 93,
+      "row": 604
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\evaluation\\plotting.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 604
+    },
+    "message": "Line too long (92 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 604,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 92,
+      "row": 35
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\evaluation\\report.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 35
+    },
+    "message": "Line too long (91 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 35,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 115,
+      "row": 54
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\evaluation\\report.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 54
+    },
+    "message": "Line too long (114 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 54,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 104,
+      "row": 66
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\evaluation\\report.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 66
+    },
+    "message": "Line too long (103 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 66,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 93,
+      "row": 101
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\evaluation\\report.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 101
+    },
+    "message": "Line too long (92 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 101,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 94,
+      "row": 109
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\evaluation\\report.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 109
+    },
+    "message": "Line too long (93 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 109,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 95,
+      "row": 134
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\evaluation\\report.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 134
+    },
+    "message": "Line too long (94 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 134,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 107,
+      "row": 144
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\evaluation\\report.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 144
+    },
+    "message": "Line too long (106 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 144,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 113,
+      "row": 148
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\evaluation\\report.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 148
+    },
+    "message": "Line too long (112 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 148,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 101,
+      "row": 157
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\evaluation\\report.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 157
+    },
+    "message": "Line too long (100 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 157,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 122,
+      "row": 165
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\evaluation\\report.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 165
+    },
+    "message": "Line too long (121 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 165,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 90,
+      "row": 176
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\evaluation\\report.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 176
+    },
+    "message": "Line too long (89 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 176,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 109,
+      "row": 191
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\evaluation\\report.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 191
+    },
+    "message": "Line too long (108 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 191,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 111,
+      "row": 194
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\evaluation\\report.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 194
+    },
+    "message": "Line too long (110 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 194,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 111,
+      "row": 197
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\evaluation\\report.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 197
+    },
+    "message": "Line too long (110 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 197,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 108,
+      "row": 200
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\evaluation\\report.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 200
+    },
+    "message": "Line too long (107 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 200,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 90,
+      "row": 83
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\evaluation\\statistical.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 83
+    },
+    "message": "Line too long (89 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 84,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 102,
+      "row": 115
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\evaluation\\statistical.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 115
+    },
+    "message": "Line too long (101 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 115,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 91,
+      "row": 45
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\modules\\market\\settlement.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 45
+    },
+    "message": "Line too long (90 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 64,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 95,
+      "row": 52
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\modules\\market\\settlement.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 52
+    },
+    "message": "Line too long (94 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 64,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 94,
+      "row": 69
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\modules\\market\\settlement.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 69
+    },
+    "message": "Line too long (93 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 69,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 96,
+      "row": 75
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\modules\\market\\settlement.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 75
+    },
+    "message": "Line too long (95 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 75,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 95,
+      "row": 193
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\modules\\market\\settlement.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 193
+    },
+    "message": "Line too long (94 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 193,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 105,
+      "row": 204
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\modules\\market\\settlement.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 204
+    },
+    "message": "Line too long (104 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 204,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 91,
+      "row": 69
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\modules\\network\\battery.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 69
+    },
+    "message": "Line too long (90 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 69,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 90,
+      "row": 87
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\modules\\network\\battery.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 87
+    },
+    "message": "Line too long (89 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 88,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 118,
+      "row": 89
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\modules\\network\\battery.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 89
+    },
+    "message": "Line too long (117 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 89,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 95,
+      "row": 162
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\modules\\network\\battery.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 162
+    },
+    "message": "Line too long (94 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 163,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 96,
+      "row": 103
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\modules\\network\\powerflow.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 103
+    },
+    "message": "Line too long (95 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 107,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 90,
+      "row": 129
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\modules\\profile_generator\\loader.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 129
+    },
+    "message": "Line too long (89 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 129,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 93,
+      "row": 73
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\modules\\profile_generator\\run.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 73
+    },
+    "message": "Line too long (92 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 73,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 90,
+      "row": 130
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\rl\\callbacks.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 130
+    },
+    "message": "Line too long (89 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 130,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 92,
+      "row": 208
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\rl\\callbacks.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 208
+    },
+    "message": "Line too long (91 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 208,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 92,
+      "row": 3
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\training\\checkpoint_manager.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 3
+    },
+    "message": "Line too long (91 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 8,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 95,
+      "row": 4
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\training\\checkpoint_manager.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 4
+    },
+    "message": "Line too long (94 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 8,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 98,
+      "row": 170
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\training\\checkpoint_manager.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 170
+    },
+    "message": "Line too long (97 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 170,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 91,
+      "row": 205
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\training\\checkpoint_manager.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 205
+    },
+    "message": "Line too long (90 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 205,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "B007",
+    "end_location": {
+      "column": 25,
+      "row": 222
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\training\\checkpoint_manager.py",
+    "fix": null,
+    "location": {
+      "column": 17,
+      "row": 222
+    },
+    "message": "Loop control variable `iter_num` not used within loop body",
+    "name": "unused-loop-control-variable",
+    "noqa_row": 222,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unused-loop-control-variable"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 103,
+      "row": 238
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\training\\checkpoint_manager.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 238
+    },
+    "message": "Line too long (102 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 238,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 91,
+      "row": 5
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\training\\config_loader.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 5
+    },
+    "message": "Line too long (90 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 8,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 91,
+      "row": 28
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\training\\config_loader.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 28
+    },
+    "message": "Line too long (90 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 35,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 93,
+      "row": 50
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\training\\config_loader.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 50
+    },
+    "message": "Line too long (92 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 58,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 93,
+      "row": 217
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\training\\config_loader.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 217
+    },
+    "message": "Line too long (92 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 217,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 92,
+      "row": 3
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\training\\curriculum.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 3
+    },
+    "message": "Line too long (91 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 8,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 95,
+      "row": 145
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\training\\curriculum.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 145
+    },
+    "message": "Line too long (94 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 147,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 100,
+      "row": 171
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\training\\curriculum.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 171
+    },
+    "message": "Line too long (99 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 171,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "B007",
+    "end_location": {
+      "column": 20,
+      "row": 176
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\training\\curriculum.py",
+    "fix": null,
+    "location": {
+      "column": 17,
+      "row": 176
+    },
+    "message": "Loop control variable `pid` not used within loop body",
+    "name": "unused-loop-control-variable",
+    "noqa_row": 176,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unused-loop-control-variable"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 109,
+      "row": 258
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\training\\curriculum.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 258
+    },
+    "message": "Line too long (108 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 258,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 97,
+      "row": 273
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\training\\curriculum.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 273
+    },
+    "message": "Line too long (96 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 273,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 95,
+      "row": 88
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\training\\train.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 88
+    },
+    "message": "Line too long (94 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 88,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 94,
+      "row": 126
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\training\\train.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 126
+    },
+    "message": "Line too long (93 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 126,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 90,
+      "row": 131
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\training\\train.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 131
+    },
+    "message": "Line too long (89 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 131,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 90,
+      "row": 136
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\training\\train.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 136
+    },
+    "message": "Line too long (89 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 136,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 96,
+      "row": 144
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\training\\train.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 144
+    },
+    "message": "Line too long (95 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 144,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 107,
+      "row": 153
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\training\\train.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 153
+    },
+    "message": "Line too long (106 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 153,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 100,
+      "row": 209
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\training\\train.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 209
+    },
+    "message": "Line too long (99 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 209,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 122,
+      "row": 210
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\training\\train.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 210
+    },
+    "message": "Line too long (121 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 210,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 98,
+      "row": 211
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\training\\train.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 211
+    },
+    "message": "Line too long (97 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 211,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 101,
+      "row": 212
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\training\\train.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 212
+    },
+    "message": "Line too long (100 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 212,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  },
+  {
+    "cell": null,
+    "code": "B023",
+    "end_location": {
+      "column": 75,
+      "row": 437
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\training\\train.py",
+    "fix": null,
+    "location": {
+      "column": 60,
+      "row": 437
+    },
+    "message": "Function definition does not bind loop variable `stage_overrides`",
+    "name": "function-uses-loop-variable",
+    "noqa_row": 437,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/function-uses-loop-variable"
+  },
+  {
+    "cell": null,
+    "code": "E501",
+    "end_location": {
+      "column": 106,
+      "row": 482
+    },
+    "filename": "C:\\Users\\Asus\\OneDrive\\Desktop\\P2P_Energy_Trading_System\\src\\p2p_energy_trading\\training\\train.py",
+    "fix": null,
+    "location": {
+      "column": 89,
+      "row": 482
+    },
+    "message": "Line too long (105 > 88)",
+    "name": "line-too-long",
+    "noqa_row": 482,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+  }
+]

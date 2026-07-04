@@ -77,10 +77,12 @@ def run_significance_tests(
 ) -> dict[str, dict[str, Any]]:
     """Compare a target experiment (e.g. trained) to all baseline strategies.
 
-    Computes Welch's t-test, Wilcoxon signed-rank test, and Cohen's d on episode costs.
+    Computes Welch's t-test, Wilcoxon signed-rank test, and Cohen's d on
+    episode costs.
 
     Raises:
-        ImportError: If SciPy is missing, preventing silent failure of thesis statistics.
+        ImportError: If SciPy is missing, preventing silent failure
+        of thesis statistics.
     """
     if not SCIPY_AVAILABLE:
         raise ImportError("SciPy is required for statistical evaluation.")
@@ -111,8 +113,10 @@ def run_significance_tests(
         # 1. Welch's t-test (unequal variance)
         t_stat, p_val = stats.ttest_ind(target_data, exp_data, equal_var=False)
 
-        # 2. Wilcoxon signed-rank test (paired samples since they share seeds/profiles)
-        # Note: If size is very small or differences are constant, wilcoxon can raise warnings/errors
+        # 2. Wilcoxon signed-rank test (paired samples since they share
+        # seeds/profiles)
+        # Note: If size is very small or differences are constant,
+        # wilcoxon can raise warnings/errors
         try:
             wilc_stat, wilc_p = stats.wilcoxon(target_data, exp_data)
         except Exception:

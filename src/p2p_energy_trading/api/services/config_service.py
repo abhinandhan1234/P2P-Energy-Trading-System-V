@@ -1,7 +1,8 @@
 """Configuration Service for Module 10 API Layer.
 
-Handles upload, schema validation, configuration comparison (safe vs breaking differences),
-and effective configuration exports by reusing Module 8's config loader.
+Handles upload, schema validation, configuration comparison (safe vs breaking
+differences), and effective configuration exports by reusing Module 8's config
+loader.
 
 Design reference: docs/module_10_api_layer.md §6
 """
@@ -71,7 +72,8 @@ class ConfigService:
         val_res = self.validate(config_path)
         if not val_res.valid:
             raise ConfigValidationError(
-                f"Configuration failed validation: {[e.message for e in val_res.errors]}"
+                f"Configuration failed validation:"
+                f" {[e.message for e in val_res.errors]}"
             )
 
         with open(path, encoding="utf-8") as f:

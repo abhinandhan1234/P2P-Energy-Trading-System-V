@@ -126,7 +126,8 @@ def _validate_dtypes(df: pd.DataFrame) -> None:
             expected_dtype == "float64" and "float" in actual_dtype
         ):
             raise ProfileGenerationError(
-                f"Column '{col}' has dtype '{actual_dtype}', expected '{expected_dtype}'"
+                f"Column '{col}' has dtype '{actual_dtype}',"
+                f" expected '{expected_dtype}'"
             )
 
 

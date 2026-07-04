@@ -811,7 +811,8 @@ class TestDeriveEnergyQuantities:
 
     def test_college_with_discharging_battery_pre_battery(self):
         """Battery discharging at college does not reduce pre-battery deficit."""
-        # demand=150, solar=100, dispatch=+50 (discharge) → pre-battery net = 150-100 = 50
+        # demand=150, solar=100, dispatch=+50 (discharge)
+        # → pre-battery net = 150-100 = 50
         surplus, deficit = _derive_energy_quantities(
             COLLEGE_AGENT_ID, demand_kw=150.0, solar_kw=100.0, battery_dispatch_kw=50.0
         )
@@ -820,7 +821,8 @@ class TestDeriveEnergyQuantities:
 
     def test_college_with_charging_battery_pre_battery(self):
         """Battery charging at college does not increase pre-battery deficit."""
-        # demand=100, solar=200, dispatch=-100 (charge) → pre-battery net = 100-200 = -100
+        # demand=100, solar=200, dispatch=-100 (charge)
+        # → pre-battery net = 100-200 = -100
         surplus, deficit = _derive_energy_quantities(
             COLLEGE_AGENT_ID,
             demand_kw=100.0,
@@ -879,7 +881,8 @@ class TestComputeAgentReward:
         assert r == expected
 
     def test_spec_example_2_full_phase2(self):
-        """§8 Example 2, Phase 2: Solar with violations, r_total ≈ -2.847 (with r_self)."""
+        """§8 Example 2, Phase 2: Solar with violations,
+        r_total ≈ -2.847 (with r_self)."""
         # Bus 7 = solar_01, line 6
         bus_vm = {i: 1.0 for i in range(40)}
         bus_vm[7] = 1.08
@@ -984,7 +987,7 @@ class TestComputeAgentReward:
             curriculum_phase=1,
         )
         # Should be r_econ + r_p2p + r_import only (no r_self, r_soc, etc.)
-        r_econ = 100.0 / 1000.0  # net_cost=-100 → r_econ_raw=+100
+        _ = 100.0 / 1000.0  # net_cost=-100 → r_econ_raw=+100
         assert math.isfinite(r_consumer)
         assert r_consumer > 0.0  # net income with P2P bonus
 

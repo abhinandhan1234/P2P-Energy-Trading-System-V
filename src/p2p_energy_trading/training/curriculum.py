@@ -1,8 +1,9 @@
 """Curriculum Manager for the P2P Energy Trading training pipeline.
 
-Automates progression through three training stages (Debug, Training, and Constraint-Aware)
-based on performance and stability metrics (episode count, policy entropy decay, reward
-improvement, grid violations, and P2P utilization ratios).
+Automates progression through three training stages (Debug, Training, and
+Constraint-Aware) based on performance and stability metrics (episode count,
+policy entropy decay, reward improvement, grid violations, and P2P utilization
+ratios).
 
 Design reference: docs/module_8_training_pipeline.md §6
 """
@@ -142,7 +143,8 @@ class CurriculumManager:
 
         Returns:
             Tuple containing:
-            - bool: True if progression criteria are met and stage transitions should trigger.
+            - bool: True if progression criteria are met and stage transitions
+              should trigger.
             - str: Name of the next stage (or the current stage if no transition).
         """
         # Append iteration metrics to history
@@ -168,12 +170,13 @@ class CurriculumManager:
             if total_episodes < 100:
                 return False, current_stage
 
-            # Criteria 2: Policy entropy is decreasing (requires at least 10 iterations of history)
+            # Criteria 2: Policy entropy is decreasing (requires at least
+            # 10 iterations of history)
             if len(self.history_entropy[POLICY_COLLEGE]) < 10:
                 return False, current_stage
 
             entropy_decay = True
-            for pid, h in self.history_entropy.items():
+            for _pid, h in self.history_entropy.items():
                 recent_avg = sum(h[-5:]) / 5.0
                 initial_avg = sum(h[:5]) / 5.0
                 if recent_avg >= initial_avg:
@@ -255,7 +258,8 @@ class CurriculumManager:
         Returns:
             True if all convergence criteria are satisfied.
         """
-        # Criteria 1: Mean episode reward stable over last 1000 episodes (represented by last 20 iterations)
+        # Criteria 1: Mean episode reward stable over last 1000 episodes
+        # (represented by last 20 iterations)
         if len(self.history_reward) < 20:
             return False
 
@@ -270,7 +274,8 @@ class CurriculumManager:
         # Check if they are low
         violations_low = False
         if voltage_violations is not None and thermal_violations is not None:
-            # We check if mean violations per episode are very low (< 1.68 timesteps out of 168)
+            # We check if mean violations per episode are very low
+            # (< 1.68 timesteps out of 168)
             if (voltage_violations + thermal_violations) < 1.68:
                 violations_low = True
         else:

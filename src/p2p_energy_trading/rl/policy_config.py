@@ -145,7 +145,9 @@ def build_ppo_config(
     from p2p_energy_trading.rl.centralized_critic import CentralizedCriticRLModule
 
     # 1. Register environment with Tune registry
-    register_env(ENV_NAME, lambda cfg: P2PEnergyTradingEnv(cfg))
+    from p2p_energy_trading.rl.env_registration import register_p2p_environment
+
+    register_p2p_environment()
 
     # 2. Get environment action/observation spaces for policy specifications
     temp_env = P2PEnergyTradingEnv(env_config)

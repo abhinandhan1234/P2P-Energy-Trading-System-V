@@ -1,7 +1,8 @@
 """Results Service for Module 10 API Layer.
 
-Retrieves and aggregates CSV metric logs, headlessly rendered plots, report documents,
-and LaTeX tables from completed experiment directories. Supports on-demand zip archiving.
+Retrieves and aggregates CSV metric logs, headlessly rendered plots, report
+documents, and LaTeX tables from completed experiment directories. Supports
+on-demand zip archiving.
 
 Design reference: docs/module_10_api_layer.md §5
 """
@@ -30,13 +31,17 @@ FIGURE_DESCRIPTIONS = {
     "fig_cost_comparison": "Total campus energy cost comparison (95% CI)",
     "fig_reward_curves": "Training convergence reward progress curves",
     "fig_p2p_volume": "Total P2P energy trading volume (95% CI)",
-    "fig_violation_rates": "IEEE 33-Bus voltage/thermal constraints violation rate bar chart",
+    "fig_violation_rates": "IEEE 33-Bus voltage/thermal constraints violation"
+    " rate bar chart",
     "fig_battery_soc_profile": "College battery 24-hour State-of-Charge (SoC) profiles",
-    "fig_battery_dispatch_heatmap": "Trained policy college battery dispatch profile heatmap",
-    "fig_campus_welfare": "Economic campus buyer and seller welfare breakdown stack bar",
+    "fig_battery_dispatch_heatmap": "Trained policy college battery dispatch"
+    " profile heatmap",
+    "fig_campus_welfare": "Economic campus buyer and seller welfare breakdown"
+    " stack bar",
     "fig_cost_reduction_ablation": "Campus cost savings percentage across experiments",
     "fig_agent_type_rewards": "Mean reward comparisons divided by agent type",
-    "fig_renewable_utilisation": "Renewable local self-consumption and P2P utilization rates",
+    "fig_renewable_utilisation": "Renewable local self-consumption and P2P"
+    " utilization rates",
     "fig_grid_import_export": "Grid power import vs export volumes comparisons",
     "fig_market_volume_timeseries": "P2P market cleared volume hourly timeline profile",
     "fig_voltage_profile": "Campus network voltage ranges bounding limits",
@@ -45,7 +50,8 @@ FIGURE_DESCRIPTIONS = {
 
 
 class ResultsService:
-    """Provides unified access to experiment output metrics, plots, and document archives."""
+    """Provides unified access to experiment output metrics, plots,
+    and document archives."""
 
     def __init__(self, base_dir: Path) -> None:
         """Initialize the results service.
@@ -63,7 +69,8 @@ class ResultsService:
         level: str = "summary",
         metrics: list[str] | None = None,
     ) -> MetricsResult:
-        """Retrieve metrics from a completed experiment, aggregating seed logs if requested."""
+        """Retrieve metrics from a completed experiment, aggregating seed
+        logs if requested."""
         exp_dir = self.base_dir / experiment_id
         if not exp_dir.exists():
             raise ExperimentNotFoundError(f"Experiment '{experiment_id}' not found.")
@@ -258,7 +265,8 @@ class ResultsService:
                     for root, _, files in os.walk(source_path):
                         for file in files:
                             file_path = Path(root) / file
-                            # Calculate path relative to experiment root to structure zip neatly
+                            # Calculate path relative to experiment root
+                            # to structure zip neatly
                             rel_path = file_path.relative_to(exp_dir)
                             zipf.write(file_path, arcname=str(rel_path))
 

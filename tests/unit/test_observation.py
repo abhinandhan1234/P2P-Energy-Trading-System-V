@@ -122,7 +122,8 @@ class TestObservationBuilder:
     """Verify that build_observations behaves exactly according to the spec."""
 
     def test_shapes_and_structure(self, sample_inputs, sample_metadata):
-        """Verify actor shape is (23,), critic state shape is (243,), and RLlib Dict structure is correct."""
+        """Verify actor shape is (23,), critic state shape is (243,), and
+        RLlib Dict structure is correct."""
         (
             demands,
             solar,
@@ -188,7 +189,8 @@ class TestObservationBuilder:
             assert obs_dict[aid]["state"].dtype == np.float32
 
     def test_agent_ordering_in_critic(self, sample_inputs, sample_metadata):
-        """Verify that local observations of all 21 agents are concatenated in ALL_AGENT_IDS sequence."""
+        """Verify that local observations of all 21 agents are concatenated
+        in ALL_AGENT_IDS sequence."""
         (
             demands,
             solar,
@@ -375,8 +377,10 @@ class TestObservationBuilder:
             grid_sell,
         ) = sample_inputs
 
-        # Hour 14 (sin = sin(2pi*14/24) = -0.5, cos = cos(2pi*14/24) = -0.866)
-        # Day of week for 2026-06-24 is Wednesday (day=2, 0-indexed: Mon=0, Tue=1, Wed=2)
+        # Hour 14 (sin = sin(2pi*14/24) = -0.5,
+        # cos = cos(2pi*14/24) = -0.866)
+        # Day of week for 2026-06-24 is Wednesday (day=2, 0-indexed: Mon=0,
+        # Tue=1, Wed=2)
         # sin(2pi*2/7) = 0.9749, cos = -0.2225
         obs_dict = build_observations(
             demands,
@@ -398,7 +402,8 @@ class TestObservationBuilder:
         assert obs[22] == pytest.approx(math.cos(2 * math.pi * 2 / 7.0))
 
     def test_zero_peak_demand_handling(self, sample_inputs, sample_metadata):
-        """Verify that a zero peak demand in metadata doesn't cause division by zero or NaN."""
+        """Verify that a zero peak demand in metadata doesn't cause division
+        by zero or NaN."""
         (
             demands,
             solar,
@@ -435,7 +440,8 @@ class TestObservationBuilder:
         assert not np.isnan(obs_dict["solar_01"]["obs"]).any()
 
     def test_zero_peak_solar_handling(self, sample_inputs, sample_metadata):
-        """Verify that pure consumers have zero peak solar in metadata and normalized solar features are 0.0."""
+        """Verify that pure consumers have zero peak solar in metadata and
+        normalized solar features are 0.0."""
         (
             demands,
             solar,
@@ -468,7 +474,8 @@ class TestObservationBuilder:
             assert not np.isnan(obs_dict[consumer_id]["obs"]).any()
 
     def test_grid_result_none_bypass_mode(self, sample_inputs, sample_metadata):
-        """Verify default values are correctly injected when grid_result=None (bypass mode)."""
+        """Verify default values are correctly injected when grid_result=None
+        (bypass mode)."""
         (
             demands,
             solar,
@@ -506,13 +513,15 @@ class TestObservationBuilder:
 
         # Critic state values
         critic_state = obs_dict[COLLEGE_AGENT_ID]["state"]
-        # min_bus_voltage at 237 -> 0.5, max_line_loading at 238 -> 0.0, transformer_loading at 239 -> 0.0
+        # min_bus_voltage at 237 -> 0.5, max_line_loading at 238 -> 0.0,
+        # transformer_loading at 239 -> 0.0
         assert critic_state[237] == pytest.approx(0.5)
         assert critic_state[238] == pytest.approx(0.0)
         assert critic_state[239] == pytest.approx(0.0)
 
     def test_critic_state_identical_across_agents(self, sample_inputs, sample_metadata):
-        """Verify that centralized critic state is exactly identical (element-wise equal) across all agents."""
+        """Verify that centralized critic state is exactly identical
+        (element-wise equal) across all agents."""
         (
             demands,
             solar,
@@ -578,7 +587,8 @@ class TestObservationBuilder:
         assert normalise_loading(150.0) == 1.0
 
     def test_grid_price_clipping(self):
-        """Verify normalise_grid_price clips values greater than MAX_GRID_RATE to 1.0."""
+        """Verify normalise_grid_price clips values greater than MAX_GRID_RATE
+        to 1.0."""
         assert normalise_grid_price(MAX_GRID_RATE * 2) == 1.0
 
     def test_action_clipping(self, sample_inputs, sample_metadata):

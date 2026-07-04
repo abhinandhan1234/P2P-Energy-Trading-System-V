@@ -192,7 +192,8 @@ class EvaluationService:
         seeds = seeds[: request.num_seeds]
 
         # In V1, we map ablation types to baseline/trained runs.
-        # e.g., no_battery evaluates the trained checkpoint but overrides actions in evaluate.py
+        # e.g., no_battery evaluates the trained checkpoint but overrides
+        # actions in evaluate.py
         eval_cfg = {
             "training_config": "config/training_config.yaml",
             "checkpoint_path": request.checkpoint_path,

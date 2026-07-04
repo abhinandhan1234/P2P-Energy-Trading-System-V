@@ -70,7 +70,8 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--output-dir",
         default="data/processed",
-        help="Directory to write parquet files and metadata.json (default: data/processed)",
+        help="Directory to write parquet files and metadata.json"
+        " (default: data/processed)",
     )
     parser.add_argument(
         "--seed",

@@ -313,8 +313,12 @@ def _apply_transformations(
     # Pattern mirrors occupancy variation above: build a date→factor mapping first,
     # then broadcast each day's single factor across all hours of that date.
     day_of_week = timestamps_pd.dayofweek  # Monday=0, Sunday=6
-    saturday_dates = sorted({d for d, dow in zip(dates, day_of_week) if dow == 5})
-    sunday_dates = sorted({d for d, dow in zip(dates, day_of_week) if dow == 6})
+    saturday_dates = sorted(
+        {d for d, dow in zip(dates, day_of_week, strict=False) if dow == 5}
+    )
+    sunday_dates = sorted(
+        {d for d, dow in zip(dates, day_of_week, strict=False) if dow == 6}
+    )
 
     weekend_factor: dict = {}
     for d in saturday_dates:

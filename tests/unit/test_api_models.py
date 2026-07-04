@@ -1,6 +1,7 @@
 """Unit tests for Module 10 API Data Models.
 
-Verifies construction, default fields, and serialization properties of the request and record models.
+Verifies construction, default fields, and serialization properties
+of the request and record models.
 
 Design reference: docs/module_12_repository_structure.md §7
 """

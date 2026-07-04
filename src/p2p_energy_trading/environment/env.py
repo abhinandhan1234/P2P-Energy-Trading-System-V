@@ -1,7 +1,8 @@
 """Multi-Agent Environment for P2P Energy Trading.
 
-Subclasses RLlib's MultiAgentEnv and coordinates building profiles, market settling, stateful
-battery model progression, PandaPower power flows, observations compilation, and reward calculations.
+Subclasses RLlib's MultiAgentEnv and coordinates building profiles, market settling,
+stateful battery model progression, PandaPower power flows, observations compilation,
+and reward calculations.
 
 Design reference: docs/module_6_multiagent_environment.md
 """
@@ -9,6 +10,7 @@ Design reference: docs/module_6_multiagent_environment.md
 from __future__ import annotations
 
 # standard library
+import copy
 import dataclasses
 import importlib
 import logging
@@ -19,11 +21,6 @@ from typing import Any
 import gymnasium
 import numpy as np
 import pandas as pd
-
-logger = logging.getLogger(__name__)
-
-# standard library
-import copy
 
 # local
 from p2p_energy_trading.constants import (
@@ -80,6 +77,8 @@ from p2p_energy_trading.modules.network.powerflow import (
 from p2p_energy_trading.modules.observation.builder import build_observations
 from p2p_energy_trading.modules.reward.aggregator import compute_all_rewards
 
+logger = logging.getLogger(__name__)
+
 
 class P2PEnergyTradingEnv(MultiAgentEnv):
     """Custom MultiAgentEnv subclass for the P2P Energy Trading campus microgrid.
@@ -107,7 +106,8 @@ class P2PEnergyTradingEnv(MultiAgentEnv):
         )
         if not (24 <= self.episode_length <= 8760):
             raise ConfigValidationError(
-                f"Configured 'episode_length' ({self.episode_length}) is outside allowed range [24, 8760]."
+                f"Configured 'episode_length' ({self.episode_length})"
+                " is outside allowed range [24, 8760]."
             )
 
         self.pandapower_bypass = bool(self.config.get("pandapower_bypass", False))
@@ -139,8 +139,9 @@ class P2PEnergyTradingEnv(MultiAgentEnv):
         # Check buy/sell tariff consistency
         if self.grid_buy_rate <= self.grid_sell_rate:
             raise ConfigValidationError(
-                f"Configured 'grid_buy_rate' ({self.grid_buy_rate}) must be strictly greater than "
-                f"'grid_sell_rate' ({self.grid_sell_rate}) to prevent arbitrage."
+                f"Configured 'grid_buy_rate' ({self.grid_buy_rate}) must be"
+                f" strictly greater than 'grid_sell_rate'"
+                f" ({self.grid_sell_rate}) to prevent arbitrage."
             )
 
         # 2. Instantiate helper modules
@@ -204,7 +205,8 @@ class P2PEnergyTradingEnv(MultiAgentEnv):
         self._pandapower = None
         self._pandapower_attempted = False
 
-        # Cache standard normalization constant max_possible_cost (College Peak Demand * Grid Buy Tariff)
+        # Cache standard normalization constant max_possible_cost
+        # (College Peak Demand * Grid Buy Tariff)
         college_meta = self.episode_manager.metadata.get("buildings", {}).get(
             COLLEGE_AGENT_ID, {}
         )
@@ -218,7 +220,8 @@ class P2PEnergyTradingEnv(MultiAgentEnv):
         super().__init__()
 
         logger.info(
-            "P2PEnergyTradingEnv initialized. eval_mode=%s, bypass=%s, buy=%s, sell=%s.",
+            "P2PEnergyTradingEnv initialized."
+            " eval_mode=%s, bypass=%s, buy=%s, sell=%s.",
             self.eval_mode,
             self.pandapower_bypass,
             self.grid_buy_rate,
@@ -259,12 +262,14 @@ class P2PEnergyTradingEnv(MultiAgentEnv):
             - pd.Timestamp: The timestamp of the college agent profile.
 
         Raises:
-            IndexError: If the requested timestep is out of range of the available profiles.
+            IndexError: If the requested timestep is out of range of the
+                available profiles.
         """
         profile_len = len(self.episode_profiles[COLLEGE_AGENT_ID])
         if timestep < 0 or timestep >= profile_len:
             raise IndexError(
-                f"Requested timestep {timestep} is out of bounds for available profiles of length {profile_len}."
+                f"Requested timestep {timestep} is out of bounds for"
+                f" available profiles of length {profile_len}."
             )
 
         demands = {
@@ -295,7 +300,8 @@ class P2PEnergyTradingEnv(MultiAgentEnv):
         Returns:
             Tuple containing:
             - obs_dict: Initial observation dictionary.
-            - info_dict: Metadata dictionary containing starting offset and step indices.
+            - info_dict: Metadata dictionary containing starting offset
+              and step indices.
         """
         if seed is not None:
             self.seed(seed)
@@ -312,7 +318,8 @@ class P2PEnergyTradingEnv(MultiAgentEnv):
 
         if not BATTERY_SOC_MIN <= init_soc <= BATTERY_SOC_MAX:
             raise ValueError(
-                f"Initial SoC {init_soc} is outside allowed bounds [{BATTERY_SOC_MIN}, {BATTERY_SOC_MAX}]."
+                f"Initial SoC {init_soc} is outside allowed bounds"
+                f" [{BATTERY_SOC_MIN}, {BATTERY_SOC_MAX}]."
             )
 
         self.battery_model.reset(initial_soc=init_soc)
@@ -338,7 +345,8 @@ class P2PEnergyTradingEnv(MultiAgentEnv):
 
         demands_t0, solar_t0, timestamp_t0 = self._get_profiles_at_timestep(0)
 
-        # Default fallback values for grid and market clearing states (copied to protect the cache)
+        # Default fallback values for grid and market clearing states
+        # (copied to protect the cache)
         if dataclasses.is_dataclass(self._default_market):
             default_market = dataclasses.replace(self._default_market)
         elif hasattr(self._default_market, "copy"):
@@ -431,7 +439,8 @@ class P2PEnergyTradingEnv(MultiAgentEnv):
 
         if not math.isclose(battery_dispatch_kw, expected_dispatch, abs_tol=1e-8):
             raise RuntimeError(
-                f"Battery dispatch consistency check failed: model={battery_dispatch_kw:.4f} kW, "
+                f"Battery dispatch consistency check failed:"
+                f" model={battery_dispatch_kw:.4f} kW, "
                 f"expected (settlement)={expected_dispatch:.4f} kW."
             )
         return battery_dispatch_kw
@@ -445,19 +454,22 @@ class P2PEnergyTradingEnv(MultiAgentEnv):
     ) -> tuple[PowerFlowResult | None, bool, bool, bool, TruncatedDict]:
         """Execute PandaPower power flow and check voltage/thermal violations.
 
-        Caches the PandaPower module dynamically to optimize startup performance and avoid
-        unnecessary dependency loading during bypass runs. Note that transformer_violation
-        is retained here for future grid constraints integration and downstream API stability.
+        Caches the PandaPower module dynamically to optimize startup performance
+        and avoid unnecessary dependency loading during bypass runs. Note that
+        transformer_violation is retained here for future grid constraints
+        integration and downstream API stability.
         """
         power_flow_result = None
         voltage_violation = False
         thermal_violation = False
-        # Retained for future integration/downstream evaluation metrics and API stability
+        # Retained for future integration/downstream evaluation metrics
+        # and API stability
         transformer_violation = False
 
-        # TODO: If future modules (such as Module 7) introduce additional responsibilities,
-        # the PandaPower lazy-loading/lazy-import logic should be extracted into a dedicated
-        # _get_pandapower() helper to keep _run_powerflow() focused.
+        # TODO: If future modules (such as Module 7) introduce additional
+        # responsibilities, the PandaPower lazy-loading/lazy-import logic
+        # should be extracted into a dedicated _get_pandapower() helper
+        # to keep _run_powerflow() focused.
         if not self.pandapower_bypass and not truncated_dict["__all__"]:
             if not self._pandapower_attempted:
                 self._pandapower_attempted = True
@@ -473,8 +485,9 @@ class P2PEnergyTradingEnv(MultiAgentEnv):
             if self._pandapower is None:
                 truncated_dict["__all__"] = True
             else:
-                # Dynamically retrieve LoadflowNotConverged from pandapower to maintain version compatibility
-                # and avoid import-time resolution errors if the library is stubbed/mocked.
+                # Dynamically retrieve LoadflowNotConverged from pandapower
+                # to maintain version compatibility and avoid import-time
+                # resolution errors if the library is stubbed/mocked.
                 loadflow_error = getattr(
                     self._pandapower, "LoadflowNotConverged", Exception
                 )
@@ -528,8 +541,8 @@ class P2PEnergyTradingEnv(MultiAgentEnv):
     ) -> tuple[bool, bool, TerminatedDict, TruncatedDict]:
         """Determine and build episode termination and truncation dictionaries.
 
-        Ensures that normal termination boundaries are checked explicitly based on profile
-        length rather than relying on IndexError exceptions.
+        Ensures that normal termination boundaries are checked explicitly
+        based on profile length rather than relying on IndexError exceptions.
         """
         is_terminated = (self.current_timestep + 1) >= self.episode_length or (
             self.current_timestep + 1
@@ -562,8 +575,9 @@ class P2PEnergyTradingEnv(MultiAgentEnv):
         Reuses the final transition state when the episode terminates or truncates to
         avoid accessing out-of-range profile indices.
         """
-        # Reusing the final transition state at episode end prevents out-of-bounds profile queries
-        # and eliminates exception-driven indexing logic.
+        # Reusing the final transition state at episode end prevents
+        # out-of-bounds profile queries and eliminates exception-driven
+        # indexing logic.
         if is_terminated or is_truncated:
             demands_next = demands_t
             solar_next = solar_t
@@ -608,8 +622,9 @@ class P2PEnergyTradingEnv(MultiAgentEnv):
             }
         return info_dict
 
-    # The execution order below is part of the environment contract. Future modifications
-    # should preserve this ordering unless the environment semantics intentionally change.
+    # The execution order below is part of the environment contract.
+    # Future modifications should preserve this ordering unless the
+    # environment semantics intentionally change.
     #
     # Environment execution order:
     #
@@ -638,12 +653,14 @@ class P2PEnergyTradingEnv(MultiAgentEnv):
             action_dict: Dict mapping active agent IDs to action vectors.
 
         Returns:
-            RLlib return tuple containing next observations, rewards, terminations, truncations, and metadata.
+            RLlib return tuple containing next observations, rewards, terminations,
+            truncations, and metadata.
         """
         # Preconditions check: timestep must be within episode limit
         if self.current_timestep >= self.episode_length:
             raise RuntimeError(
-                f"step() called after episode has terminated. current_timestep={self.current_timestep}"
+                f"step() called after episode has terminated."
+                f" current_timestep={self.current_timestep}"
             )
 
         demands_t, solar_t, timestamp_t = self._get_profiles_at_timestep(
@@ -672,7 +689,8 @@ class P2PEnergyTradingEnv(MultiAgentEnv):
         college_action_a2 = float(cleaned_actions[COLLEGE_AGENT_ID][2])
         battery_dispatch_kw = self._execute_battery(college_action_a2)
 
-        # _transformer_violation is unpacked to keep signature stable, though not currently used in rewards or info
+        # _transformer_violation is unpacked to keep signature stable,
+        # though not currently used in rewards or info
         (
             power_flow_result,
             voltage_violation,

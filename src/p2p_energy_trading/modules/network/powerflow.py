@@ -100,7 +100,8 @@ def run_power_flow(
         tolerance: Default convergence tolerance in MVA.
 
     Returns:
-        PowerFlowResult containing converged status, voltages, loadings, and net grid exchange.
+        PowerFlowResult containing converged status, voltages, loadings,
+        and net grid exchange.
 
     Raises:
         PowerFlowError: If solver fails to converge on all attempts.

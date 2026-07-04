@@ -85,7 +85,8 @@ def update_env_config(env: Any, new_config: dict[str, Any]) -> None:
         env.curriculum_transition_step = int(new_config["curriculum_transition_step"])
 
     logger.info(
-        "Updated worker environment config: episode_length=%d, bypass=%s, transition_step=%d",
+        "Updated worker environment config:"
+        " episode_length=%d, bypass=%s, transition_step=%d",
         env.episode_length,
         env.pandapower_bypass,
         env.curriculum_transition_step,
@@ -123,17 +124,20 @@ def check_configuration_mismatch(algo: Any, config: dict[str, Any]) -> None:
 
     if "obs" not in obs_space.spaces or obs_space.spaces["obs"].shape != (23,):
         raise ValueError(
-            f"FATAL: Observation space dimension mismatch! Checkpoint expects 23-dim local, "
+            f"FATAL: Observation space dimension mismatch!"
+            f" Checkpoint expects 23-dim local, "
             f"got {obs_space.spaces.get('obs')}"
         )
     if "state" not in obs_space.spaces or obs_space.spaces["state"].shape != (243,):
         raise ValueError(
-            f"FATAL: Critic state dimension mismatch! Checkpoint expects 243-dim state, "
+            f"FATAL: Critic state dimension mismatch!"
+            f" Checkpoint expects 243-dim state, "
             f"got {obs_space.spaces.get('state')}"
         )
     if policy.action_space.shape != (3,):
         raise ValueError(
-            f"FATAL: Action space dimension mismatch! Checkpoint expects 3-dim actions, "
+            f"FATAL: Action space dimension mismatch!"
+            f" Checkpoint expects 3-dim actions, "
             f"got {policy.action_space}"
         )
 
@@ -141,7 +145,8 @@ def check_configuration_mismatch(algo: Any, config: dict[str, Any]) -> None:
     lr = config["ppo"].get("lr", 3e-4)
     if algo.config.lr != lr:
         logger.info(
-            "Safe configuration update: lr changed from %s to %s. Applying to resumed runner.",
+            "Safe configuration update: lr changed from %s to %s."
+            " Applying to resumed runner.",
             algo.config.lr,
             lr,
         )
@@ -150,7 +155,8 @@ def check_configuration_mismatch(algo: Any, config: dict[str, Any]) -> None:
     entropy_coeff = config["ppo"].get("entropy_coeff", 0.01)
     if algo.config.entropy_coeff != entropy_coeff:
         logger.info(
-            "Safe configuration update: entropy_coeff changed from %s to %s. Applying to resumed runner.",
+            "Safe configuration update: entropy_coeff changed from %s to %s."
+            " Applying to resumed runner.",
             algo.config.entropy_coeff,
             entropy_coeff,
         )
@@ -206,10 +212,14 @@ def print_iteration_summary(results: dict[str, Any], stage: str, phase: int) -> 
     kl = policy_college_stats.get("kl", 0.0)
 
     print(
-        f"\n[Iter {iteration:04d} | Stage: {stage} | Phase: {phase} | Steps: {steps / 1e6:.2f}M]\n"
-        f"  Reward: college={rew_college:.2f}  solar={rew_solar:.2f}  consumer={rew_consumer:.2f}  mean={rew_mean:.2f}\n"
-        f"  Market: P2P_vol={p2p_vol:.1f}kWh  util={util:.2f}  campus_cost=₹{campus_cost:,.0f}\n"
-        f"  Grid:   violations={violations:.1f}  min_V={min_v:.3f}  max_loading={max_loading:.2f}\n"
+        f"\n[Iter {iteration:04d} | Stage: {stage} | Phase: {phase}"
+        f" | Steps: {steps / 1e6:.2f}M]\n"
+        f"  Reward: college={rew_college:.2f}  solar={rew_solar:.2f}"
+        f"  consumer={rew_consumer:.2f}  mean={rew_mean:.2f}\n"
+        f"  Market: P2P_vol={p2p_vol:.1f}kWh  util={util:.2f}"
+        f"  campus_cost=₹{campus_cost:,.0f}\n"
+        f"  Grid:   violations={violations:.1f}  min_V={min_v:.3f}"
+        f"  max_loading={max_loading:.2f}\n"
         f"  Battery: SoC_mean={soc_mean:.2f}  cycles={cycles:.1f}\n"
         f"  Training: loss={loss:.4f}  entropy={entropy:.3f}  KL={kl:.4f}"
     )
@@ -432,9 +442,12 @@ def main() -> None:
                 stage_overrides = curriculum_manager.get_stage_overrides(current_stage)
 
                 # Mutate environments configs on running runners
-                def runner_update(runner: Any) -> None:
+                def runner_update(
+                    runner: Any,
+                    stage_overrides: dict[str, Any] = stage_overrides,
+                ) -> None:
                     runner.foreach_env(
-                        lambda env: update_env_config(env, stage_overrides)
+                        lambda env, _so=stage_overrides: update_env_config(env, _so)
                     )
 
                 if hasattr(algo, "env_runner_group"):
@@ -479,7 +492,8 @@ def main() -> None:
                         no_improvement_iters += eval_freq
                         if no_improvement_iters >= patience:
                             logger.warning(
-                                "Early stopping triggered! No evaluation improvement for %d iterations.",
+                                "Early stopping triggered! No evaluation"
+                                " improvement for %d iterations.",
                                 no_improvement_iters,
                             )
                             break

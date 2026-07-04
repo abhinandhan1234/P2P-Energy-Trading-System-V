@@ -1,7 +1,8 @@
 """Integration tests for Module 10 API Layer.
 
 Mocks subprocess invocation to keep tests fast, verifying directory sandboxes,
-config validations, state transitions, log parsing, results queries, and concurrency limits.
+config validations, state transitions, log parsing, results queries,
+and concurrency limits.
 
 Design reference: docs/module_12_repository_structure.md §7
 """
@@ -108,7 +109,8 @@ def test_api_concurrency_guard_and_lifecycle(
             assert (exp_dir / "logs").exists()
             assert (exp_dir / "results").exists()
 
-            # 2. Attempt starting a second training run -> should fail due to concurrency lock
+            # 2. Attempt starting a second training run -> should fail due
+            # to concurrency lock
             with pytest.raises(ResourceError) as exc_info:
                 api.start_training(req)
             assert "concurrency limit reached" in str(exc_info.value).lower()

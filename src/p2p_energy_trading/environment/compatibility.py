@@ -20,7 +20,8 @@ try:
 except ImportError:
     logger.warning(
         "Ray/RLlib is not installed in this Python environment. "
-        "Falling back to a Gymnasium-based MultiAgentEnv stub for testing compatibility."
+        "Falling back to a Gymnasium-based MultiAgentEnv stub"
+        " for testing compatibility."
     )
 
     class MultiAgentEnv(gymnasium.Env):  # type: ignore

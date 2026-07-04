@@ -298,7 +298,8 @@ class TestEnvironmentFailureScenarios:
         env = P2PEnergyTradingEnv(config)
         env.reset()
 
-        # Create a mock PowerFlowResult with extreme voltage of 1.25 p.u. (limit is 1.20)
+        # Create a mock PowerFlowResult with extreme voltage of 1.25 p.u.
+        # (limit is 1.20)
         extreme_pf_result = PowerFlowResult(
             converged=True,
             bus_vm_pu={i: 1.25 for i in range(33)},
@@ -321,7 +322,8 @@ class TestEnvironmentFailureScenarios:
         env = P2PEnergyTradingEnv(base_config)
         env.reset()
 
-        # Force a consistency failure by mocking battery step to return a divergent value
+        # Force a consistency failure by mocking battery step to return
+        # a divergent value
         with patch.object(env.battery_model, "step", return_value=100.0):
             with pytest.raises(
                 RuntimeError, match="Battery dispatch consistency check failed"
@@ -333,10 +335,12 @@ class TestEnvironmentFailureScenarios:
         env = P2PEnergyTradingEnv(base_config)
         env.reset()
 
-        # Simulate profile exhaustion by making episode_length larger than profile length
+        # Simulate profile exhaustion by making episode_length larger than
+        # profile length
         profile_len = len(env.episode_profiles[COLLEGE_AGENT_ID])
         env.episode_length = profile_len + 10
-        # Set current_timestep to the last valid index, so the next step increments out of bounds
+        # Set current_timestep to the last valid index, so the next step
+        # increments out of bounds
         env.current_timestep = profile_len - 1
 
         obs, rew, term, trunc, info = env.step(default_actions)
@@ -369,7 +373,8 @@ class TestFallbackMultiAgentEnv:
         assert len(env.action_spaces) == 21
 
     def test_fallback_subclass_defined_spaces(self):
-        """Verify that subclass-defined observation_spaces and action_spaces are preserved."""
+        """Verify subclass-defined observation_spaces and action_spaces are
+        preserved."""
         # local
         from p2p_energy_trading.environment.compatibility import MultiAgentEnv
 
@@ -385,7 +390,8 @@ class TestFallbackMultiAgentEnv:
 
 
 class TestPass3EngineeringCorrections:
-    """Verify Pass 3 and Pass 4 engineering corrections for Battery, Terminal Obs, Lazy Import, and Caching."""
+    """Verify Pass 3 and Pass 4 engineering corrections for Battery, Terminal
+    Obs, Lazy Import, and Caching."""
 
     def test_step_delegates_to_predict_dispatch(self):
         """Verify BatteryModel.step() internally calls predict_dispatch() exactly once,
@@ -399,7 +405,7 @@ class TestPass3EngineeringCorrections:
         socs_during_predict = []
 
         # Save original predict_dispatch method to call inside the spy
-        original_predict = battery.predict_dispatch
+        _ = battery.predict_dispatch
 
         def spy_predict(action_charge_fraction, dt=1.0):
             socs_during_predict.append(battery.soc)
@@ -422,11 +428,13 @@ class TestPass3EngineeringCorrections:
             expected_soc_after = initial_soc - (50.0 / (math.sqrt(0.90) * 1.0)) / 500.0
             assert battery.soc == pytest.approx(expected_soc_after)
 
-            # 3. The dispatch returned by step() is identical to the value returned by predict_dispatch()
+            # 3. The dispatch returned by step() is identical to the value
+            # returned by predict_dispatch()
             assert disp == 50.0
 
     def test_battery_predict_dispatch_scenarios(self):
-        """Verify predict_dispatch() matches step() output across charging, discharging, idle, clipping, and thresholds."""
+        """Verify predict_dispatch() matches step() output across charging,
+        discharging, idle, clipping, and thresholds."""
         # local
         from p2p_energy_trading.modules.network.battery import BatteryModel
 
@@ -440,17 +448,19 @@ class TestPass3EngineeringCorrections:
                 pred_disp = b_predict.predict_dispatch(action, dt=1.0)
 
                 assert math.isclose(pred_disp, expected_disp, abs_tol=1e-8), (
-                    f"Divergence for action {action} at SoC {init_soc}: predict={pred_disp}, step={expected_disp}"
+                    f"Divergence for action {action} at SoC {init_soc}:"
+                    f" predict={pred_disp}, step={expected_disp}"
                 )
 
     def test_terminal_observation_never_requests_invalid_profile(
         self, base_config, default_actions
     ):
-        """Verify no IndexError occurs at episode termination, no invalid dataframe access, and clean termination."""
+        """Verify no IndexError occurs at episode termination, no invalid
+        dataframe access, and clean termination."""
         env = P2PEnergyTradingEnv(base_config)
         env.reset()
 
-        for step_idx in range(23):
+        for _step_idx in range(23):
             obs, rew, term, trunc, info = env.step(default_actions)
             assert not term["__all__"]
             assert not trunc["__all__"]
@@ -471,7 +481,8 @@ class TestPass3EngineeringCorrections:
     def test_pandapower_lazy_import_cache(
         self, base_config, default_actions, nominal_pf_result, mock_violations_factory
     ):
-        """Verify PandaPower is imported exactly once and multiple step() calls reuse the cached module."""
+        """Verify PandaPower is imported exactly once and multiple step() calls
+        reuse the cached module."""
         # standard library
         import importlib
 
@@ -509,7 +520,8 @@ class TestPass3EngineeringCorrections:
         env.close()
 
     def test_failed_pandapower_import_is_cached(self, base_config, default_actions):
-        """Verify that a failed PandaPower import caches failure state and is not retried."""
+        """Verify that a failed PandaPower import caches failure state and is
+        not retried."""
         # standard library
         import importlib
 
@@ -550,7 +562,8 @@ class TestPass3EngineeringCorrections:
     def test_reset_clears_pandapower_import_cache(
         self, base_config, default_actions, nominal_pf_result, mock_violations_factory
     ):
-        """Verify that resetting the environment clears the PandaPower import cache, allowing retry."""
+        """Verify resetting the environment clears the PandaPower import cache,
+        allowing retry."""
         # standard library
         import importlib
 
@@ -609,7 +622,8 @@ class TestPass3EngineeringCorrections:
         env.close()
 
     def test_cached_market_state_copy(self, base_config):
-        """Verify modifying the returned MarketState after reset() does not alter the cached default object."""
+        """Verify modifying the returned MarketState after reset() does not
+        alter the cached default object."""
         # standard library
         import dataclasses
         from unittest.mock import patch
@@ -627,9 +641,7 @@ class TestPass3EngineeringCorrections:
             assert passed_market is not env._default_market
 
             # Verify that modifying the passed state doesn't affect the cached default
-            modified_market = dataclasses.replace(
-                passed_market, p2p_clearing_price=999.0
-            )
+            _ = dataclasses.replace(passed_market, p2p_clearing_price=999.0)
             assert env._default_market.p2p_clearing_price != 999.0
 
         env.close()
@@ -637,7 +649,9 @@ class TestPass3EngineeringCorrections:
     def test_validate_actions_missing_agent_injected(
         self, base_config, default_actions
     ):
-        """Verify that omitting an agent action results in ActionHandler injecting the default safe action, executing step successfully, and preserving normal rollout execution (no premature termination or truncation)."""
+        """Verify omitting an agent action results in ActionHandler injecting
+        the default safe action, executing step successfully, and preserving
+        normal rollout execution (no premature termination or truncation)."""
         env = P2PEnergyTradingEnv(base_config)
         env.reset()
 
@@ -657,7 +671,9 @@ class TestPass3EngineeringCorrections:
         env.close()
 
     def test_terminal_step_prevents_out_of_bounds(self, base_config, default_actions):
-        """Verify that stepping at the end of the episode does not cause an IndexError, terminates correctly, and does not query out-of-bounds profile indices."""
+        """Verify stepping at the end of the episode does not cause an
+        IndexError, terminates correctly, and does not query out-of-bounds
+        profile indices."""
         env = P2PEnergyTradingEnv(base_config)
         env.reset()
 
@@ -687,7 +703,9 @@ class TestPass3EngineeringCorrections:
         env.close()
 
     def test_truncation_step_prevents_out_of_bounds(self, base_config, default_actions):
-        """Verify that triggering environment truncation via the public interface (excessive NaN actions) truncates cleanly, returns valid observations, and prevents out-of-bounds profile queries."""
+        """Verify triggering environment truncation via the public interface
+        (excessive NaN actions) truncates cleanly, returns valid observations,
+        and prevents out-of-bounds profile queries."""
         config = base_config.copy()
         config["max_nan_actions"] = 0
         env = P2PEnergyTradingEnv(config)

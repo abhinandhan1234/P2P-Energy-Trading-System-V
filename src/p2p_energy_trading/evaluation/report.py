@@ -32,7 +32,8 @@ def generate_reports(
     latex_dir = output_dir / "latex"
     latex_dir.mkdir(parents=True, exist_ok=True)
 
-    # Convert summary DataFrame to dictionary mapping experiment name to its aggregated row
+    # Convert summary DataFrame to dictionary mapping experiment name
+    # to its aggregated row
     summary_dict = summary_df.set_index("experiment").to_dict(orient="index")
 
     # 1. JSON Report
@@ -51,7 +52,8 @@ def generate_reports(
         "\\label{table:main_results}",
         "\\begin{tabular}{lcccc}",
         "\\hline",
-        "Experiment & Mean Cost (\\rupee) & Cost Red. (\\%) & p-value (Welch's t) & Effect Size (Cohen's d) \\\\",
+        "Experiment & Mean Cost (\\rupee) & Cost Red. (\\%) "
+        "& p-value (Welch's t) & Effect Size (Cohen's d) \\\\",
         "\\hline",
     ]
     for exp, vals in summary_dict.items():
@@ -63,7 +65,8 @@ def generate_reports(
         cohen_d = f"{stat.get('cohens_d', 0.0):.2f}" if stat else "-"
 
         latex_main.append(
-            f"{exp.replace('_', ' ').capitalize()} & {cost_str} & {red_str} & {p_val} & {cohen_d} \\\\"
+            f"{exp.replace('_', ' ').capitalize()}"
+            f" & {cost_str} & {red_str} & {p_val} & {cohen_d} \\\\",
         )
     latex_main.extend(["\\hline", "\\end{tabular}", "\\end{table}"])
     with open(latex_dir / "table_main_results.tex", "w", encoding="utf-8") as f:
@@ -98,7 +101,8 @@ def generate_reports(
         "\\label{table:market_metrics}",
         "\\begin{tabular}{lccc}",
         "\\hline",
-        "Experiment & P2P Volume (kWh) & Utilisation (\\%) & Campus Welfare (\\rupee) \\\\",
+        "Experiment & P2P Volume (kWh) & Utilisation (\\%) "
+        "& Campus Welfare (\\rupee) \\\\",
         "\\hline",
     ]
     for exp, vals in summary_dict.items():
@@ -106,7 +110,8 @@ def generate_reports(
         util_str = f"{vals['p2p_utilisation_mean'] * 100.0:.2f}"
         wel_str = f"{vals['campus_welfare_mean']:.2f}"
         latex_market.append(
-            f"{exp.replace('_', ' ').capitalize()} & {p2p_str} & {util_str} & {wel_str} \\\\"
+            f"{exp.replace('_', ' ').capitalize()}"
+            f" & {p2p_str} & {util_str} & {wel_str} \\\\",
         )
     latex_market.extend(["\\hline", "\\end{tabular}", "\\end{table}"])
     with open(latex_dir / "table_market_metrics.tex", "w", encoding="utf-8") as f:
@@ -131,7 +136,8 @@ def generate_reports(
         p2p_str = f"{vals['p2p_volume_mean']:.2f}"
         cycle_str = f"{vals['battery_cycles_mean']:.3f}"
         latex_ablation.append(
-            f"{exp.replace('_', ' ').capitalize()} & {red_str} & {p2p_str} & {cycle_str} \\\\"
+            f"{exp.replace('_', ' ').capitalize()}"
+            f" & {red_str} & {p2p_str} & {cycle_str} \\\\",
         )
     latex_ablation.extend(["\\hline", "\\end{tabular}", "\\end{table}"])
     with open(latex_dir / "table_ablation_results.tex", "w", encoding="utf-8") as f:
@@ -141,11 +147,13 @@ def generate_reports(
     md_content = [
         "# P2P Energy Trading System - Evaluation Framework Summary Report",
         "",
-        "This report documents performance benchmarks for MAPPO policies against non-learning baselines.",
+        "This report documents performance benchmarks for MAPPO policies"
+        " against non-learning baselines.",
         "",
         "## Performance Metrics Overview",
         "",
-        "| Experiment | Mean Cost (₹) | Cost Red. vs Grid (%) | Voltage Violations (%) | P2P Utilisation (%) |",
+        "| Experiment | Mean Cost (₹) | Cost Red. vs Grid (%)"
+        " | Voltage Violations (%) | P2P Utilisation (%) |",
         "| :--- | :--- | :--- | :--- | :--- |",
     ]
     for exp, vals in summary_dict.items():
@@ -154,7 +162,8 @@ def generate_reports(
         v_str = f"{vals['voltage_violation_rate_mean'] * 100.0:.3f}%"
         u_str = f"{vals['p2p_utilisation_mean'] * 100.0:.2f}%"
         md_content.append(
-            f"| {exp.replace('_', ' ').capitalize()} | {cost_str} | {red_str} | {v_str} | {u_str} |"
+            f"| {exp.replace('_', ' ').capitalize()}"
+            f" | {cost_str} | {red_str} | {v_str} | {u_str} |",
         )
 
     md_content.extend(
@@ -162,7 +171,8 @@ def generate_reports(
             "",
             "## Statistical Significance Analysis",
             "",
-            " Welch's t-test comparing the trained policy against other baseline policies on total cost (alpha = 0.05):",
+            " Welch's t-test comparing the trained policy against other"
+            " baseline policies on total cost (alpha = 0.05):",
             "",
         ]
     )
@@ -173,8 +183,9 @@ def generate_reports(
             else "Not Significant"
         )
         md_content.append(
-            f"- **vs {exp.replace('_', ' ').capitalize()}**: p = {stat['p_value']:.5f}, "
-            f"Cohen's d = {stat['cohens_d']:.3f} ({sig_str})"
+            f"- **vs {exp.replace('_', ' ').capitalize()}**:"
+            f" p = {stat['p_value']:.5f}, "
+            f"Cohen's d = {stat['cohens_d']:.3f} ({sig_str})",
         )
 
     md_content.extend(["", "## Verification Success Thresholds", ""])
@@ -188,16 +199,20 @@ def generate_reports(
         p2p_util = trained_vals.get("p2p_utilisation_mean", 0.0) * 100.0
 
         md_content.append(
-            f"- **Cost reduction (>= 10%)**: {cost_red:.2f}% - {'PASSED' if cost_red >= 10.0 else 'FAILED'}"
+            f"- **Cost reduction (>= 10%)**: {cost_red:.2f}%"
+            f" - {'PASSED' if cost_red >= 10.0 else 'FAILED'}",
         )
         md_content.append(
-            f"- **Voltage Safety (< 1%)**: {v_violation:.3f}% - {'PASSED' if v_violation < 1.0 else 'FAILED'}"
+            f"- **Voltage Safety (< 1%)**: {v_violation:.3f}%"
+            f" - {'PASSED' if v_violation < 1.0 else 'FAILED'}",
         )
         md_content.append(
-            f"- **Thermal Safety (< 1%)**: {t_violation:.3f}% - {'PASSED' if t_violation < 1.0 else 'FAILED'}"
+            f"- **Thermal Safety (< 1%)**: {t_violation:.3f}%"
+            f" - {'PASSED' if t_violation < 1.0 else 'FAILED'}",
         )
         md_content.append(
-            f"- **P2P Utilisation (> 60%)**: {p2p_util:.2f}% - {'PASSED' if p2p_util > 60.0 else 'FAILED'}"
+            f"- **P2P Utilisation (> 60%)**: {p2p_util:.2f}%"
+            f" - {'PASSED' if p2p_util > 60.0 else 'FAILED'}",
         )
 
     with open(output_dir / "evaluation_report.md", "w", encoding="utf-8") as f:

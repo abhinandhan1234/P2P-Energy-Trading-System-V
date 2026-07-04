@@ -127,7 +127,8 @@ if RAY_AVAILABLE:
             ):
                 episode.user_data["thermal_violations"] += 1
 
-            # Extract curriculum phase dynamically from the base environment if available
+            # Extract curriculum phase dynamically from the base environment
+            # if available
             if env is not None:
                 base_env = None
                 if hasattr(env, "get_sub_environments"):
@@ -205,7 +206,8 @@ if RAY_AVAILABLE:
 else:
 
     class P2PCallbacks:  # type: ignore
-        """Placeholder class that raises ImportError if instantiated when Ray is absent."""
+        """Placeholder class that raises ImportError if instantiated
+        when Ray is absent."""
 
         def __init__(self, *args: Any, **kwargs: Any) -> None:
             raise ImportError(

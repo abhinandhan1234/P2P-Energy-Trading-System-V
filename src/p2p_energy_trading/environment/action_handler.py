@@ -72,8 +72,8 @@ class ActionHandler:
                     raw_action = np.asarray(raw_action)
                 except (TypeError, ValueError):
                     logger.error(
-                        "Action vector for agent '%s' could not be converted to numpy array. "
-                        "Forcing safe default values.",
+                        "Action vector for agent '%s' could not be converted"
+                        " to numpy array. Forcing safe default values.",
                         aid,
                     )
                     cleaned_actions[aid] = self._default_action.copy()

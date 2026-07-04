@@ -1,8 +1,10 @@
 """Unit tests for Module 1 — Profile Generator.
 
 Tests cover:
-- Loader: column validation, dtype validation, missing/negative data, timestamp continuity
-- Generator: load scaling, solar scaling, temporal shifting, solar generation, weekend effects
+- Loader: column validation, dtype validation, missing/negative data,
+  timestamp continuity
+- Generator: load scaling, solar scaling, temporal shifting,
+  solar generation, weekend effects
 - Validator: hard rules (no negatives, continuity), portfolio composition
 - Metadata: build_metadata output structure
 - Exception hierarchy: ProfileGenerationError inherits from P2PEnergyTradingError
@@ -394,7 +396,8 @@ class TestGeneratorSolarGeneration:
     def test_solar_profiles_have_nonzero_solar(
         self, small_college_df: pd.DataFrame
     ) -> None:
-        """Solar buildings must have positive solar generation (inherited from college)."""
+        """Solar buildings must have positive solar generation (inherited from
+        college)."""
         # local
         from p2p_energy_trading.modules.profile_generator.generator import (
             generate_solar_profiles,
@@ -530,7 +533,7 @@ class TestGeneratorReproducibility:
         profiles_a = generate_solar_profiles(small_college_df, base_seed=42)
         profiles_b = generate_solar_profiles(small_college_df, base_seed=42)
 
-        for a, b in zip(profiles_a, profiles_b):
+        for a, b in zip(profiles_a, profiles_b, strict=True):
             assert a.building_id == b.building_id
             pd.testing.assert_frame_equal(a.df, b.df)
 
@@ -546,7 +549,7 @@ class TestGeneratorReproducibility:
         profiles_a = generate_consumer_profiles(small_college_df, base_seed=100)
         profiles_b = generate_consumer_profiles(small_college_df, base_seed=100)
 
-        for a, b in zip(profiles_a, profiles_b):
+        for a, b in zip(profiles_a, profiles_b, strict=True):
             assert a.building_id == b.building_id
             pd.testing.assert_frame_equal(a.df, b.df)
 
@@ -567,7 +570,7 @@ class TestGeneratorReproducibility:
             not np.allclose(
                 a.df[INTERNAL_COL_DEMAND].values, b.df[INTERNAL_COL_DEMAND].values
             )
-            for a, b in zip(profiles_a, profiles_b)
+            for a, b in zip(profiles_a, profiles_b, strict=True)
         )
         assert any_different, "Different seeds produced identical profiles"
 
@@ -740,7 +743,7 @@ class TestMetadata:
         )
         from p2p_energy_trading.modules.profile_generator.metadata import build_metadata
 
-        college_df = list(minimal_portfolio.values())[0]  # reuse fixture df shape
+        _ = list(minimal_portfolio.values())[0]  # reuse fixture df shape
         # Build actual BuildingProfile objects
         college_df_real = pd.DataFrame(
             {
