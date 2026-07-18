@@ -24,10 +24,22 @@ logger = logging.getLogger(__name__)
 # Force pager to cat for command line executions
 os.environ["PAGER"] = "cat"
 
+# Reconfigure stdout/stderr to UTF-8 on Windows so that Unicode characters
+# (e.g. the Indian Rupee sign ₹, U+20B9) printed via colorama do not raise a
+# UnicodeEncodeError through the default 'charmap' codec.  This is a pure
+# I/O-encoding change and has no effect on training semantics.
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")  # type: ignore[union-attr]
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")  # type: ignore[union-attr]
+
 try:
     # third party
+    import numpy as np
     import ray
+    import torch
     from ray.rllib.algorithms.algorithm import Algorithm
+    from tensorboardX import SummaryWriter
 
     RAY_AVAILABLE = True
 except ImportError:
@@ -166,50 +178,90 @@ def check_configuration_mismatch(algo: Any, config: dict[str, Any]) -> None:
 def print_iteration_summary(results: dict[str, Any], stage: str, phase: int) -> None:
     """Print iteration metrics conforming to the required format in Module 8 §8.
 
+    RLlib 2.x New API Stack key layout
+    -----------------------------------
+    Episode rewards (from EnvRunners):
+      results["env_runners"]["episode_return_mean"]               – global mean
+      results["env_runners"]["module_episode_returns_mean"][mid]  – per-policy module
+
+    Learner losses (per-module, flat dict under module ID):
+      results["learners"][mid]["policy_loss"]   (POLICY_LOSS_KEY)
+      results["learners"][mid]["vf_loss"]        (VF_LOSS_KEY)
+      results["learners"][mid]["entropy"]        (ENTROPY_KEY)
+      results["learners"][mid]["mean_kl_loss"]   (LEARNER_RESULTS_KL_KEY)
+
+    Custom callback metrics (from on_episode_end):
+      results["env_runners"]["custom_metrics"][key]
+
+    Cumulative agent steps:
+      results["num_agent_steps_sampled_lifetime"]
+
     Args:
         results: Dictionary containing training iteration results.
         stage: Current curriculum stage name.
         phase: Current reward curriculum phase.
     """
     iteration = results.get("training_iteration", 0)
-    steps = results.get("agent_steps_total") or results.get("info", {}).get(
-        "agent_steps_total", 0
+
+    # ------------------------------------------------------------------ steps
+    # New API Stack: "num_agent_steps_sampled_lifetime"
+    # Fallback chain covers older builds or partial-result dicts.
+    steps = (
+        results.get("num_agent_steps_sampled_lifetime")
+        or results.get("agent_steps_total")
+        or results.get("info", {}).get("agent_steps_total", 0)
+        or 0
     )
 
-    # Policy rewards
-    rew_college = results.get("policy_reward_mean", {}).get("policy_college", 0.0)
-    rew_solar = results.get("policy_reward_mean", {}).get("policy_solar", 0.0)
-    rew_consumer = results.get("policy_reward_mean", {}).get("policy_consumer", 0.0)
-    rew_mean = results.get("episode_reward_mean", 0.0)
+    # ----------------------------------------------------------------- rewards
+    # New API Stack: rewards live under results["env_runners"].
+    env_runner_results: dict[str, Any] = results.get("env_runners", {})
 
-    custom = results.get("custom_metrics", {})
-    p2p_vol = custom.get("p2p_volume_total_mean", 0.0)
-    util = custom.get("p2p_utilisation_ratio_mean", 0.0)
-    campus_cost = custom.get("net_cost_total_campus_mean", 0.0)
-    violations = custom.get("voltage_violations_total_mean", 0.0) + custom.get(
-        "thermal_violations_total_mean", 0.0
+    # Per-policy-module mean episode return.
+    module_returns: dict[str, Any] = env_runner_results.get(
+        "module_episode_returns_mean", {}
     )
-    min_v = custom.get("grid/min_bus_voltage_mean", 1.0)
-    max_loading = custom.get("grid/max_line_loading_mean", 0.0)
+    rew_college = float(module_returns.get("policy_college", 0.0))
+    rew_solar = float(module_returns.get("policy_solar", 0.0))
+    rew_consumer = float(module_returns.get("policy_consumer", 0.0))
+
+    # Global mean episode return (sum over all agents per episode).
+    rew_mean = float(env_runner_results.get("episode_return_mean", 0.0))
+
+    # ----------------------------------------------------------- custom metrics
+    # Callbacks write to results["env_runners"]["custom_metrics"] in the New
+    # API Stack; fall back to the top-level key for the Old API Stack.
+    custom: dict[str, Any] = env_runner_results.get(
+        "custom_metrics", results.get("custom_metrics", {})
+    )
+
+    p2p_vol = float(custom.get("p2p_volume_total_mean", 0.0))
+    util = float(custom.get("p2p_utilisation_ratio_mean", 0.0))
+    campus_cost = float(custom.get("net_cost_total_campus_mean", 0.0))
+    violations = float(
+        custom.get("voltage_violations_total_mean", 0.0)
+        + custom.get("thermal_violations_total_mean", 0.0)
+    )
+    min_v = float(custom.get("grid/min_bus_voltage_mean", 1.0))
+    max_loading = float(custom.get("grid/max_line_loading_mean", 0.0))
 
     # Battery
-    soc_mean = custom.get("battery/mean_soc_mean", 0.5)
-    cycles = custom.get("battery/cycling_count_mean", 0)
+    soc_mean = float(custom.get("battery/mean_soc_mean", 0.5))
+    cycles = float(custom.get("battery/cycling_count_mean", 0))
 
-    # Training losses / stats
-    # Try different paths for loss / stats depending on RLlib stack variations
-    policy_college_stats = (
-        results.get("learner", {}).get("policy_college", {}).get("learner_stats", {})
-    )
-    loss = policy_college_stats.get(
-        "total_loss",
-        results.get("info", {})
-        .get("learner", {})
-        .get("policy_college", {})
-        .get("total_loss", 0.0),
-    )
-    entropy = policy_college_stats.get("entropy", 0.0)
-    kl = policy_college_stats.get("kl", 0.0)
+    # ---------------------------------------------------------- training losses
+    # New API Stack: results["learners"][module_id] is a flat dict with keys
+    # directly from the Learner (e.g. "policy_loss", "vf_loss", "entropy",
+    # "mean_kl_loss").  The old stack used
+    # results["learner"][module_id]["learner_stats"][...] which no longer exists.
+    learners: dict[str, Any] = results.get("learners", {})
+    college_learner: dict[str, Any] = learners.get("policy_college", {})
+
+    policy_loss = float(college_learner.get("policy_loss", 0.0))
+    vf_loss = float(college_learner.get("vf_loss", 0.0))
+    entropy = float(college_learner.get("entropy", 0.0))
+    # RLlib 2.x PPO reports KL as "mean_kl_loss"; older builds used "kl".
+    kl = float(college_learner.get("mean_kl_loss", college_learner.get("kl", 0.0)))
 
     print(
         f"\n[Iter {iteration:04d} | Stage: {stage} | Phase: {phase}"
@@ -217,11 +269,12 @@ def print_iteration_summary(results: dict[str, Any], stage: str, phase: int) -> 
         f"  Reward: college={rew_college:.2f}  solar={rew_solar:.2f}"
         f"  consumer={rew_consumer:.2f}  mean={rew_mean:.2f}\n"
         f"  Market: P2P_vol={p2p_vol:.1f}kWh  util={util:.2f}"
-        f"  campus_cost=₹{campus_cost:,.0f}\n"
+        f"  campus_cost=Rs.{campus_cost:,.0f}\n"
         f"  Grid:   violations={violations:.1f}  min_V={min_v:.3f}"
         f"  max_loading={max_loading:.2f}\n"
         f"  Battery: SoC_mean={soc_mean:.2f}  cycles={cycles:.1f}\n"
-        f"  Training: loss={loss:.4f}  entropy={entropy:.3f}  KL={kl:.4f}"
+        f"  Training: policy_loss={policy_loss:.4f}  vf_loss={vf_loss:.4f}"
+        f"  entropy={entropy:.3f}  KL={kl:.4f}"
     )
     sys.stdout.flush()
 
@@ -328,6 +381,8 @@ def main() -> None:
     # 3. Ray Initialization
     ray_cpus = config["hardware"].get("ray_num_cpus")
     ray_gpus = config["hardware"].get("ray_num_gpus")
+    if ray_gpus is None:
+        ray_gpus = 1 if torch.cuda.is_available() else 0
     ray.init(
         num_cpus=ray_cpus,
         num_gpus=ray_gpus,
@@ -406,12 +461,27 @@ def main() -> None:
         no_improvement_iters = 0
         best_eval_metric = -float("inf")
 
+        # Initialize TensorBoard SummaryWriter
+        tb_dir = config["logging"].get("tensorboard_dir", "logs")
+        tb_writer = SummaryWriter(logdir=tb_dir)
+
         for iteration in range(1, max_iters + 1):
             results = algo.train()
-            total_steps = results.get("agent_steps_total") or results.get(
-                "info", {}
-            ).get("agent_steps_total", 0)
-            total_episodes = results.get("episodes_total", 0)
+            # New API Stack: cumulative agent steps are under
+            # "num_agent_steps_sampled_lifetime"; fall back to the Old API
+            # Stack key so that checkpoints/curriculum still work.
+            total_steps = (
+                results.get("num_agent_steps_sampled_lifetime")
+                or results.get("agent_steps_total")
+                or results.get("info", {}).get("agent_steps_total", 0)
+                or 0
+            )
+            # Total episodes: New API Stack exposes this under env_runners.
+            total_episodes = (
+                results.get("env_runners", {}).get("num_episodes_lifetime", 0)
+                or results.get("episodes_total", 0)
+                or 0
+            )
 
             # Determine reward phase: Phase 1 or Phase 2 based on env step
             phase = env_config.get("reward_phase", 1)
@@ -419,8 +489,93 @@ def main() -> None:
             if total_steps >= env_config.get("curriculum_transition_step", 2000000):
                 phase = 2
 
-            # Printiteration logs
-            print_iteration_summary(results, current_stage, phase)
+            # Print iteration logs; guard against console encoding errors on
+            # Windows (e.g. charmap codec cannot encode U+20B9) so that a
+            # failed console write never aborts the TensorBoard write path.
+            try:
+                print_iteration_summary(results, current_stage, phase)
+            except UnicodeEncodeError as _ue:
+                logger.warning(
+                    "Console encoding error in print_iteration_summary"
+                    " (iteration %d): %s. Continuing training.",
+                    iteration,
+                    _ue,
+                )
+
+            # Write metrics to TensorBoard
+            if tb_writer is not None:
+                # ------------------------------------------------------ rewards
+                # New API Stack: rewards live under results["env_runners"].
+                _er = results.get("env_runners", {})
+                tb_writer.add_scalar(
+                    "Reward/episode_return_mean",
+                    float(_er.get("episode_return_mean", 0.0)),
+                    iteration,
+                )
+                _mod_rets: dict[str, Any] = _er.get("module_episode_returns_mean", {})
+                for policy_name in [
+                    "policy_college",
+                    "policy_solar",
+                    "policy_consumer",
+                ]:
+                    p_rew = float(_mod_rets.get(policy_name, 0.0))
+                    tb_writer.add_scalar(
+                        f"Reward/module_episode_returns_mean/{policy_name}",
+                        p_rew,
+                        iteration,
+                    )
+
+                # ----------------------------------------- learner losses / stats
+                # New API Stack: results["learners"][module_id] is a flat dict
+                # with keys "policy_loss", "vf_loss", "entropy", "mean_kl_loss".
+                _learners: dict[str, Any] = results.get("learners", {})
+                for policy_name in [
+                    "policy_college",
+                    "policy_solar",
+                    "policy_consumer",
+                ]:
+                    _stats: dict[str, Any] = _learners.get(policy_name, {})
+                    if _stats:
+                        tb_writer.add_scalar(
+                            f"Loss/{policy_name}_policy_loss",
+                            float(_stats.get("policy_loss", 0.0)),
+                            iteration,
+                        )
+                        tb_writer.add_scalar(
+                            f"Loss/{policy_name}_vf_loss",
+                            float(_stats.get("vf_loss", 0.0)),
+                            iteration,
+                        )
+                        tb_writer.add_scalar(
+                            f"Entropy/{policy_name}_entropy",
+                            float(_stats.get("entropy", 0.0)),
+                            iteration,
+                        )
+                        tb_writer.add_scalar(
+                            f"KL/{policy_name}_kl",
+                            float(_stats.get("mean_kl_loss", _stats.get("kl", 0.0))),
+                            iteration,
+                        )
+
+                # -------------------------------- custom metrics (Market/Grid/Battery)
+                # New API Stack: callbacks write to
+                # results["env_runners"]["custom_metrics"].
+                _custom: dict[str, Any] = _er.get(
+                    "custom_metrics", results.get("custom_metrics", {})
+                )
+                for key, val in _custom.items():
+                    if isinstance(val, (int, float, np.integer, np.floating)):
+                        tb_writer.add_scalar(f"Custom/{key}", float(val), iteration)
+                    elif isinstance(val, dict):
+                        for subkey, subval in val.items():
+                            if isinstance(
+                                subval, (int, float, np.integer, np.floating)
+                            ):
+                                tb_writer.add_scalar(
+                                    f"Custom/{key}/{subkey}",
+                                    float(subval),
+                                    iteration,
+                                )
 
             # 7. Check Stage Progression
             should_transition, next_stage = curriculum_manager.check_progression(
@@ -536,6 +691,8 @@ def main() -> None:
         raise e
 
     finally:
+        if "tb_writer" in locals() and tb_writer is not None:
+            tb_writer.close()
         if algo:
             algo.stop()
         if ray.is_initialized():

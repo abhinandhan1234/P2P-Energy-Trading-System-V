@@ -24,6 +24,7 @@ try:
     import importlib
 
     # third party
+    import torch
     from ray.rllib.algorithms.ppo import PPOConfig
     from ray.tune.registry import register_env
 
@@ -202,7 +203,7 @@ def build_ppo_config(
         )
         .learners(
             num_learners=hardware_config.get("num_learner_workers", 0),
-            num_gpus_per_learner=hardware_config.get("num_gpus_per_learner_worker", 1),
+            num_gpus_per_learner=(1 if torch.cuda.is_available() else 0),
         )
         .multi_agent(
             policies=policies,

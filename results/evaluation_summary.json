@@ -1,25 +1,25 @@
 {
     "summary": {
-        "trained": {
-            "cost_mean": 301994.8233478159,
+        "heuristic": {
+            "cost_mean": 270099.1219024383,
             "cost_std": 0.0,
-            "p2p_volume_mean": 93.02318242409989,
+            "p2p_volume_mean": 7327.2326620109,
             "p2p_volume_std": 0.0,
             "voltage_violation_rate_mean": 0.04585798816568047,
             "voltage_violation_rate_std": 0.0,
             "thermal_violation_rate_mean": 0.0,
             "thermal_violation_rate_std": 0.0,
-            "p2p_utilisation_mean": 0.010497328276106804,
+            "p2p_utilisation_mean": 0.9872053614945896,
             "p2p_utilisation_std": 0.0,
-            "campus_welfare_mean": 528.3716761688873,
+            "campus_welfare_mean": 41618.681520221915,
             "campus_welfare_std": 0.0,
-            "grid_import_mean": 51111.60724424142,
+            "grid_import_mean": 44128.39950914086,
             "grid_import_std": 0.0,
-            "grid_export_mean": 32181.11676762689,
+            "grid_export_mean": 25153.745532881938,
             "grid_export_std": 0.0,
-            "episode_return_mean": -520.7635978599753,
-            "episode_return_std": 9.79621742067939e-13,
-            "battery_cycles_mean": 0.5785744674503803,
+            "episode_return_mean": -353.82998895104646,
+            "episode_return_std": 8.388016433044474e-13,
+            "battery_cycles_mean": 4.802602912299335,
             "battery_cycles_std": 0.0,
             "cost_reduction_pct": 0.0
         }

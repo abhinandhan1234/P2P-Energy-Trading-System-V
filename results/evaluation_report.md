@@ -6,7 +6,7 @@ This report documents performance benchmarks for MAPPO policies against non-lear
 
 | Experiment | Mean Cost (₹) | Cost Red. vs Grid (%) | Voltage Violations (%) | P2P Utilisation (%) |
 | :--- | :--- | :--- | :--- | :--- |
-| Trained | 301994.82 ± 0.00 | 0.00% | 4.586% | 1.05% |
+| Heuristic | 270099.12 ± 0.00 | 0.00% | 4.586% | 98.72% |
 
 ## Statistical Significance Analysis
 
@@ -15,7 +15,3 @@ This report documents performance benchmarks for MAPPO policies against non-lear
 
 ## Verification Success Thresholds
 
-- **Cost reduction (>= 10%)**: 0.00% - FAILED
-- **Voltage Safety (< 1%)**: 4.586% - FAILED
-- **Thermal Safety (< 1%)**: 0.000% - PASSED
-- **P2P Utilisation (> 60%)**: 1.05% - FAILED

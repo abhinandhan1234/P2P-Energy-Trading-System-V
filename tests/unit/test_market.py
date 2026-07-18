@@ -346,11 +346,12 @@ class TestMarketSettlement:
         with pytest.raises(MarketClearingError, match="Missing action vector"):
             process_settlements(demands, solar, missing_actions, 0.5, 8.15, 3.56)
 
-        # 5. College discharging too much (causing negative solar_used_locally)
+        # 5. College discharging too much (surplus exported,
+        # local solar consumption remains 0.0)
         # College demand is 10 kW. Battery discharges 100 kW.
         # Desired dispatch = 100 kW.
-        # Since demand = 10 kW and discharge = 100 kW, solar_used = 10 - 100 = -90 kW.
-        # This is < -0.01 and should trigger MarketClearingError.
+        # This surplus of 90 kW is exported. Local solar consumption should be 0 kW.
+        # This must succeed and not raise MarketClearingError.
         excess_discharge_actions = actions.copy()
         # Battery dispatch power is (0.5 - a2) * 2 * 250
         # If a2 = 0.3, desired power = 0.2 * 500 = 100 kW discharge
@@ -360,9 +361,8 @@ class TestMarketSettlement:
         college_demands = demands.copy()
         college_demands[COLLEGE_AGENT_ID] = 10.0
 
-        with pytest.raises(
-            MarketClearingError, match="Calculated local solar consumption is negative"
-        ):
-            process_settlements(
-                college_demands, solar, excess_discharge_actions, 0.5, 8.15, 3.56
-            )
+        records, state = process_settlements(
+            college_demands, solar, excess_discharge_actions, 0.5, 8.15, 3.56
+        )
+        rec = records[COLLEGE_AGENT_ID]
+        assert rec.grid_sold_kw + rec.p2p_sold_kw == pytest.approx(90.0)

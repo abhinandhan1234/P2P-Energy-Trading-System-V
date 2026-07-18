@@ -15,6 +15,8 @@ import json
 import logging
 import sys
 from pathlib import Path
+from urllib.parse import urlparse
+from urllib.request import url2pathname
 
 # third party
 import pandas as pd
@@ -48,6 +50,43 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# ---------------------------------------------------------------------------
+# Checkpoint URI helper
+# ---------------------------------------------------------------------------
+
+
+def resolve_checkpoint_uri(path: str) -> str:
+    """Return a proper ``file://`` URI for *path*, safe for RLlib / PyArrow.
+
+    Accepts any of the following input formats and normalises them to a
+    ``file:///`` URI that RLlib's ``Algorithm.from_checkpoint()`` accepts on
+    every platform (Windows, Linux, macOS):
+
+    * Relative filesystem path  – ``checkpoints/checkpoint_000003``
+    * Absolute Windows path     – ``C:\\Users\\...\\checkpoint_000003``
+    * Absolute POSIX path       – ``/home/user/checkpoint_000003``
+    * Already-valid file URI    – ``file:///C:/Users/.../checkpoint_000003``
+
+    Raises
+    ------
+    FileNotFoundError
+        When the resolved path does not exist on disk.
+    """
+    # If the caller already supplied a valid file URI, validate and return it.
+    parsed = urlparse(path)
+    if parsed.scheme == "file":
+        # Re-derive the filesystem path so we can verify existence.
+        fs_path = Path(url2pathname(parsed.path))
+        if not fs_path.exists():
+            raise FileNotFoundError(f"Checkpoint not found: {fs_path}")
+        return path  # keep the URI the caller passed in unchanged
+
+    # Otherwise treat *path* as a filesystem path (relative or absolute).
+    resolved = Path(path).resolve()
+    if not resolved.exists():
+        raise FileNotFoundError(f"Checkpoint not found: {resolved}")
+    return resolved.as_uri()
+
 
 def run_evaluation(
     eval_config_path: str | Path,
@@ -67,7 +106,6 @@ def run_evaluation(
     checkpoint_path = checkpoint_path_override or eval_cfg.get(
         "checkpoint_path", "checkpoints/best_model"
     )
-    checkpoint_path = str(Path(checkpoint_path).resolve())
 
     eval_settings = eval_cfg.get("evaluation", {})
     results_dir = Path(
@@ -129,8 +167,10 @@ def run_evaluation(
                 "Only checkpoint loading and trained-policy evaluation"
                 " require Ray."
             )
+        # Resolve checkpoint path → file:// URI before handing to RLlib/PyArrow
+        checkpoint_uri = resolve_checkpoint_uri(checkpoint_path)
         logger.info(
-            "Restoring trained MAPPO policies from checkpoint: %s", checkpoint_path
+            "Restoring trained MAPPO policies from checkpoint: %s", checkpoint_uri
         )
         # Register environment with RLlib before restoring the checkpoint
         # local
@@ -139,7 +179,7 @@ def run_evaluation(
         register_p2p_environment()
 
         # Restore algorithm using New API Stack checkpoint loading
-        algo = Algorithm.from_checkpoint(checkpoint_path)
+        algo = Algorithm.from_checkpoint(checkpoint_uri)
 
         # Retrieve sub-modules for evaluation inference
         modules = {

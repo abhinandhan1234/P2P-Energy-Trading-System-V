@@ -25,8 +25,8 @@ obs, info = env.reset(seed=42)
 assert len(obs) == 21, f"Expected 21 agent observations, got {len(obs)}"
 assert env.battery_model.soc == 0.50, f"Expected initial battery SoC to be 0.50, got {env.battery_model.soc}"
 
-print("Running 100 random action steps...")
-for step in range(1, 101):
+print("Running 1000 random action steps...")
+for step in range(1, 1001):
     # Generate random actions (Box spaces of shape (3,) clipped in [0.0, 1.0])
     actions = {}
     for aid in ALL_AGENT_IDS:

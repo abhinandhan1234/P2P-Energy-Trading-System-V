@@ -263,9 +263,7 @@ class TrainingService:
             record.state = "FAILED"
             record.error_message = f"Process launch error: {e}"
             self.registry.update_experiment(record)
-            raise ProcessError(
-                f"Failed to resume training subprocess: {e}"
-            ) from e
+            raise ProcessError(f"Failed to resume training subprocess: {e}") from e
 
         record.pid = process.pid
         record.state = "RUNNING"

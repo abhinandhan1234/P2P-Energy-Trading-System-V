@@ -159,6 +159,7 @@ def process_settlements(
 
     for aid in ALL_AGENT_IDS:
         demand = demands_kw.get(aid, 0.0)
+        solar = solar_kw.get(aid, 0.0)
         p2p_b = p2p_bought[aid]
         p2p_s = p2p_sold[aid]
 
@@ -191,7 +192,7 @@ def process_settlements(
         settlement_records[aid] = record
 
         # 6. Energy Balance Validation
-        # Check non-negativity
+        # Check non-negativity of cleared values
         if p2p_s < -1e-9 or p2p_b < -1e-9 or grid_s < -1e-9 or grid_b < -1e-9:
             raise MarketClearingError(
                 f"Negative quantities in cleared trades or fallback"
@@ -202,31 +203,65 @@ def process_settlements(
         b_discharge = max(0.0, battery_dispatch_kw) if aid == COLLEGE_AGENT_ID else 0.0
         b_charge = max(0.0, -battery_dispatch_kw) if aid == COLLEGE_AGENT_ID else 0.0
 
-        # Derived local solar consumption
-        solar_used = demand - p2p_b - grid_b - b_discharge
-        if solar_used < -b_charge - ENERGY_BALANCE_TOLERANCE_KW:
-            raise MarketClearingError(
-                f"Calculated local solar consumption is negative for"
-                f" agent '{aid}': {solar_used:.4f} kW"
-            )
-        # Handle tiny floating point differences
-        solar_used = max(-b_charge, solar_used)
+        # Assertions/Checks for battery limits (only for college agent)
+        if aid == COLLEGE_AGENT_ID:
+            # 1. Power limit
+            if abs(battery_dispatch_kw) > BATTERY_POWER_KW + 1e-5:
+                raise MarketClearingError(
+                    f"Battery dispatch {battery_dispatch_kw:.4f} kW exceeds "
+                    f"power limit {BATTERY_POWER_KW} kW"
+                )
 
-        # Validate demand balance
-        demand_balance = solar_used + p2p_b + grid_b + b_discharge
-        if abs(demand_balance - demand) > ENERGY_BALANCE_TOLERANCE_KW:
+            # 2. SoC limits
+            if battery_dispatch_kw < 0.0:  # Charging
+                charge_power = -battery_dispatch_kw
+                kwh_to_fill = (BATTERY_SOC_MAX - battery_soc) * BATTERY_CAPACITY_KWH
+                max_charge = kwh_to_fill / (eta_charge * dt)
+                if charge_power > max_charge + 1e-5:
+                    raise MarketClearingError(
+                        f"Battery charge {charge_power:.4f} kW violates max charge "
+                        f"limit {max_charge:.4f} kW based on SoC max."
+                    )
+            elif battery_dispatch_kw > 0.0:  # Discharging
+                discharge_power = battery_dispatch_kw
+                kwh_to_drain = (battery_soc - BATTERY_SOC_MIN) * BATTERY_CAPACITY_KWH
+                max_discharge = kwh_to_drain * eta_discharge / dt
+                if discharge_power > max_discharge + 1e-5:
+                    raise MarketClearingError(
+                        f"Battery discharge {discharge_power:.4f} kW violates "
+                        f"max discharge limit {max_discharge:.4f} kW based on SoC min."
+                    )
+
+        # 3. Energy conservation check (total energy in = total energy out)
+        energy_in = solar + p2p_b + grid_b + b_discharge
+        energy_out = demand + p2p_s + grid_s + b_charge
+        if abs(energy_in - energy_out) > ENERGY_BALANCE_TOLERANCE_KW:
             raise MarketClearingError(
-                f"Demand balance violation for agent '{aid}': "
-                f"Demand={demand:.4f} kW, Cleared={demand_balance:.4f} kW"
+                f"Energy conservation violation for agent '{aid}': "
+                f"Energy In = {energy_in:.4f} kW, Energy Out = {energy_out:.4f} kW"
             )
 
-        # Validate solar balance
-        solar_balance = solar_used + p2p_s + grid_s + b_charge
-        expected_solar = solar_kw.get(aid, 0.0)
-        if abs(solar_balance - expected_solar) > ENERGY_BALANCE_TOLERANCE_KW:
+        # 4. Export limit check: exports must not exceed available surplus
+        available_surplus = available_surpluses[aid]
+        exports = p2p_s + grid_s
+        if exports > available_surplus + ENERGY_BALANCE_TOLERANCE_KW:
             raise MarketClearingError(
-                f"Solar balance violation for agent '{aid}': "
-                f"Solar={expected_solar:.4f} kW, Cleared={solar_balance:.4f} kW"
+                f"Exports {exports:.4f} kW exceed available surplus "
+                f"{available_surplus:.4f} kW for agent '{aid}'."
+            )
+
+        # 5. Local solar consumption definition and limits
+        local_load = demand + b_charge
+        solar_to_load = min(solar, local_load)
+        solar_surplus = solar - solar_to_load
+        solar_exported = min(solar_surplus, exports)
+        local_solar_consumption = solar - solar_exported
+
+        if local_solar_consumption < -1e-9 or local_solar_consumption > solar + 1e-9:
+            raise MarketClearingError(
+                f"Calculated local solar consumption is out of bounds for "
+                f"agent '{aid}': local_solar_consumption = "
+                f"{local_solar_consumption:.4f} kW, solar = {solar:.4f} kW"
             )
 
     # 7. Construct MarketState

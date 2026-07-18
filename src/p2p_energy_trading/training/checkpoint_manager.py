@@ -245,9 +245,7 @@ class CheckpointManager:
             "agent_steps": steps,
             "curriculum_stage": stage,
         }
-        with open(
-            target_dir / "checkpoint_metadata.json", "w", encoding="utf-8"
-        ) as f:
+        with open(target_dir / "checkpoint_metadata.json", "w", encoding="utf-8") as f:
             json.dump(metadata, f, indent=4)
 
         # Write YAML config copy
