@@ -1,6 +1,7 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pathlib import Path
 import uvicorn
@@ -37,6 +38,11 @@ app.include_router(config.router)
 
 root_dir = Path(__file__).resolve().parent.parent.parent.parent
 frontend_dir = root_dir / "frontend"
-app.mount("/", StaticFiles(directory=str(frontend_dir), html=True), name="frontend")
+app.mount("/static", StaticFiles(directory=str(frontend_dir)), name="static")
+
+@app.get("/")
+async def serve_frontend_index():
+    return FileResponse(frontend_dir / "index.html")
+
 if __name__ == "__main__":
     uvicorn.run("p2p_energy_trading.server.main:app", host="127.0.0.1", port=8000, reload=True)
