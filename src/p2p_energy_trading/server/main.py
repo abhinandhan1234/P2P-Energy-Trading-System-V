@@ -6,14 +6,13 @@ from fastapi.staticfiles import StaticFiles
 from pathlib import Path
 import uvicorn
 
-from p2p_energy_trading.api.experiment_api import P2PExperimentAPI
-from p2p_energy_trading.server.routers import experiments, config
+from p2p_energy_trading.server.rl_inference import RLInferenceService
 from p2p_energy_trading.server.routers import integration
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Initialize the global API instance
-    app.state.api = P2PExperimentAPI()
+    # Initialize the global inference service once at application startup.
+    app.state.inference_service = RLInferenceService()
     yield
     # Cleanup if necessary
     pass
@@ -34,8 +33,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(experiments.router)
-app.include_router(config.router)
 app.include_router(integration.router)
 
 root_dir = Path(__file__).resolve().parent.parent.parent.parent
