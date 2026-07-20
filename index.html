@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SolarXChange — Pro Trading Terminal</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+
+<!-- SIDEBAR (for dashboard pages) -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 18 18" fill="none"><path d="M9 2L2 6v6l7 4 7-4V6L9 2z" fill="#0a0a08" stroke="#0a0a08" stroke-width="0.5"/><path d="M9 2v16M2 6l7 4 7-4" stroke="#0a0a08" stroke-width="1.5" fill="none"/></svg>
+    </div>
+    <div class="logo-text">
+      <div class="name">SolarXChange</div>
+      <div class="sub">Pro Trading Terminal</div>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-item active" onclick="showPage('dashboard')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      Dashboard
+    </div>
+    <div class="nav-item" onclick="showPage('marketplace')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Marketplace
+    </div>
+    <div class="nav-item" onclick="showPage('aipredictions')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      AI Predictions
+    </div>
+    <div class="nav-item" onclick="showPage('blockchain')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+      Blockchain
+    </div>
+    <div class="nav-item" onclick="showPage('smartgrid')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      Smart Grid
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      Support
+    </div>
+  </nav>
+  <div class="sidebar-trade">
+    <button class="trade-btn" onclick="showPage('marketplace')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      Trade Energy
+    </button>
+  </div>
+  <div class="sidebar-bottom">
+    <div class="logout-btn" onclick="showPage('landing')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Log Out
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<div class="main" id="main">
+
+<!-- ===== LANDING PAGE ===== -->
+<div class="page" id="page-landing">
+  <!-- Top Nav -->
+  <nav class="topnav">
+    <div class="topnav-logo">
+      <div class="icon">
+        <svg width="14" height="14" viewBox="0 0 18 18" fill="#0a0a08"><path d="M9 1L1 6v6l8 5 8-5V6L9 1z"/></svg>
+      </div>
+      <span class="wordmark">SolarXChange</span>
+    </div>
+    <div class="topnav-links">
+    </div>
+    <div class="topnav-actions">
+      <div class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg></div>
+      <div class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 10-16 0"/></svg></div>
+      <button class="connect-btn" onclick="showPage('dashboard')">Connect Wallet</button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="landing-hero">
+    <div class="hero-bg">
+      <div class="hero-grid"></div>
+    </div>
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        Next-Gen Grid Protocol
+      </div>
+      <h1 class="hero-h1">Trade Solar Energy<br><span>Intelligently</span></h1>
+      <p class="hero-sub">AI + Blockchain powered renewable energy trading ecosystem. Experience decentralized energy markets with institutional-grade precision and real-time autonomous execution.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('dashboard')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          Start Trading
+        </button>
+        <button class="btn-secondary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+          Connect Solar System
+        </button>
+      </div>
+    </div>
+    <!-- Floating market card -->
+    <div class="hero-float">
+      <div class="market-card">
+        <div class="market-card-header">
+          <div>
+            <div class="title">Live Market Flow</div>
+            <div class="sub" style="margin-top:2px">Real-time Node Activity</div>
+          </div>
+          <div class="live-dot"></div>
+        </div>
+        <div class="market-row">
+          <div class="market-row-left">
+            <div class="node-avatar producer">P</div>
+            <div>
+              <div class="market-row-name">Producer #8421</div>
+              <div class="market-row-type">Solar Farm · Active</div>
+            </div>
+          </div>
+          <div class="market-row-value pos">+4.2 kW</div>
+        </div>
+        <div class="market-row">
+          <div class="market-row-left">
+            <div class="node-avatar consumer">C</div>
+            <div>
+              <div class="market-row-name">Consumer #1209</div>
+              <div class="market-row-type">Residential · Buying</div>
+            </div>
+          </div>
+          <div class="market-row-value neg">−2.8 kW</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Bar -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-label">Total Energy Traded</div>
+      <div class="stat-value green">4.8 <span style="font-size:20px">GWh</span></div>
+      <div class="stat-change up">↑ 12.5% vs LW</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Active Producers</div>
+      <div class="stat-value yellow">12,402</div>
+      <div class="stat-change up">↑ 340 new today</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Carbon Saved</div>
+      <div class="stat-value blue">850 <span style="font-size:18px">Tons</span></div>
+      <div class="stat-change" style="color:var(--text3)">◎ Net Zero Target</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">AI Trading Accuracy</div>
+      <div class="stat-value" style="color:var(--text)">99.2%</div>
+      <div class="stat-change" style="color:var(--yellow)">⚡ Hyper-optimized</div>
+    </div>
+  </div>
+
+  <!-- Features -->
+  <section class="features-section">
+    <div class="section-header">
+      <h2>Core Ecosystem Architecture</h2>
+      <p>Precision-engineered modules designed for the future of decentralized power.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="icon yellow">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f0c040" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        </div>
+        <h3>AI Energy Prediction</h3>
+        <p>Deep neural networks predict solar yield and market volatility with 99.2% precision, ensuring you trade at peak efficiency.</p>
+        <div class="feature-link">Explore Forecasting <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
+      <div class="feature-card wide" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center">
+        <div>
+          <div class="icon green" style="margin-bottom:12px">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3ddc84" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          </div>
+          <h3>Blockchain Security</h3>
+          <p>Immutable ledger technology ensures every watt-hour is verified and every transaction is transparent and tamper-proof.</p>
+          <div class="feature-link" style="margin-top:12px">Audit The Ledger <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        </div>
+        <div style="background:var(--bg3);border-radius:10px;border:1px solid var(--border);padding:20px;text-align:center">
+          <svg width="80" height="60" viewBox="0 0 80 60">
+            <defs><linearGradient id="grd1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#3ddc84" stop-opacity="0.8"/><stop offset="100%" stop-color="#4ab4ff" stop-opacity="0.4"/></linearGradient></defs>
+            <rect x="30" y="5" width="20" height="20" rx="3" fill="url(#grd1)" opacity="0.9"/>
+            <rect x="5" y="35" width="20" height="20" rx="3" fill="url(#grd1)" opacity="0.6"/>
+            <rect x="55" y="35" width="20" height="20" rx="3" fill="url(#grd1)" opacity="0.6"/>
+            <line x1="40" y1="25" x2="15" y2="35" stroke="#3ddc84" stroke-width="1" opacity="0.5"/>
+            <line x1="40" y1="25" x2="65" y2="35" stroke="#3ddc84" stroke-width="1" opacity="0.5"/>
+          </svg>
+          <div style="font-size:9px;color:var(--text3);font-family:'JetBrains Mono',monospace;margin-top:4px">Distributed Ledger</div>
+        </div>
+      </div>
+      <div class="feature-card wide" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center">
+        <div style="background:var(--bg3);border-radius:10px;border:1px solid var(--border);padding:20px;text-align:center">
+          <svg width="80" height="60" viewBox="0 0 80 60">
+            <circle cx="40" cy="30" r="15" fill="none" stroke="#f0c040" stroke-width="1" opacity="0.3"/>
+            <circle cx="40" cy="30" r="8" fill="rgba(240,192,64,0.15)"/>
+            <circle cx="40" cy="30" r="3" fill="#f0c040"/>
+            <circle cx="40" cy="8" r="3" fill="rgba(240,192,64,0.5)"/>
+            <circle cx="62" cy="41" r="3" fill="rgba(240,192,64,0.5)"/>
+            <circle cx="18" cy="41" r="3" fill="rgba(240,192,64,0.5)"/>
+            <line x1="40" y1="11" x2="40" y2="22" stroke="#f0c040" stroke-width="0.8" opacity="0.4"/>
+            <line x1="59" y1="39" x2="48" y2="33" stroke="#f0c040" stroke-width="0.8" opacity="0.4"/>
+            <line x1="21" y1="39" x2="32" y2="33" stroke="#f0c040" stroke-width="0.8" opacity="0.4"/>
+          </svg>
+          <div style="font-size:9px;color:var(--text3);font-family:'JetBrains Mono',monospace;margin-top:4px">MARL Agent Network</div>
+        </div>
+        <div>
+          <div class="icon yellow" style="margin-bottom:12px">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f0c040" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <h3>MARL Trading</h3>
+          <p>Multi-Agent Reinforcement Learning bots execute trades on your behalf, maximizing arbitrage opportunities across the grid.</p>
+          <div class="feature-link" style="margin-top:12px">Bot Terminal <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="icon blue">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ab4ff" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <h3>Smart Contracts</h3>
+        <p>Self-executing agreements handle billing, reconciliation, and delivery instantly. No paperwork, no delays, total efficiency.</p>
+        <div class="feature-link">View Protocol <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h2>Join the Energy Revolution</h2>
+    <p>Deploy your solar assets on the SolarXChange network today and start generating yield from every ray of sunshine.</p>
+    <div class="cta-btns">
+      <button class="btn-primary" onclick="showPage('dashboard')">Create Trading Account</button>
+      <button class="btn-secondary">Talk to Grid Specialist</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div>
+      <div class="footer-logo">
+        <div class="icon"><svg width="12" height="12" viewBox="0 0 18 18" fill="#0a0a08"><path d="M9 1L1 6v6l8 5 8-5V6L9 1z"/></svg></div>
+        <span style="font-size:13px;font-weight:700">SolarXChange</span>
+      </div>
+      <div class="footer-mission">Decentralized Power for the Next Millennium.</div>
+    </div>
+    <div class="footer-links">
+      <a href="#">Whitepaper</a>
+      <a href="#">Network Status</a>
+      <a href="#">Security Audit</a>
+      <a href="#">Privacy Policy</a>
+    </div>
+    <div class="footer-copy">© 2024 SolarXChange. Decentralized Energy Grid.</div>
+  </footer>
+</div>
+
+<!-- ===== DASHBOARD PAGE ===== -->
+<div class="page active" id="page-dashboard">
+  <div class="dash-header">
+    <div class="dash-title">
+      <h2>Overview</h2>
+      <p>Node ID: 8842-SX-PR</p>
+    </div>
+    <div class="dash-header-right">
+      <div class="grid-status">
+        <span class="dot"></span>
+        Grid Status: Optimised
+      </div>
+      <div class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:16px;height:16px"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg></div>
+      <div class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:16px;height:16px"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>
+      <div class="wallet-info">
+        <span class="addr">Connect Wallet 0x8aF...E492</span>
+        <div class="wallet-avatar">S</div>
+      </div>
+    </div>
+  </div>
+  <div class="dash-content">
+    <!-- Metrics -->
+    <div class="metrics-row">
+      <div class="metric-card">
+        <div class="metric-icon yellow"><svg viewBox="0 0 24 24" fill="none" stroke="#f0c040" stroke-width="1.8" width="17" height="17"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></div>
+        <div class="metric-label">Solar Generation</div>
+        <div class="metric-value">4.8<span class="unit">kWh</span></div>
+        <div class="metric-change up">+12% from yesterday</div>
+        <div class="metric-bar"><div class="metric-bar-fill" style="width:72%"></div></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="#4ab4ff" stroke-width="1.8" width="17" height="17"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <div class="metric-label">Energy Usage</div>
+        <div class="metric-value">1.2<span class="unit">kWh</span></div>
+        <div class="bar-blocks" style="margin-top:10px">
+          <div class="bar-block dim"></div>
+          <div class="bar-block dim"></div>
+          <div class="bar-block filled"></div>
+          <div class="bar-block filled"></div>
+          <div class="bar-block active"></div>
+          <div class="bar-block active"></div>
+          <div class="bar-block dim"></div>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="#3ddc84" stroke-width="1.8" width="17" height="17"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
+        <div class="metric-label">Earnings History</div>
+        <div class="metric-value" style="color:var(--text)">142<span class="unit" style="color:var(--yellow)">SXG</span></div>
+        <div class="earnings-usd">≈ $11.36 USD</div>
+        <div class="earnings-today">+8 SXG today</div>
+      </div>
+    </div>
+
+    <!-- Mid row: AI + Chart -->
+    <div class="mid-row">
+      <div class="ai-card">
+        <div class="ai-badge">AI Recommendation</div>
+        <div class="ai-headline">Best time to sell energy is in 2 hours.</div>
+        <div class="ai-body">Predictive models suggest a 24% price surge at 4:30 PM due to local grid demand spikes. Hold current storage.</div>
+        <div class="ai-confidence">
+          <span>Confidence Level</span>
+          <span class="ai-confidence-val">94%</span>
+        </div>
+        <button class="automation-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Set Automation Trigger
+        </button>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header">
+          <div>
+            <div class="chart-title">Live Electricity Market Price</div>
+            <div class="chart-sub">SXG / kWh · Real-time Feed</div>
+          </div>
+          <div class="chart-tabs">
+            <div class="chart-tab">1H</div>
+            <div class="chart-tab active">24H</div>
+            <div class="chart-tab">1W</div>
+          </div>
+        </div>
+        <div class="chart-price-current">
+          <span class="price">0.34</span>
+          <span class="unit">SXG/kWh</span>
+        </div>
+        <div class="chart-wrap">
+          <svg viewBox="0 0 400 100" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="chartGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#f0c040" stop-opacity="0.3"/>
+                <stop offset="100%" stop-color="#f0c040" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <path d="M0,70 C40,65 60,80 100,55 C140,30 160,50 200,45 C240,40 260,60 300,35 C340,10 360,20 400,5" fill="none" stroke="#f0c040" stroke-width="2"/>
+            <path d="M0,70 C40,65 60,80 100,55 C140,30 160,50 200,45 C240,40 260,60 300,35 C340,10 360,20 400,5 L400,100 L0,100 Z" fill="url(#chartGrad)"/>
+            <circle cx="400" cy="5" r="4" fill="#f0c040"/>
+          </svg>
+        </div>
+        <div class="chart-xaxis">
+          <span>00:00</span><span>04:00</span><span>08:00</span><span>12:00</span><span style="color:var(--yellow)">16:00</span><span>20:00</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom row: Marketplace + Sustainability -->
+    <div class="bottom-row">
+      <div class="marketplace-card">
+        <div class="marketplace-header">
+          <div>
+            <div class="section-title">Live P2P Marketplace</div>
+          </div>
+          <div class="live-badge">LIVE STREAM</div>
+        </div>
+        <div class="mp-row">
+          <div class="mp-left">
+            <div class="mp-avatar a">A</div>
+            <div>
+              <div class="mp-name">Node_Alpha_7</div>
+              <div class="mp-type">Buyer · 12kW requested</div>
+            </div>
+          </div>
+          <div class="mp-right">
+            <div class="mp-price">0.32 SXG/kWh</div>
+            <div class="fulfill-btn">FULFILL ORDER</div>
+          </div>
+        </div>
+        <div class="mp-row">
+          <div class="mp-left">
+            <div class="mp-avatar b">M</div>
+            <div>
+              <div class="mp-name">Main_Grid_Relay</div>
+              <div class="mp-type">Buyer · Dynamic Load</div>
+            </div>
+          </div>
+          <div class="mp-right">
+            <div class="mp-price">0.29 SXG/kWh</div>
+            <div class="fulfill-btn">FULFILL ORDER</div>
+          </div>
+        </div>
+        <div class="mp-row">
+          <div class="mp-left">
+            <div class="mp-avatar c">E</div>
+            <div>
+              <div class="mp-name">EV_Station_East</div>
+              <div class="mp-type">Buyer · 50kW requested</div>
+            </div>
+          </div>
+          <div class="mp-right">
+            <div class="mp-price">0.35 SXG/kWh</div>
+            <div class="fulfill-btn">FULFILL ORDER</div>
+          </div>
+        </div>
+      </div>
+      <div class="sustainability-card">
+        <div class="sus-title">Sustainability Score</div>
+        <div class="sus-sub">NET CARBON IMPACT</div>
+        <div class="donut-wrap">
+          <svg viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="48" fill="none" stroke="var(--border)" stroke-width="8"/>
+            <circle cx="60" cy="60" r="48" fill="none" stroke="#3ddc84" stroke-width="8" stroke-dasharray="251" stroke-dashoffset="40" stroke-linecap="round" transform="rotate(-90 60 60)"/>
+          </svg>
+          <div class="donut-center">
+            <div class="donut-pct">-84%</div>
+            <div class="donut-label">EMISSION<br>OFFSET</div>
+          </div>
+        </div>
+        <div class="sus-text">Your node has prevented 4.2 tons of CO2 this month through decentralized trading.</div>
+        <div class="impact-link">View Impact Report <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
+    </div>
+  </div>
+  <!-- Footer -->
+  <div style="padding:20px 28px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
+    <span style="font-size:10px;color:var(--text3);font-family:'JetBrains Mono',monospace">© 2024 SolarXChange. Decentralized Energy Grid.</span>
+    <div class="footer-links"><a href="#">Whitepaper</a><a href="#">Network Status</a><a href="#">Security Audit</a><a href="#">Privacy Policy</a></div>
+  </div>
+</div>
+
+<!-- ===== AI PREDICTIONS PAGE ===== -->
+<div class="page" id="page-aipredictions">
+  <nav class="topnav">
+    <div class="topnav-logo">
+      <div class="icon"><svg width="14" height="14" viewBox="0 0 18 18" fill="#0a0a08"><path d="M9 1L1 6v6l8 5 8-5V6L9 1z"/></svg></div>
+      <span class="wordmark">SolarXChange</span>
+    </div>
+    <div class="topnav-links">
+      <a href="#" onclick="showPage('marketplace')">Marketplace</a>
+      <a href="#" class="active">Forecasts</a>
+      <a href="#" onclick="showPage('blockchain')">Ledger</a>
+    </div>
+    <div class="topnav-actions">
+      <div style="background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:7px 14px;display:flex;align-items:center;gap:6px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <span style="font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace">Search grid...</span>
+      </div>
+      <div class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:16px;height:16px"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div>
+      <button class="connect-btn">Connect Wallet</button>
+    </div>
+  </nav>
+  <div class="ai-page-header" style="display:grid;grid-template-columns:1fr auto;gap:20px;align-items:start;padding:28px 28px 0">
+    <div>
+      <div class="neural-status">Neural Network Status: Active</div>
+      <h1>AI Predictions & Insights</h1>
+      <p style="font-size:13px;color:var(--text2);line-height:1.7;max-width:520px">Harnessing hyper-local weather patterns and blockchain ledger history to optimize your energy yield and trading margins.</p>
+    </div>
+    <div class="confidence-chip">
+      <div class="label">Global Confidence</div>
+      <div class="value">98.4%</div>
+    </div>
+  </div>
+  <div class="ai-grid">
+    <div>
+      <!-- Generation vs Demand Chart -->
+      <div class="ai-chart-card" style="margin-bottom:16px">
+        <div class="header-row">
+          <div>
+            <div class="section-title" style="color:var(--yellow)">Solar Generation vs Demand</div>
+            <div class="section-sub">Predicted 24h Horizon</div>
+          </div>
+          <div class="chart-legend">
+            <div class="legend-item"><div class="legend-dot" style="background:var(--yellow)"></div>Generation</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>Demand</div>
+          </div>
+        </div>
+        <div class="chart-wrap" style="height:160px">
+          <svg viewBox="0 0 500 130" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="genGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#f0c040" stop-opacity="0.2"/>
+                <stop offset="100%" stop-color="#f0c040" stop-opacity="0"/>
+              </linearGradient>
+              <linearGradient id="demGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#3ddc84" stop-opacity="0.15"/>
+                <stop offset="100%" stop-color="#3ddc84" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <!-- Demand line (dashed) -->
+            <path d="M0,100 C50,95 100,80 150,70 C200,60 250,55 300,60 C350,65 400,75 450,85 L500,90" fill="none" stroke="#3ddc84" stroke-width="1.5" stroke-dasharray="6,3" opacity="0.7"/>
+            <!-- Generation line -->
+            <path d="M0,120 C50,115 100,90 150,50 C200,20 250,15 300,20 C350,30 400,70 450,105 L500,115" fill="none" stroke="#f0c040" stroke-width="2"/>
+            <path d="M0,120 C50,115 100,90 150,50 C200,20 250,15 300,20 C350,30 400,70 450,105 L500,115 L500,130 L0,130Z" fill="url(#genGrad)"/>
+          </svg>
+        </div>
+        <div class="chart-xaxis">
+          <span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>23:59</span>
+        </div>
+      </div>
+      <!-- Heatmap -->
+      <div class="heatmap-card">
+        <div class="header-row">
+          <div>
+            <div class="section-title" style="color:var(--yellow)">District Demand Heatmap</div>
+            <div class="section-sub">Real-time Grid Pressure Analysis</div>
+          </div>
+          <div class="live-badge">Live Map</div>
+        </div>
+        <div class="heatmap-grid" id="heatmap"></div>
+        <div class="heatmap-legend">
+          <div class="hm-leg"><div class="hm-swatch" style="background:#2d6a4f"></div>LOW PRESSURE</div>
+          <div class="hm-leg"><div class="hm-swatch" style="background:#3ddc84"></div>OPTIMAL</div>
+          <div class="hm-leg"><div class="hm-swatch" style="background:#d4a017"></div>CRITICAL LOAD</div>
+          <a href="#" style="margin-left:auto;font-size:9px;color:var(--yellow)">View Region Details →</a>
+        </div>
+      </div>
+    </div>
+    <div>
+      <!-- Weather -->
+      <div class="weather-card" style="margin-bottom:16px">
+        <div class="weather-title">
+          Hyper-Local Weather
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f0c040" stroke-width="1.8"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </div>
+        <div class="temp-display">28°</div>
+        <div style="font-size:10px;color:var(--text3);font-family:'JetBrains Mono',monospace;margin-bottom:6px">Cloud Cover Impact</div>
+        <div class="cloud-bar"><div class="cloud-fill"></div></div>
+        <div class="forecast-insight">"Expect 12% yield increase due to unusual clear sky corridor between 14:00 and 16:30."</div>
+        <div style="background:var(--bg3);border-radius:8px;height:80px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border)">
+          <svg width="120" height="60" viewBox="0 0 120 60">
+            <defs><linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#4ab4ff" stop-opacity="0.6"/><stop offset="100%" stop-color="#3ddc84" stop-opacity="0.2"/></linearGradient></defs>
+            <rect width="120" height="60" fill="url(#skyGrad)" rx="6"/>
+            <ellipse cx="60" cy="30" rx="18" ry="18" fill="rgba(240,192,64,0.7)"/>
+            <ellipse cx="25" cy="20" rx="20" ry="10" fill="rgba(255,255,255,0.1)"/>
+            <ellipse cx="90" cy="40" rx="22" ry="10" fill="rgba(255,255,255,0.08)"/>
+          </svg>
+        </div>
+      </div>
+      <!-- Agent Recommendations -->
+      <div class="agent-card">
+        <div class="section-title" style="display:flex;align-items:center;gap:6px;margin-bottom:16px">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f0c040" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          Agent Recommendations
+        </div>
+        <div class="agent-rec">
+          <div class="agent-rec-header">
+            <div class="agent-rec-title">Execute Buy Arbitrage</div>
+            <div class="rec-badge recommended">RECOMMENDED</div>
+          </div>
+          <p>Low grid demand detected. Buy surplus at $0.04/kWh and store in PowerVault for 18:00 peak.</p>
+          <button class="approve-btn">Approve Action</button>
+        </div>
+        <div class="agent-rec">
+          <div class="agent-rec-header">
+            <div class="agent-rec-title">Predictive Maintenance</div>
+            <div class="rec-badge optimization">OPTIMIZATION</div>
+          </div>
+          <p>Cluster C-12 cooling systems are 4% below efficiency. Schedule auto-cleaning before 11:00 heat spike.</p>
+        </div>
+        <div class="agent-rec" style="margin-bottom:0">
+          <div class="agent-rec-header">
+            <div class="agent-rec-title">Yield Lock Strategy</div>
+            <div class="rec-badge financial">FINANCIAL</div>
+          </div>
+          <p>Hedge 30% of tomorrow's predicted solar production at current premium rates.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="padding:0 28px 20px;border-top:1px solid var(--border);margin-top:8px;padding-top:20px;display:flex;justify-content:space-between">
+    <span style="font-size:10px;color:var(--text3);font-family:'JetBrains Mono',monospace">© 2024 SolarXChange. Decentralized Energy Grid.</span>
+    <div class="footer-links"><a href="#">Whitepaper</a><a href="#">Network Status</a><a href="#">Security Audit</a><a href="#">Privacy Policy</a></div>
+  </div>
+</div>
+
+<!-- ===== BLOCKCHAIN PAGE ===== -->
+<div class="page" id="page-blockchain">
+  <nav class="topnav">
+    <div class="topnav-logo">
+      <div class="icon"><svg width="14" height="14" viewBox="0 0 18 18" fill="#0a0a08"><path d="M9 1L1 6v6l8 5 8-5V6L9 1z"/></svg></div>
+      <span class="wordmark">SolarXChange</span>
+    </div>
+    <div class="topnav-links">
+      <a href="#" onclick="showPage('marketplace')">Marketplace</a>
+      <a href="#" onclick="showPage('aipredictions')">Forecasts</a>
+      <a href="#" class="active">Ledger</a>
+    </div>
+    <div class="topnav-actions">
+      <div style="background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:7px 14px;display:flex;align-items:center;gap:6px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <span style="font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace">Search Hash...</span>
+      </div>
+      <div class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:16px;height:16px"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div>
+      <div class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:16px;height:16px"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>
+      <button class="connect-btn">Connect Wallet</button>
+    </div>
+  </nav>
+  <div style="display:grid;grid-template-columns:auto 1fr;gap:20px;padding:28px 28px 0;align-items:start">
+    <div>
+      <div class="bc-header" style="padding:0">
+        <div class="net-status">Network Status: Synchronized</div>
+        <h1 style="font-size:36px;font-weight:800;letter-spacing:-0.5px;margin-bottom:8px;line-height:1.15">Energy Blockchain<br>Ledger</h1>
+        <p style="font-size:12px;color:var(--text2);max-width:420px;line-height:1.6;margin-bottom:20px">Verified immutable record of decentralized solar energy distribution, peer-to-peer trading events, and automated smart contract fulfillment across the global grid.</p>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:320px;margin-left:auto">
+      <div class="bc-stat-card">
+        <div class="label">Total Blocks</div>
+        <div class="value">1,402,931</div>
+      </div>
+      <div class="bc-stat-card">
+        <div class="label">TPS Avg</div>
+        <div class="value">42.8</div>
+      </div>
+    </div>
+  </div>
+  <div class="bc-layout">
+    <div>
+      <!-- Transactions -->
+      <div class="tx-card">
+        <div class="tx-card-header">
+          <div class="section-title" style="display:flex;align-items:center;gap:6px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Verified Transactions
+          </div>
+          <div class="tx-btns">
+            <button class="export-btn">Export CSV</button>
+            <button class="live-feed-btn">Live Feed</button>
+          </div>
+        </div>
+        <table class="tx-table">
+          <thead>
+            <tr>
+              <th>TX HASH</th>
+              <th>ORIGIN NODE</th>
+              <th>ENERGY (KWH)</th>
+              <th>TIMESTAMP</th>
+              <th>STATUS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="tx-hash">0x7f2a...8c12</span></td>
+              <td>Sol-Node-Paris-04</td>
+              <td class="energy-pos">+24.50</td>
+              <td>12:04:15 UTC</td>
+              <td><span class="tx-status">CONFIRMED</span></td>
+            </tr>
+            <tr>
+              <td><span class="tx-hash">0x1a8c...4f9b</span></td>
+              <td>Storage-Unit-A12</td>
+              <td class="energy-neg">-11.20</td>
+              <td>12:03:58 UTC</td>
+              <td><span class="tx-status">CONFIRMED</span></td>
+            </tr>
+            <tr>
+              <td><span class="tx-hash">0x55d1...22e4</span></td>
+              <td>Consumer-Res-09</td>
+              <td class="energy-neg">-45.00</td>
+              <td>12:03:12 UTC</td>
+              <td><span class="tx-status">CONFIRMED</span></td>
+            </tr>
+            <tr>
+              <td><span class="tx-hash">0xbb43...cc11</span></td>
+              <td>Farm-A-Sector-5</td>
+              <td class="energy-pos">+128.9</td>
+              <td>12:02:45 UTC</td>
+              <td><span class="tx-status val">VALIDATED</span></td>
+            </tr>
+            <tr>
+              <td><span class="tx-hash">0x88e1...99d3</span></td>
+              <td>Sol-Node-Berlin-2</td>
+              <td class="energy-pos">+8.22</td>
+              <td>12:01:30 UTC</td>
+              <td><span class="tx-status">CONFIRMED</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <button class="load-more-btn">LOAD MORE BLOCKS</button>
+        <!-- Chain Integrity -->
+        <div class="chain-integrity">
+          <h3>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+            Chain Integrity Map
+          </h3>
+          <div class="chain-blocks">
+            <div class="chain-block">
+              <div class="num">BLOCK #1,402,931</div>
+              <div class="icon-wrap">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3ddc84" stroke-width="1.8"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+              </div>
+            </div>
+            <div class="chain-arrow">→</div>
+            <div class="chain-block">
+              <div class="num">BLOCK #1,402,930</div>
+              <div class="icon-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3ddc84" stroke-width="1.8"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg></div>
+            </div>
+            <div class="chain-arrow">→</div>
+            <div class="chain-block">
+              <div class="num">BLOCK #1,402,929</div>
+              <div class="icon-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3ddc84" stroke-width="1.8"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg></div>
+            </div>
+            <div class="chain-arrow">→</div>
+            <div class="chain-block mining">
+              <div class="num">MINING...</div>
+              <div class="icon-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f0c040" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg></div>
+            </div>
+            <div class="chain-arrow" style="color:var(--border2)">→</div>
+            <div class="chain-block pending">
+              <div class="num">PENDING</div>
+              <div class="icon-wrap"><div style="width:8px;height:8px;border-radius:50%;background:var(--border2)"></div></div>
+            </div>
+            <div class="chain-arrow" style="color:var(--border2)">→</div>
+            <div class="chain-block pending">
+              <div class="num">PENDING</div>
+              <div class="icon-wrap"><div style="width:8px;height:8px;border-radius:50%;background:var(--border2)"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <!-- Contract Execution -->
+      <div class="contract-card" style="margin-bottom:16px">
+        <div class="section-title" style="display:flex;align-items:center;gap:6px;margin-bottom:16px">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+          Contract Execution
+        </div>
+        <div class="contract-step">
+          <div class="cs-tag">CONTRACT_INITIALIZED</div>
+          <div class="cs-title">Energy Trade Request</div>
+          <div class="cs-id">ID: 0xFD99...12AA</div>
+          <div class="cs-time">12:04:12 UTC</div>
+          <div class="cs-status">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#3ddc84" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>
+          </div>
+        </div>
+        <div class="contract-step">
+          <div class="cs-tag">ORACLE_VERIFIED</div>
+          <div class="cs-title">Solar Production Confirmed</div>
+          <div class="cs-id" style="font-size:8px">Node: Sol-Node-Paris-04</div>
+          <div class="cs-time">12:04:14 UTC</div>
+          <div class="cs-status">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#3ddc84" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+        </div>
+        <div class="contract-step">
+          <div class="cs-tag" style="color:var(--text3)">SETTLEMENT_PENDING</div>
+          <div class="cs-title">Token Disbursement</div>
+          <div class="cs-id">Waiting for Block Confirmation</div>
+          <div class="cs-time">Est. T-12s</div>
+          <div class="cs-status pending">
+            <div style="width:6px;height:6px;border-radius:50%;background:var(--text3)"></div>
+          </div>
+        </div>
+      </div>
+      <!-- Network chip -->
+      <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:16px;height:90px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+        <svg width="100%" height="80" viewBox="0 0 260 80">
+          <defs>
+            <radialGradient id="chipGrad" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#3ddc84" stop-opacity="0.3"/><stop offset="100%" stop-color="#3ddc84" stop-opacity="0"/></radialGradient>
+          </defs>
+          <rect x="90" y="20" width="80" height="40" rx="5" fill="url(#chipGrad)" stroke="#3ddc84" stroke-width="0.8" opacity="0.6"/>
+          <rect x="100" y="28" width="60" height="24" rx="3" fill="rgba(61,220,132,0.1)" stroke="#3ddc84" stroke-width="0.5"/>
+          <line x1="90" y1="30" x2="60" y2="30" stroke="#3ddc84" stroke-width="0.8" opacity="0.5"/>
+          <line x1="90" y1="40" x2="60" y2="40" stroke="#3ddc84" stroke-width="0.8" opacity="0.5"/>
+          <line x1="90" y1="50" x2="60" y2="50" stroke="#3ddc84" stroke-width="0.8" opacity="0.5"/>
+          <line x1="170" y1="30" x2="200" y2="30" stroke="#3ddc84" stroke-width="0.8" opacity="0.5"/>
+          <line x1="170" y1="40" x2="200" y2="40" stroke="#3ddc84" stroke-width="0.8" opacity="0.5"/>
+          <line x1="170" y1="50" x2="200" y2="50" stroke="#3ddc84" stroke-width="0.8" opacity="0.5"/>
+          <text x="130" y="44" font-size="8" fill="#3ddc84" font-family="monospace" text-anchor="middle" opacity="0.8">SXG CORE</text>
+        </svg>
+      </div>
+      <!-- Network metrics -->
+      <div class="net-metrics">
+        <div class="net-metric-row">
+          <div class="nm-label">NETWORK LOAD</div>
+          <div class="nm-bar"><div class="nm-fill" style="width:32%;background:linear-gradient(90deg,var(--yellow),rgba(240,192,64,0.3))"></div></div>
+          <div class="nm-value">32%</div>
+        </div>
+        <div class="net-metric-row">
+          <div class="nm-label">GRID STABILITY</div>
+          <div class="nm-bar"><div class="nm-fill" style="width:99.98%"></div></div>
+          <div class="nm-value" style="color:var(--green)">99.98%</div>
+        </div>
+      </div>
+      <button class="view-health-btn">VIEW NETWORK HEALTH</button>
+    </div>
+  </div>
+  <div style="padding:0 28px 20px;border-top:1px solid var(--border);padding-top:20px;display:flex;justify-content:space-between">
+    <div>
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px"><div style="width:20px;height:20px;background:var(--yellow);border-radius:4px;display:flex;align-items:center;justify-content:center"><svg width="10" height="10" viewBox="0 0 18 18" fill="#000"><path d="M9 1L1 6v6l8 5 8-5V6L9 1z"/></svg></div><span style="font-size:13px;font-weight:700">SolarXChange</span></div>
+      <span style="font-size:10px;color:var(--text3);font-family:'JetBrains Mono',monospace">© 2024 SolarXChange. Decentralized Energy Grid.</span>
+    </div>
+    <div class="footer-links"><a href="#">Whitepaper</a><a href="#">Network Status</a><a href="#">Security Audit</a><a href="#">Privacy Policy</a></div>
+  </div>
+</div>
+
+<!-- ===== MARKETPLACE PAGE ===== -->
+<div class="page" id="page-marketplace">
+  <nav class="topnav">
+    <div class="topnav-logo">
+      <div class="icon"><svg width="14" height="14" viewBox="0 0 18 18" fill="#0a0a08"><path d="M9 1L1 6v6l8 5 8-5V6L9 1z"/></svg></div>
+      <span class="wordmark">SolarXChange</span>
+    </div>
+    <div class="topnav-links">
+      <a href="#" class="active">Marketplace</a>
+      <a href="#" onclick="showPage('aipredictions')">Forecasts</a>
+      <a href="#" onclick="showPage('blockchain')">Ledger</a>
+    </div>
+    <div class="topnav-actions">
+      <button class="connect-btn">Connect Wallet</button>
+    </div>
+  </nav>
+  <div style="padding:28px">
+    <div style="margin-bottom:24px">
+      <div style="font-size:9px;font-weight:700;color:var(--yellow);letter-spacing:2px;text-transform:uppercase;font-family:'JetBrains Mono',monospace;margin-bottom:8px">P2P Energy Exchange</div>
+      <h1 style="font-size:32px;font-weight:800;letter-spacing:-0.5px;margin-bottom:4px">Live Marketplace</h1>
+      <p style="font-size:13px;color:var(--text2)">Buy and sell solar energy with nearby producers and consumers in real-time.</p>
+    </div>
+    <!-- Market controls -->
+    <div style="display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap">
+      <button style="padding:10px 20px;background:var(--yellow);color:#000;border-radius:8px;font-size:12px;font-weight:700;display:flex;align-items:center;gap:6px">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+        Sell Energy
+      </button>
+      <button style="padding:10px 20px;background:var(--card2);border:1px solid var(--border2);color:var(--text);border-radius:8px;font-size:12px;font-weight:700;display:flex;align-items:center;gap:6px">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 6 10.5 15.5 15.5 10.5 23 18"/></svg>
+        Buy Energy
+      </button>
+      <div style="flex:1;min-width:200px;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:0 12px;display:flex;align-items:center;gap:8px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <span style="font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace">Search producers...</span>
+      </div>
+    </div>
+    <!-- Trading cards grid -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;transition:all 0.2s" onmouseover="this.style.borderColor='var(--yellow)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="width:36px;height:36px;border-radius:9px;background:rgba(61,220,132,0.12);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--green);font-family:'JetBrains Mono',monospace">SP</div>
+            <div>
+              <div style="font-size:12px;font-weight:700;font-family:'JetBrains Mono',monospace">SolarFarm_P04</div>
+              <div style="font-size:9px;color:var(--text3)">Producer · 2.1km away</div>
+            </div>
+          </div>
+          <div style="width:8px;height:8px;background:var(--green);border-radius:50%;animation:pulse 1.5s infinite"></div>
+        </div>
+        <div style="font-size:28px;font-weight:800;font-family:'Space Mono',monospace;color:var(--yellow);margin-bottom:4px">0.28 <span style="font-size:13px;color:var(--text2)">SXG/kWh</span></div>
+        <div style="font-size:10px;color:var(--text3);font-family:'JetBrains Mono',monospace;margin-bottom:14px">Available: 48 kWh · Min: 1kWh</div>
+        <div style="height:2px;background:var(--border);border-radius:2px;overflow:hidden;margin-bottom:14px"><div style="width:65%;height:100%;background:linear-gradient(90deg,var(--green),rgba(61,220,132,0.3));border-radius:2px"></div></div>
+        <button style="width:100%;padding:9px;background:rgba(240,192,64,0.08);border:1px solid rgba(240,192,64,0.25);border-radius:7px;font-size:11px;font-weight:700;color:var(--yellow);cursor:pointer;font-family:'JetBrains Mono',monospace;letter-spacing:0.5px;transition:all 0.2s" onmouseover="this.style.background='rgba(240,192,64,0.15)'" onmouseout="this.style.background='rgba(240,192,64,0.08)'">BUY NOW</button>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;transition:all 0.2s" onmouseover="this.style.borderColor='var(--yellow)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="width:36px;height:36px;border-radius:9px;background:rgba(74,180,255,0.12);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--blue);font-family:'JetBrains Mono',monospace">RS</div>
+            <div>
+              <div style="font-size:12px;font-weight:700;font-family:'JetBrains Mono',monospace">RoofTop_Sunny_7</div>
+              <div style="font-size:9px;color:var(--text3)">Residential · 0.8km away</div>
+            </div>
+          </div>
+          <div style="width:8px;height:8px;background:var(--green);border-radius:50%;animation:pulse 1.5s infinite"></div>
+        </div>
+        <div style="font-size:28px;font-weight:800;font-family:'Space Mono',monospace;color:var(--yellow);margin-bottom:4px">0.31 <span style="font-size:13px;color:var(--text2)">SXG/kWh</span></div>
+        <div style="font-size:10px;color:var(--text3);font-family:'JetBrains Mono',monospace;margin-bottom:14px">Available: 12 kWh · Min: 2kWh</div>
+        <div style="height:2px;background:var(--border);border-radius:2px;overflow:hidden;margin-bottom:14px"><div style="width:88%;height:100%;background:linear-gradient(90deg,var(--yellow),rgba(240,192,64,0.3));border-radius:2px"></div></div>
+        <button style="width:100%;padding:9px;background:rgba(240,192,64,0.08);border:1px solid rgba(240,192,64,0.25);border-radius:7px;font-size:11px;font-weight:700;color:var(--yellow);cursor:pointer;font-family:'JetBrains Mono',monospace;letter-spacing:0.5px;transition:all 0.2s" onmouseover="this.style.background='rgba(240,192,64,0.15)'" onmouseout="this.style.background='rgba(240,192,64,0.08)'">BUY NOW</button>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;transition:all 0.2s" onmouseover="this.style.borderColor='var(--yellow)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="width:36px;height:36px;border-radius:9px;background:rgba(240,192,64,0.12);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--yellow);font-family:'JetBrains Mono',monospace">CA</div>
+            <div>
+              <div style="font-size:12px;font-weight:700;font-family:'JetBrains Mono',monospace">CampusArray_B12</div>
+              <div style="font-size:9px;color:var(--text3)">University · 3.4km away</div>
+            </div>
+          </div>
+          <div style="width:8px;height:8px;background:var(--yellow);border-radius:50%;animation:pulse 2s infinite"></div>
+        </div>
+        <div style="font-size:28px;font-weight:800;font-family:'Space Mono',monospace;color:var(--yellow);margin-bottom:4px">0.26 <span style="font-size:13px;color:var(--text2)">SXG/kWh</span></div>
+        <div style="font-size:10px;color:var(--text3);font-family:'JetBrains Mono',monospace;margin-bottom:14px">Available: 200 kWh · Min: 5kWh</div>
+        <div style="height:2px;background:var(--border);border-radius:2px;overflow:hidden;margin-bottom:14px"><div style="width:42%;height:100%;background:linear-gradient(90deg,var(--blue),rgba(74,180,255,0.3));border-radius:2px"></div></div>
+        <button style="width:100%;padding:9px;background:rgba(240,192,64,0.08);border:1px solid rgba(240,192,64,0.25);border-radius:7px;font-size:11px;font-weight:700;color:var(--yellow);cursor:pointer;font-family:'JetBrains Mono',monospace;letter-spacing:0.5px;transition:all 0.2s" onmouseover="this.style.background='rgba(240,192,64,0.15)'" onmouseout="this.style.background='rgba(240,192,64,0.08)'">BUY NOW</button>
+      </div>
+    </div>
+    <!-- Live bids -->
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
+        <div class="section-title">Live Bids & Offers</div>
+        <div class="live-badge">LIVE</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div>
+          <div style="font-size:10px;font-weight:600;color:var(--green);font-family:'JetBrains Mono',monospace;letter-spacing:1px;margin-bottom:10px">BID (BUY)</div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:11px;font-family:'JetBrains Mono',monospace"><span style="color:var(--green)">0.33</span><span style="color:var(--text2)">15 kWh</span><span style="color:var(--text3)">Node_789</span></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:11px;font-family:'JetBrains Mono',monospace"><span style="color:var(--green)">0.31</span><span style="color:var(--text2)">8 kWh</span><span style="color:var(--text3)">EV_East</span></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;font-size:11px;font-family:'JetBrains Mono',monospace"><span style="color:var(--green)">0.29</span><span style="color:var(--text2)">50 kWh</span><span style="color:var(--text3)">Grid_Relay</span></div>
+        </div>
+        <div>
+          <div style="font-size:10px;font-weight:600;color:var(--red);font-family:'JetBrains Mono',monospace;letter-spacing:1px;margin-bottom:10px">ASK (SELL)</div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:11px;font-family:'JetBrains Mono',monospace"><span style="color:var(--red)">0.34</span><span style="color:var(--text2)">22 kWh</span><span style="color:var(--text3)">SolarFarm</span></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:11px;font-family:'JetBrains Mono',monospace"><span style="color:var(--red)">0.36</span><span style="color:var(--text2)">5 kWh</span><span style="color:var(--text3)">Roof_07</span></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;font-size:11px;font-family:'JetBrains Mono',monospace"><span style="color:var(--red)">0.38</span><span style="color:var(--text2)">100 kWh</span><span style="color:var(--text3)">Campus_B</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="padding:20px 28px;border-top:1px solid var(--border);display:flex;justify-content:space-between">
+    <span style="font-size:10px;color:var(--text3);font-family:'JetBrains Mono',monospace">© 2024 SolarXChange. Decentralized Energy Grid.</span>
+    <div class="footer-links"><a href="#">Whitepaper</a><a href="#">Network Status</a><a href="#">Security Audit</a><a href="#">Privacy Policy</a></div>
+  </div>
+</div>
+
+<!-- ===== SMART GRID PAGE ===== -->
+<div class="page" id="page-smartgrid">
+  <div class="dash-header">
+    <div class="dash-title">
+      <h2>Smart Grid</h2>
+      <p>Real-time Network Visualization</p>
+    </div>
+    <div class="dash-header-right">
+      <div class="grid-status"><span class="dot"></span>Grid Status: Optimised</div>
+    </div>
+  </div>
+  <div style="padding:24px 28px">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:16px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+        <div>
+          <div class="section-title">Decentralized Energy Network</div>
+          <div class="section-sub">AI-controlled flow optimization · Real-time</div>
+        </div>
+        <div class="live-badge">LIVE</div>
+      </div>
+      <svg width="100%" height="360" viewBox="0 0 760 360" id="smartgrid-svg">
+        <defs>
+          <radialGradient id="nodeGrad" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#3ddc84" stop-opacity="0.3"/><stop offset="100%" stop-color="#3ddc84" stop-opacity="0"/></radialGradient>
+          <radialGradient id="nodeGradY" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#f0c040" stop-opacity="0.3"/><stop offset="100%" stop-color="#f0c040" stop-opacity="0"/></radialGradient>
+          <filter id="glow"><feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <marker id="arrowGreen" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#3ddc84" opacity="0.6"/></marker>
+          <marker id="arrowYellow" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f0c040" opacity="0.6"/></marker>
+        </defs>
+        <!-- Background grid -->
+        <rect width="760" height="360" fill="var(--bg3)" rx="8"/>
+        <g opacity="0.08">
+          <line x1="0" y1="60" x2="760" y2="60" stroke="#3ddc84" stroke-width="0.5"/>
+          <line x1="0" y1="120" x2="760" y2="120" stroke="#3ddc84" stroke-width="0.5"/>
+          <line x1="0" y1="180" x2="760" y2="180" stroke="#3ddc84" stroke-width="0.5"/>
+          <line x1="0" y1="240" x2="760" y2="240" stroke="#3ddc84" stroke-width="0.5"/>
+          <line x1="0" y1="300" x2="760" y2="300" stroke="#3ddc84" stroke-width="0.5"/>
+          <line x1="76" y1="0" x2="76" y2="360" stroke="#3ddc84" stroke-width="0.5"/>
+          <line x1="152" y1="0" x2="152" y2="360" stroke="#3ddc84" stroke-width="0.5"/>
+          <line x1="228" y1="0" x2="228" y2="360" stroke="#3ddc84" stroke-width="0.5"/>
+          <line x1="304" y1="0" x2="304" y2="360" stroke="#3ddc84" stroke-width="0.5"/>
+          <line x1="380" y1="0" x2="380" y2="360" stroke="#3ddc84" stroke-width="0.5"/>
+          <line x1="456" y1="0" x2="456" y2="360" stroke="#3ddc84" stroke-width="0.5"/>
+          <line x1="532" y1="0" x2="532" y2="360" stroke="#3ddc84" stroke-width="0.5"/>
+          <line x1="608" y1="0" x2="608" y2="360" stroke="#3ddc84" stroke-width="0.5"/>
+          <line x1="684" y1="0" x2="684" y2="360" stroke="#3ddc84" stroke-width="0.5"/>
+        </g>
+        <!-- Central hub -->
+        <circle cx="380" cy="180" r="40" fill="url(#nodeGradY)" filter="url(#glow)"/>
+        <circle cx="380" cy="180" r="28" fill="rgba(240,192,64,0.15)" stroke="#f0c040" stroke-width="1.5"/>
+        <circle cx="380" cy="180" r="16" fill="rgba(240,192,64,0.25)" stroke="#f0c040" stroke-width="1"/>
+        <text x="380" y="175" font-size="7" fill="#f0c040" font-family="monospace" text-anchor="middle" font-weight="700">AI HUB</text>
+        <text x="380" y="185" font-size="6" fill="#f0c040" font-family="monospace" text-anchor="middle" opacity="0.7">MARL</text>
+        <!-- Node positions and lines -->
+        <!-- Node 1: Solar Farm (top-left) -->
+        <line x1="380" y1="180" x2="140" y2="80" stroke="#3ddc84" stroke-width="1" stroke-dasharray="8,4" opacity="0.5" marker-end="url(#arrowGreen)">
+          <animateTransform attributeName="" type="" from="" to="" dur="2s" repeatCount="indefinite"/>
+        </line>
+        <line x1="380" y1="180" x2="140" y2="80" stroke="#3ddc84" stroke-width="1.5" opacity="0.3" stroke-dasharray="6 200" stroke-dashoffset="0"><animate attributeName="stroke-dashoffset" from="0" to="-300" dur="3s" repeatCount="indefinite"/></line>
+        <!-- Node 2: University (top-right) -->
+        <line x1="380" y1="180" x2="620" y2="80" stroke="#f0c040" stroke-width="1" stroke-dasharray="8,4" opacity="0.5"/>
+        <line x1="380" y1="180" x2="620" y2="80" stroke="#f0c040" stroke-width="1.5" opacity="0.3" stroke-dasharray="6 200" stroke-dashoffset="0"><animate attributeName="stroke-dashoffset" from="0" to="-300" dur="2.5s" repeatCount="indefinite"/></line>
+        <!-- Node 3: Residential (left) -->
+        <line x1="380" y1="180" x2="100" y2="220" stroke="#4ab4ff" stroke-width="1" stroke-dasharray="8,4" opacity="0.5"/>
+        <line x1="380" y1="180" x2="100" y2="220" stroke="#4ab4ff" stroke-width="1.5" opacity="0.3" stroke-dasharray="6 200" stroke-dashoffset="0"><animate attributeName="stroke-dashoffset" from="0" to="-300" dur="2s" repeatCount="indefinite"/></line>
+        <!-- Node 4: Commercial (right) -->
+        <line x1="380" y1="180" x2="660" y2="220" stroke="#3ddc84" stroke-width="1" stroke-dasharray="8,4" opacity="0.5"/>
+        <!-- Node 5: EV Station (bottom-left) -->
+        <line x1="380" y1="180" x2="200" y2="300" stroke="#f0c040" stroke-width="1" stroke-dasharray="8,4" opacity="0.5"/>
+        <line x1="380" y1="180" x2="200" y2="300" stroke="#f0c040" stroke-width="1.5" opacity="0.3" stroke-dasharray="6 200" stroke-dashoffset="0"><animate attributeName="stroke-dashoffset" from="0" to="-300" dur="3.5s" repeatCount="indefinite"/></line>
+        <!-- Node 6: Battery Storage (bottom-right) -->
+        <line x1="380" y1="180" x2="560" y2="300" stroke="#3ddc84" stroke-width="1" stroke-dasharray="8,4" opacity="0.5"/>
+        <!-- Draw nodes -->
+        <!-- Solar Farm -->
+        <g transform="translate(140,80)">
+          <circle r="26" fill="url(#nodeGrad)" filter="url(#glow)"/>
+          <circle r="18" fill="rgba(61,220,132,0.15)" stroke="#3ddc84" stroke-width="1.2"/>
+          <text y="-5" font-size="7" fill="#3ddc84" font-family="monospace" text-anchor="middle">☀</text>
+          <text y="7" font-size="5.5" fill="#3ddc84" font-family="monospace" text-anchor="middle">SOLAR</text>
+          <text y="15" font-size="5" fill="#3ddc84" font-family="monospace" text-anchor="middle" opacity="0.7">FARM</text>
+          <text y="38" font-size="8" fill="#3ddc84" font-family="monospace" text-anchor="middle" font-weight="700">+4.2kW</text>
+        </g>
+        <!-- University -->
+        <g transform="translate(620,80)">
+          <circle r="26" fill="url(#nodeGrad)" filter="url(#glow)"/>
+          <circle r="18" fill="rgba(240,192,64,0.12)" stroke="#f0c040" stroke-width="1.2"/>
+          <text y="-4" font-size="7" fill="#f0c040" font-family="monospace" text-anchor="middle">🎓</text>
+          <text y="7" font-size="5.5" fill="#f0c040" font-family="monospace" text-anchor="middle">UNIV</text>
+          <text y="38" font-size="8" fill="#f0c040" font-family="monospace" text-anchor="middle" font-weight="700">-2.1kW</text>
+        </g>
+        <!-- Residential -->
+        <g transform="translate(100,220)">
+          <circle r="22" fill="rgba(74,180,255,0.15)" filter="url(#glow)"/>
+          <circle r="14" fill="rgba(74,180,255,0.1)" stroke="#4ab4ff" stroke-width="1"/>
+          <text y="4" font-size="6" fill="#4ab4ff" font-family="monospace" text-anchor="middle">HOME</text>
+          <text y="30" font-size="8" fill="#4ab4ff" font-family="monospace" text-anchor="middle" font-weight="700">-0.8kW</text>
+        </g>
+        <!-- Commercial -->
+        <g transform="translate(660,220)">
+          <circle r="22" fill="url(#nodeGrad)" filter="url(#glow)"/>
+          <circle r="14" fill="rgba(61,220,132,0.1)" stroke="#3ddc84" stroke-width="1"/>
+          <text y="4" font-size="6" fill="#3ddc84" font-family="monospace" text-anchor="middle">CORP</text>
+          <text y="30" font-size="8" fill="#3ddc84" font-family="monospace" text-anchor="middle" font-weight="700">+12kW</text>
+        </g>
+        <!-- EV Station -->
+        <g transform="translate(200,300)">
+          <circle r="22" fill="rgba(240,192,64,0.12)" filter="url(#glow)"/>
+          <circle r="14" fill="rgba(240,192,64,0.08)" stroke="#f0c040" stroke-width="1"/>
+          <text y="4" font-size="6" fill="#f0c040" font-family="monospace" text-anchor="middle">EV⚡</text>
+          <text y="30" font-size="8" fill="#f0c040" font-family="monospace" text-anchor="middle" font-weight="700">-6kW</text>
+        </g>
+        <!-- Battery -->
+        <g transform="translate(560,300)">
+          <circle r="22" fill="url(#nodeGrad)" filter="url(#glow)"/>
+          <circle r="14" fill="rgba(61,220,132,0.1)" stroke="#3ddc84" stroke-width="1"/>
+          <text y="4" font-size="6" fill="#3ddc84" font-family="monospace" text-anchor="middle">BATT</text>
+          <text y="30" font-size="8" fill="#3ddc84" font-family="monospace" text-anchor="middle" font-weight="700">84%</text>
+        </g>
+        <!-- Labels -->
+        <text x="16" y="350" font-size="9" fill="var(--text3)" font-family="monospace">MARL GRID OPTIMIZER · REAL-TIME · 6 NODES ACTIVE</text>
+      </svg>
+    </div>
+    <!-- Grid stats row -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px;text-align:center">
+        <div style="font-size:10px;color:var(--text3);font-family:'JetBrains Mono',monospace;margin-bottom:6px">GRID EFFICIENCY</div>
+        <div style="font-size:28px;font-weight:800;font-family:'Space Mono',monospace;color:var(--green)">97.4%</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px;text-align:center">
+        <div style="font-size:10px;color:var(--text3);font-family:'JetBrains Mono',monospace;margin-bottom:6px">ACTIVE NODES</div>
+        <div style="font-size:28px;font-weight:800;font-family:'Space Mono',monospace;color:var(--yellow)">6</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px;text-align:center">
+        <div style="font-size:10px;color:var(--text3);font-family:'JetBrains Mono',monospace;margin-bottom:6px">ENERGY FLOW</div>
+        <div style="font-size:28px;font-weight:800;font-family:'Space Mono',monospace;color:var(--blue)">23.1<span style="font-size:14px">kW</span></div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px;text-align:center">
+        <div style="font-size:10px;color:var(--text3);font-family:'JetBrains Mono',monospace;margin-bottom:6px">MARL DECISIONS</div>
+        <div style="font-size:28px;font-weight:800;font-family:'Space Mono',monospace;color:var(--green)">1,284</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end .main -->
+</div><!-- end .app -->
+
+<script>
+// Page routing
+function showPage(id) {
+  // Hide all pages
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  // Show target
+  const target = document.getElementById('page-' + id);
+  if (target) target.classList.add('active');
+  // Toggle sidebar visibility if needed (e.g., hide on landing if it still exists)
+  const sidebar = document.getElementById('sidebar');
+  if (id === 'landing') {
+    sidebar.style.display = 'none';
+  } else {
+    sidebar.style.display = 'flex';
+  }
+  // Update sidebar active state
+  document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+  const navMap = {dashboard:0, marketplace:1, aipredictions:2, blockchain:3, smartgrid:4};
+  if (navMap[id] !== undefined) {
+    document.querySelectorAll('.nav-item')[navMap[id]]?.classList.add('active');
+  }
+  // Scroll to top
+  window.scrollTo(0,0);
+}
+
+// Initial state: dashboard
+document.getElementById('sidebar').style.display = 'flex';
+
+// Generate heatmap
+function buildHeatmap() {
+  const grid = document.getElementById('heatmap');
+  if (!grid) return;
+  const colors = [
+    '#1a4a2e','#2d6a4f','#3ddc84','#52b788','#74c69d',
+    '#95d5b2','#d4a017','#b7950b','#7d6608','#c0a030',
+    '#9b7e12','#6a8a5a','#4a7a4a','#5c9a6c','#7ab88c',
+    '#3ddc84','#52b788','#d4a017','#b7950b','#3ddc84',
+    '#7d6608','#9b7e12','#5c9a6c','#74c69d','#95d5b2',
+    '#3ddc84','#2d6a4f','#d4a017','#52b788','#74c69d'
+  ];
+  colors.forEach(c => {
+    const cell = document.createElement('div');
+    cell.className = 'hm-cell';
+    cell.style.background = c;
+    cell.style.opacity = (0.6 + Math.random() * 0.4).toFixed(2);
+    grid.appendChild(cell);
+  });
+}
+buildHeatmap();
+
+// Animate bar fill widths on load
+setTimeout(() => {
+  document.querySelectorAll('.metric-bar-fill').forEach(el => {
+    const w = el.style.width;
+    el.style.width = '0';
+    setTimeout(() => { el.style.width = w; }, 100);
+  });
+}, 100);
+</script>
+</body>
+</html>

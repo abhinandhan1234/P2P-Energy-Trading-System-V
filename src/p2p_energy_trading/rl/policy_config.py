@@ -205,6 +205,12 @@ def build_ppo_config(
             num_learners=hardware_config.get("num_learner_workers", 0),
             num_gpus_per_learner=(1 if torch.cuda.is_available() else 0),
         )
+        .evaluation(
+            evaluation_num_workers=1,
+            evaluation_config={
+                "explore": False,
+            }
+        )
         .multi_agent(
             policies=policies,
             policy_mapping_fn=policy_mapping_fn,
