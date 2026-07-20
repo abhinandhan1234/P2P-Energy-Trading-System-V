@@ -21,6 +21,20 @@ python -m venv .venv
 pip install -e ".[dev]"
 ```
 
+## Web UI
+
+The frontend application is served from `frontend/` by the FastAPI backend. Start the server and visit `http://127.0.0.1:8000` in your browser:
+
+```bash
+python -m p2p_energy_trading.server.main
+```
+
+Alternatively:
+
+```bash
+uvicorn p2p_energy_trading.server.main:app --reload
+```
+
 ## Data Preparation
 
 ```bash

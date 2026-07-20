@@ -1,6 +1,8 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from pathlib import Path
 import uvicorn
 
 from p2p_energy_trading.api.experiment_api import P2PExperimentAPI
@@ -33,9 +35,8 @@ app.add_middleware(
 app.include_router(experiments.router)
 app.include_router(config.router)
 
-@app.get("/")
-def root():
-    return {"message": "Welcome to the P2P Energy Trading API. Visit /docs for the Swagger UI."}
-
+root_dir = Path(__file__).resolve().parent.parent.parent.parent
+frontend_dir = root_dir / "frontend"
+app.mount("/", StaticFiles(directory=str(frontend_dir), html=True), name="frontend")
 if __name__ == "__main__":
     uvicorn.run("p2p_energy_trading.server.main:app", host="127.0.0.1", port=8000, reload=True)
