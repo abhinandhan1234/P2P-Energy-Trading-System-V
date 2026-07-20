@@ -8,6 +8,7 @@ import uvicorn
 
 from p2p_energy_trading.api.experiment_api import P2PExperimentAPI
 from p2p_energy_trading.server.routers import experiments, config
+from p2p_energy_trading.server.routers import integration
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -35,6 +36,7 @@ app.add_middleware(
 
 app.include_router(experiments.router)
 app.include_router(config.router)
+app.include_router(integration.router)
 
 root_dir = Path(__file__).resolve().parent.parent.parent.parent
 frontend_dir = root_dir / "frontend"
